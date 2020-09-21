@@ -51,7 +51,7 @@ public:
 	 * Cycles between each players turns, showing them their boards, allowing them to shoot, and checking if a player has won.
 	 * @param num_ships Passes how many ships the game will have (1-5).
 	 */							
-	void PlayerVsAI(int num_ships);
+	void PlayerVsAI(int num_ships, int difficulty);
 
 	/**
 	 * Checks that the shot input was in a valid format.

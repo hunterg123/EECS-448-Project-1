@@ -6,7 +6,7 @@
 class AI
 {
 	public:
-        AI(char my_difficulty);
+        AI(int my_difficulty);
         ~AI();
 
         void placeShips();
@@ -18,7 +18,7 @@ class AI
 
 		
 	private:
-		char difficulty;
+		int difficulty;
 
 };
 

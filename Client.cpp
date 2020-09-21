@@ -34,8 +34,14 @@ void Client::RunSetup(){
 			}
 			else if (userChoice == 2)
 			{
+				int difficulty;
+				std::cout << "\n\n========================\nSelect Difficulty\n";
+				std::cout << "1) Easy \n2) Medium \n3) Hard \n";
+				std::cout << "========================\nEnter your choice: ";
+				std::cin >> difficulty;
+
 				std::cout << "\nStarting the game with " << ship_count << " ships! \n\n";
-				PlayerVsAI(ship_count);
+				PlayerVsAI(ship_count, difficulty);
 			}
 			else std::cout << "Not a valid option. Try again.\n";
 
@@ -246,7 +252,7 @@ void Client::PlayerVsPlayer(int num_ships)
 
 
 //Connor—Single player mode
-void Client::PlayerVsAI(int num_ships)
+void Client::PlayerVsAI(int num_ships, int difficulty)
 {
 	std::cout << "Needs implementation!\n\n\n";
 } // end_game loop

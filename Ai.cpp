@@ -1,15 +1,15 @@
 #include "Ai.h"
 
 
-AI::AI(char my_difficulty)
+AI::AI(int my_difficulty)
 {
-    difficulty = toupper(my_difficulty);
+    difficulty = my_difficulty;
 }
 
 bool AI::Move() // Decides which kind of move to make based on difficulty setting
 {
-    if (difficulty == 'E') easyMove();
-    else if (difficulty == 'M') mediumMove();
+    if (difficulty == '1') easyMove();
+    else if (difficulty == '2') mediumMove();
     else hardMove();
 }
 
