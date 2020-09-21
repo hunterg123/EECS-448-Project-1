@@ -2,6 +2,7 @@
 #include "Client.h"
 #include <string>
 #include "Player.h"
+#include "Ai.h"
 
 
 void Client::RunSetup(){
@@ -22,9 +23,22 @@ void Client::RunSetup(){
 		}
 
 		if(userChoice == 1){	//###Start Game
+			//Connor—adding option to choose vs Player or AI
+			std::cout << "\n\n========================\n1) Player-vs-Player " << "\n2) Player-vs-AI\n========================\n";
+			std::cout << "Enter your choice: ";
+			std::cin >> userChoice;
+			if (userChoice == 1)
+			{
+				std::cout << "\nStarting the game with " << ship_count << " ships! \n\n";
+				PlayerVsPlayer(ship_count);
+			}
+			else if (userChoice == 2)
+			{
+				std::cout << "\nStarting the game with " << ship_count << " ships! \n\n";
+				PlayerVsAI(ship_count);
+			}
+			else std::cout << "Not a valid option. Try again.\n";
 
-			std::cout << "\nStarting the game with " << ship_count << " ships! \n\n";
-			PlayGame(ship_count);
   		}
 
 		if (userChoice == 2){	//###Edit Ship Count -- This checks for the correct num of ships
@@ -74,7 +88,8 @@ void Client::RunSetup(){
 }	//end of run conidition
 }	//end of Client::Run
 
-void Client::PlayGame(int num_ships)
+//Connor—Changed name to PlayerVsPlayer as I am adding a PlayerVsAI function
+void Client::PlayerVsPlayer(int num_ships)
 {
 	Player* player1 = new Player;		//create each player
 	Player* player2 = new Player;
@@ -228,6 +243,16 @@ void Client::PlayGame(int num_ships)
 	player1 = nullptr;
 	player2 = nullptr;
 } // end_game loop
+
+
+//Connor—Single player mode
+void Client::PlayerVsAI(int num_ships)
+{
+	std::cout << "Needs implementation!\n\n\n";
+} // end_game loop
+
+
+
 
 bool Client::CheckShotInput(std::string shot_check)
 {

@@ -38,11 +38,20 @@ public:
 	void RunSetup();		
 	
 	/**
+	 * Two player mode
 	 * Runs the main loop of the game.
 	 * Cycles between each players turns, showing them their boards, allowing them to shoot, and checking if a player has won.
 	 * @param num_ships Passes how many ships the game will have (1-5).
 	 */							
-	void PlayGame(int num_ships);
+	void PlayerVsPlayer(int num_ships);
+
+	/**
+	 * Single player mode
+	 * Runs the main loop of the game.
+	 * Cycles between each players turns, showing them their boards, allowing them to shoot, and checking if a player has won.
+	 * @param num_ships Passes how many ships the game will have (1-5).
+	 */							
+	void PlayerVsAI(int num_ships);
 
 	/**
 	 * Checks that the shot input was in a valid format.
