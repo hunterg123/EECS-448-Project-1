@@ -1,4 +1,5 @@
 #include "Ai.h"
+using namespace std;
 
 
 AI::AI(int my_difficulty)
@@ -7,8 +8,8 @@ AI::AI(int my_difficulty)
     shipNum = 0;
 }
 
-void placeShips(){
-
+void AI::placeShips(){
+  cout << "test\n";
 }
 
 bool AI::Move() // Decides which kind of move to make based on difficulty setting

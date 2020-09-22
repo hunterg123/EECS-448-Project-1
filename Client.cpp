@@ -13,9 +13,9 @@ void Client::RunSetup(){
 
 		std::cout << "\n========================\n";
 		std::cout << "---------{Menu}---------\n";
-		std::cout << "1) Start New Game of Battleship\n";
+		std::cout << "1) Start New Game of Battleship\n"
 							<< "2) Edit Number of Ships\n"
-							<< "3) Exit Battleship\n"
+							<< "3) Exit Battleship\n";
 		std::cout << "========================\n";
 		std::cout << "Enter your choice: ";
 		std::cin >> userChoice;
@@ -260,10 +260,10 @@ void Client::PlayerVsPlayer(int num_ships)
 //Connor—Single player mode
 void Client::PlayerVsAI(int num_ships, int difficulty)
 {
-	Player* player = new Player;		// create player
-	AI* computer = new AI;  // creat computer
+	Player* player = new Player;		//create player
+	AI* computer = new AI(difficulty);  //creat computer
 	player->placeShips(num_ships, 1);	//let players place ships
-	computer->placeShips(); // let computer place ships randomly
+	computer->placeShips(); //let computer place ships randomly
 } // end_game loop
 
 
