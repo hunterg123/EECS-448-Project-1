@@ -16,9 +16,10 @@ class AI
         void mediumMove();
         void hardMove();
 
-		
+
 	private:
 		int difficulty;
+		int shipNum;
 
 };
 
