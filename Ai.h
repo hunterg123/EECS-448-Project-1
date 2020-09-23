@@ -22,12 +22,13 @@ class AI
 
         void printBoard();
 
+        void addCoords(string c);
 
-		
 	private:
 		int difficulty;
                 Boards ship_board;
                 Boards shoot_board;
+                vector<string> m_coordsList;
 
 
 };
