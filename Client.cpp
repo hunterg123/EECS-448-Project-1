@@ -261,9 +261,156 @@ void Client::PlayerVsPlayer(int num_ships)
 void Client::PlayerVsAI(int num_ships, int difficulty)
 {
 	Player* player = new Player;		//create player
-	AI* computer = new AI(difficulty);  //creat computer
+	AI* ai = new AI(difficulty);  //creat computer
 	player->placeShips(num_ships, 1);	//let players place ships
-	computer->placeShips(); //let computer place ships randomly
+	ai->placeShips(num_ships); //let computer place ships randomly
+	end_game = false;
+
+	while (end_game == false)
+	{
+		if(turn == false)
+		{
+			std::cout << "\nPlayer, its your turn!\n";
+			std::cout << "YOUR CURRENT SHIP STATUS\n";
+			player->printShipBoard(); //prints ship board
+			std::cout << "\nWHERE YOU'VE SHOT\n";
+			std::cout << "Enemy Ships Remaining: " << ai->computer->shipsRemaining() << "\n";
+			player->printShootBoard(); //prints shoot board
+			std::cout << "X = hit, * = miss\n\n";
+
+			std::string shot;
+			bool valid_input = false; //Makes sure that user input is good before advancing
+			while (valid_input == false) //start input loop
+			{
+				std::cout << "Coordinate to fire at: ";
+				std::cin >> shot;
+
+				if((CheckShotInput(shot) == false) || (std::cin.fail())) //Is the user input good?
+				{
+					std::cin.clear();
+					std::cin.ignore();
+					std::cout << "\nConnection to missiles lost... Please enter a valid input..\n";
+					std::cout << "Valid inputs are A through I and 1 through 9, i.e. A2 A5\n\n";
+				}
+				else
+				{
+					if (player->uniqueShot(shot) == true) //Is the shot unique?
+					{
+						std::cout << "\nFIRE!!!\n";
+						valid_input = true;
+					}
+					else
+					{
+			 			std::cout << "\nCaptain! We have already shot at that location!\n";
+					}
+				}
+			} //end input loop
+			if (ai->computer->isHit(shot) == true) //Is it a hit?
+			{
+				ai->isHit();
+				player->markShot(shot, true);
+				std::cout << "BANG!!!";
+				if (ai->computer->isSunk(shot) == true) //Is it a sunk?
+				{
+					std::cout << "\nYou have sunk their ship with that shot!\n";
+				}
+				else
+				{
+					std::cout << "\nThats a hit!\n";
+				}
+			}
+			else
+			{
+				player->markShot(shot, false);
+				std::cout << "*bloooop.....the missile was off-target.\n";
+			}
+			if (ai->shipsRemaining() == 0) //Game win condition
+			{
+				std::cout << "\n##########- PLAYER HAS WON THE GAME!!! -##########\n";
+				player->printShootBoard();
+				std::cout << "##########- PLAYER HAS WON THE GAME!!! -##########\n";
+				end_game = true;
+			}
+		//------------------------------------------------------------------------------------------
+		}
+		else //computer turn
+		{
+			std::cout << "\ncomputer, its your turn!\n";
+			std::cout << "YOUR CURRENT SHIP STATUS\n";
+			ai->computer->printShipBoard(); //prints ship board
+			std::cout << "\nWHERE YOU'VE SHOT\n";
+			std::cout << "Enemy Ships Remaining: " << player->shipsRemaining() << "\n";
+			ai->computer->printShootBoard(); //prints shoot board
+			std::cout << "X = hit, * = miss\n\n";
+
+			std::string shot;
+			bool valid_input = false; //Makes sure that user input is good before advancing
+			while (valid_input == false) //start input loop
+			{
+				std::cout << "Coordinate to fire at: ";
+				std::cin >> shot;
+
+				if((CheckShotInput(shot) == false) || (std::cin.fail())) //Is the user input good?
+				{
+					std::cin.clear();
+					std::cin.ignore();
+					std::cout << "\nConnection to missiles lost... Please enter a valid input..\n";
+					std::cout << "Valid inputs are A through I and 1 through 9, i.e. A2 A5\n\n";
+				}
+				else
+				{
+					if (ai->computer->uniqueShot(shot) == true) //Is the shot unique?
+					{
+						std::cout << "\nFIRE!!!\n";
+						valid_input = true;
+					}
+					else
+					{
+						std::cout << "\nCaptain! We have already shot at that location!\n";
+					}
+				}
+			} //end input loop
+			if (player->isHit(shot) == true) //Is it a hit?
+			{
+				ai->computer->markShot(shot, true);
+				std::cout << "BANG!!!";
+				if (player->isSunk(shot) == true) //Is it a sunk?
+				{
+					std::cout << "\nYou have sunk their ship with that shot!\n";
+				}
+				else
+				{
+					std::cout << "\nThats a hit!\n";
+				}
+			}
+			else
+			{
+				ai->computer->markShot(shot, false);
+				std::cout << "bloooop.....the missile was off-target.\n";
+			}
+			if (player->shipsRemaining() == 0) //Game win condition
+			{
+				std::cout << "\n##########- COMPUTER HAS WON THE GAME!!! -##########\n";
+				ai->computer->printShootBoard();
+				std::cout << "##########- COMPUTER HAS WON THE GAME!!! -##########\n";
+				end_game = true;
+			}
+		} //end of turn selection
+		if (turn == false) //Switch turns
+		{
+			turn = true;
+		}
+		else
+		{
+			turn = false;
+		}
+	}
+
+	delete player;	//free heap
+	delete ai->computer;
+	player = nullptr;
+	ai->computer = nullptr;
+
 } // end_game loop
 
 
