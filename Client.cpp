@@ -254,7 +254,10 @@ void Client::PlayerVsPlayer(int num_ships)
 //Connor—Single player mode
 void Client::PlayerVsAI(int num_ships, int difficulty)
 {
-	std::cout << "Needs implementation!\n\n\n";
+	AI ai(difficulty);
+	ai.placeShips(num_ships);
+	ai.printBoard();
+
 } // end_game loop
 
 
