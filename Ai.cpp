@@ -21,7 +21,7 @@ void AI::placeShips(int NumofShip){
   Ship frigate(1, ship_coord1, ship_coord2, "frigate"); //creates the correct ship
   NumofshipsRemaining = NumofShip; //updates how many parts of it remain
   computer->markBoard(frigate); //marks it on the map
-  
+
 }
 int AI::shipsRemaining(){
   return NumofshipsRemaining;
