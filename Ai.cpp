@@ -4,6 +4,7 @@ AI::AI(int my_difficulty)
 {
     difficulty = my_difficulty;
     shipNum = 0;
+    TotalshipNum = 0;
 }
 
 AI::~AI() {};
