@@ -37,9 +37,12 @@ bool AI::Move() // Decides which kind of move to make based on difficulty settin
     return true;
 }
 
-void AI::easyMove()
+string AI::easyMove()
 {
-
+  shot_row = 'A' + rand() % 9; // randomly choose from A-I
+  shot_col = to_string(rand() % 9+1); // randomly choose from 1-9
+  shot_coord = shot_row + shot_col;
+  return shot_coord;
 }
 
 void AI::hardMove()

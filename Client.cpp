@@ -335,39 +335,23 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 		}
 		else //computer turn
 		{
-			std::cout << "\ncomputer, its your turn!\n";
-			std::cout << "YOUR CURRENT SHIP STATUS\n";
-			ai->computer->printShipBoard(); //prints ship board
-			std::cout << "\nWHERE YOU'VE SHOT\n";
+			std::cout << "\nIts computer's turn!\n";
+			std::cout << "\nWHERE COMPUTER'VE SHOT\n";
 			std::cout << "Enemy Ships Remaining: " << player->shipsRemaining() << "\n";
 			ai->computer->printShootBoard(); //prints shoot board
 			std::cout << "X = hit, * = miss\n\n";
-
-			std::string shot;
+			std::string shot = ai->easyMove();
 			bool valid_input = false; //Makes sure that user input is good before advancing
 			while (valid_input == false) //start input loop
 			{
-				std::cout << "Coordinate to fire at: ";
-				std::cin >> shot;
-
-				if((CheckShotInput(shot) == false) || (std::cin.fail())) //Is the user input good?
+				if (ai->computer->uniqueShot(shot) == true) //Is the shot unique?
 				{
-					std::cin.clear();
-					std::cin.ignore();
-					std::cout << "\nConnection to missiles lost... Please enter a valid input..\n";
-					std::cout << "Valid inputs are A through I and 1 through 9, i.e. A2 A5\n\n";
+					std::cout << "\nFIRE!!!\n";
+					valid_input = true;
 				}
 				else
 				{
-					if (ai->computer->uniqueShot(shot) == true) //Is the shot unique?
-					{
-						std::cout << "\nFIRE!!!\n";
-						valid_input = true;
-					}
-					else
-					{
-						std::cout << "\nCaptain! We have already shot at that location!\n";
-					}
+					shot = ai->easyMove();
 				}
 			} //end input loop
 			if (player->isHit(shot) == true) //Is it a hit?

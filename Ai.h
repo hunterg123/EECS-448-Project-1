@@ -15,7 +15,7 @@ class AI
         void placeShips(int NumofShip);
 				void isHit();
         bool Move();
-        void easyMove();
+        std::string easyMove();
         void mediumMove();
         void hardMove();
 
@@ -26,6 +26,9 @@ class AI
 		int NumofshipsRemaining;
 		std::string ship_row;
 		std::string ship_col;
+		std::string shot_row;
+		std::string shot_col;
+		std::string shot_coord;
 		std::string ship_coord1;
 		std::string ship_coord2;
 
