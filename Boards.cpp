@@ -72,6 +72,16 @@ char Boards::getpointat(std::string coord)
   return temp;
 }
 
+char Boards::getValue(int row, int col)
+{
+  return BattleBoard[row][col];
+}
+
+void Boards::setValue(int row, int col, char c)
+{
+  BattleBoard[row][col] = c;
+}
+
 void Boards::changepointat(std::string coord, char newpoint)
 {
   int intCoord[2];
