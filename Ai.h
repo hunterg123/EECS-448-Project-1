@@ -20,26 +20,15 @@ class AI
         void mediumMove();
         void hardMove();
 
-<<<<<<< HEAD
-        void addCoords(string c);
-||||||| merged common ancestors
-=======
         void printBoard();
 
 
->>>>>>> master
 		
 	private:
 		int difficulty;
-<<<<<<< HEAD
-                int listSize;
-                vector<string> m_coordsList;
-||||||| merged common ancestors
-=======
                 Boards ship_board;
                 Boards shoot_board;
 
->>>>>>> master
 
 };
 

@@ -5,16 +5,6 @@ AI::AI(int my_difficulty)
     difficulty = my_difficulty;
 }
 
-<<<<<<< HEAD
-AI::~AI()
-{
-
-}
-
-bool AI::Move() // Decides which kind of move to make based on difficulty setting
-||||||| merged common ancestors
-bool AI::Move() // Decides which kind of move to make based on difficulty setting
-=======
 AI::~AI() {};
 
 char AI::getShipType(int size)
@@ -97,7 +87,6 @@ void AI::printBoard()
 }
 
 void AI::Move() // Decides which kind of move to make based on difficulty setting
->>>>>>> master
 {
     if (difficulty == '1') easyMove();
     else if (difficulty == '2') mediumMove();
