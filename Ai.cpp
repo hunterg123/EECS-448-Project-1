@@ -3,6 +3,7 @@
 AI::AI(int my_difficulty)
 {
     difficulty = my_difficulty;
+    shipNum = 0;
 }
 
 AI::~AI() {};
@@ -63,8 +64,12 @@ bool AI::placer(char direction, int row, int col, int size, char shipType)
 
 void AI::placeShips(int num_ships)
 {
+  shipNum = num_ships;
+  for (int i = 1; i <= num_ships; i++){
+    TotalshipNum = TotalshipNum + i;
+  }
     char directions[4] = {'u', 'd', 'l', 'r'}; // all potential directions
-
+    srand(time(NULL)); // initialize the random
     for (int i = 1; i <= num_ships; i++)
     {
         bool ship_placed = false;
@@ -112,4 +117,53 @@ void AI::mediumMove()
 void AI::addCoords(string c)
 {
     m_coordsList.push_back(c);
+}
+
+bool AI::isHit(std::string shot)
+{
+  //if the player's ship was hit, it will enter the correct if statement depending on which type of ship was hit
+  if (ship_board.getpointat(shot) == 'B')
+  {
+    ship_board.changepointat(shot, 'X'); //updates it from a B to show its been hit
+    shipNum--;
+    return true;
+  }
+  else if (ship_board.getpointat(shot) == 'C')
+  {
+    ship_board.changepointat(shot, 'X'); //same as above
+    shipNum--;
+    return true;
+  }
+  else if (ship_board.getpointat(shot) == 'F')
+  {
+    ship_board.changepointat(shot, 'X');
+    shipNum--;
+    return true;
+  }
+  else if (ship_board.getpointat(shot) == 'S')
+  {
+    ship_board.changepointat(shot, 'X');
+    shipNum--;
+    return true;
+  }
+  else if (ship_board.getpointat(shot) == 'D')
+  {
+    ship_board.changepointat(shot, 'X');
+    shipNum--;
+    return true;
+  }
+  return false;
+}
+
+bool AI::isSunk(){
+  if (shipNum == 0){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+int AI::getShipNum(){
+  return shipNum;
 }

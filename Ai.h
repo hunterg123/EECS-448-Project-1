@@ -21,11 +21,16 @@ class AI
         void hardMove();
 
         void printBoard();
+				bool isHit(std::string shot);
+				bool isSunk();
+				int getShipNum();
 
         void addCoords(string c);
 
 	private:
 		int difficulty;
+		int TotalshipNum;
+		int shipNum;
                 Boards ship_board;
                 Boards shoot_board;
                 vector<string> m_coordsList;
