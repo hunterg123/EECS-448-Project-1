@@ -3,6 +3,7 @@
 
 #include "Boards.h"
 #include <string>
+#include <vector>
 using namespace std;
 
 class AI
@@ -18,15 +19,12 @@ class AI
         void mediumMove();
         void hardMove();
 
-        void setNumCoords(int num); // sets the number of coordinates in play
-        void setCoords(string c);
+        void addCoords(string c);
 		
 	private:
-                void coordsList(int size); // Initialize Coordinate list
 		int difficulty;
                 int listSize;
-                string* m_coordsList;
-                int m_numCoords;
+                vector<string> m_coordsList;
 
 };
 
