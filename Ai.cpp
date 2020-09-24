@@ -99,16 +99,23 @@ void AI::Move() // Decides which kind of move to make based on difficulty settin
 
 void AI::easyMove()
 {
+  srand(time(NULL));
+  bool moved = false;
+  while (!moved)
+  {
+    int row = rand() % 9 + 1;
+    int col = rand() % 9 + 1;
 
+    
+  }
 }
 
-void AI::hardMove()
+void AI::mediumMove()
 {
 
 }
 
-
-void AI::mediumMove()
+void AI::hardMove()
 {
 
 }
