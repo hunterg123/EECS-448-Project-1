@@ -258,8 +258,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 	player->placeShips(num_ships, 1);	//let both players place ships
 	std::cout << "\n";
 
-	AI ai(difficulty);
-	ai.placeShips(num_ships);
+	AI ai(difficulty, num_ships);
 	ai.printBoard(); // for check now
 
 	end_game = false;
@@ -272,7 +271,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 			std::cout << "YOUR CURRENT SHIP STATUS\n";
 			player->printShipBoard(); //prints ship board
 			std::cout << "\nWHERE YOU'VE SHOT\n";
-			std::cout << "Enemy Ships Remaining: " << ai.getShipNum() << "\n";
+			std::cout << "Enemy Ships Remaining: " << ai.getShipsRemaining() << "\n";
 			player->printShootBoard(); //prints shoot board
 			std::cout << "X = hit, * = miss\n\n";
 
@@ -328,16 +327,9 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 			}
 
 
-			break; // implementation only for player now
+			//break; // implementation only for player now
 		}
-		if (turn == false) //Switch turns
-		{
-			turn = true;
-		}
-		else
-		{
-			turn = false;
-		}
+		turn = !turn; // switch turns
 	}
 
 
