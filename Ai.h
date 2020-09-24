@@ -9,10 +9,10 @@ using namespace std;
 class AI
 {
 	public:
-        AI(int my_difficulty);
+        AI(int my_difficulty, int ships);
         ~AI();
         bool placer(char direction, int row, int col, int size, char shipType); // helper function to test whether ships can be placed
-        void placeShips(int num_ships); // Places AI ships
+        void placeShips(); // Places AI ships
         char getShipType(int size); // helper function to figure out which kind of ship the AI needs to place
 
         void Move();
@@ -23,16 +23,18 @@ class AI
         void printBoard();
 	bool isHit(std::string shot);
 	bool isSunk();
-	int getShipNum();
+	int getShipsRemaining();
 
         void addCoords(string c);
 
 	private:
 	int difficulty;
-	int TotalshipNum;
-	int shipNum;
+        int ship_healths[5] = {0, 0, 0, 0, 0};
+        int num_ships;
+
         Boards ship_board;
         Boards shoot_board;
+
         vector<string> m_coordsList;
 
 

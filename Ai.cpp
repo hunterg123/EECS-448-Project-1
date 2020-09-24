@@ -1,10 +1,12 @@
 #include "Ai.h"
+#include <time.h>
 
-AI::AI(int my_difficulty)
+AI::AI(int my_difficulty, int ships)
 {
     difficulty = my_difficulty;
-    shipNum = 0;
-    TotalshipNum = 0;
+    num_ships = ships;
+    for (int i = 0; i < ships; i++) ship_healths[i] = i + 1;
+    placeShips();
 }
 
 AI::~AI() {};
@@ -63,12 +65,8 @@ bool AI::placer(char direction, int row, int col, int size, char shipType)
     return false;
 }
 
-void AI::placeShips(int num_ships)
+void AI::placeShips()
 {
-  shipNum = num_ships;
-  for (int i = 1; i <= num_ships; i++){
-    TotalshipNum = TotalshipNum + i;
-  }
     char directions[4] = {'u', 'd', 'l', 'r'}; // all potential directions
     srand(time(NULL)); // initialize the random
     for (int i = 1; i <= num_ships; i++)
@@ -126,45 +124,43 @@ bool AI::isHit(std::string shot)
   if (ship_board.getpointat(shot) == 'B')
   {
     ship_board.changepointat(shot, 'X'); //updates it from a B to show its been hit
-    shipNum--;
+    ship_healths[4]--;
     return true;
   }
   else if (ship_board.getpointat(shot) == 'C')
   {
     ship_board.changepointat(shot, 'X'); //same as above
-    shipNum--;
+    ship_healths[3]--;
     return true;
   }
   else if (ship_board.getpointat(shot) == 'F')
   {
     ship_board.changepointat(shot, 'X');
-    shipNum--;
+    ship_healths[0]--;
     return true;
   }
   else if (ship_board.getpointat(shot) == 'S')
   {
     ship_board.changepointat(shot, 'X');
-    shipNum--;
+    ship_healths[2]--;
     return true;
   }
   else if (ship_board.getpointat(shot) == 'D')
   {
     ship_board.changepointat(shot, 'X');
-    shipNum--;
+    ship_healths[1]--;
     return true;
   }
   return false;
 }
 
 bool AI::isSunk(){
-  if (shipNum == 0){
-    return true;
-  }
-  else{
-    return false;
-  }
+  if (getShipsRemaining() == 0) return true;
+  else return false;
 }
 
-int AI::getShipNum(){
-  return shipNum;
+int AI::getShipsRemaining(){
+  int ships_remaining = 0;
+  for (int i = 0; i < num_ships; i++) if (ship_healths[i] > 0) ships_remaining++;
+  return ships_remaining;
 }
