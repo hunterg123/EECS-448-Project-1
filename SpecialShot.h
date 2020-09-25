@@ -11,7 +11,8 @@ class SpecialShot
 	int m_sext;
 
 	public:
-	void acquire(int shotMultiple);
+	void acquire(int shotType);
+	void deplete(int shotType);
 
 };
 #endif

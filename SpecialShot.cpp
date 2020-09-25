@@ -1,5 +1,6 @@
 #include "SpecialShot.h"
 #include <iostream>
+#include <string>
 
 SpecialShot::SpecialShot()
 {
@@ -14,9 +15,9 @@ SpecialShot::~SpecialShot()
 {
 }
 
-void SpecialShot::acquire(int shotMultiple)
+void SpecialShot::acquire(int shotType)
 {
-	switch(shotMultiple)
+	switch(shotType)
 	{
 		case 2: 
 			std::cout << "A DOUBLE shot was captured!!!\n";
@@ -44,3 +45,35 @@ void SpecialShot::acquire(int shotMultiple)
 			break;
 	}
 }
+
+void SpecialShot::deplete(int shotType)
+{
+	switch(shotType)
+	{
+		case 2:
+			m_double--;
+			std::cout << "DOUBLE shot launched!!!\n";
+			break;
+		
+		case 3:
+			m_triple--;
+			std::cout << "TRIPLE shot launched!!!\n";
+			break;
+
+		case 4:
+			m_quad--;
+			std::cout << "QUADRUPLE shot launched!!!\n";
+			break;
+
+		case 5;
+			m_quint--;
+			std::cout << "QUINTUPLE shot launched!!!\n";
+			break;
+
+		case 6;
+			m_sext--;
+			std::cout << "SEXTUPLE shot launched!!!\n";
+			break;
+	}
+}
+
