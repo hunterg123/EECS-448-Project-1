@@ -116,8 +116,11 @@ class Player
 
 				int selectSpecialShot();
 
-				void fireSpecialShot(int shotType);
+				std::vector<std::string> coordinateSpecialShot(int shotType);
 
 				std::vector<std::string> getShotVector(std:string pivotCoord, std::string pivotDirection, int shotType);
+
+				//void markSpecialShot(std::vector<std::string> coordVector);
+
 };
 #endif

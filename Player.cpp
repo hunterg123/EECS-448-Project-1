@@ -688,7 +688,7 @@ int Player::selectSpecialShot()
 	return(std::stoi(shotType));
 }
 
-void Player::fireSpecialShot(int shotType)
+std::vector<std::string> Player::coordinateSpecialShot(int shotType)
 {
 	std::string shotTypeStr;
 	std::string pivotCoord;
@@ -742,7 +742,8 @@ void Player::fireSpecialShot(int shotType)
 		coordVector.push_back(coord);
 	}
 
-	markSpecialShot(coordVector);
+	return coordVector;
+	//markSpecialShot(coordVector);
 }
 
 std::vector<std::string> Player::getShotVector(std::string pivotCoord, std::string pivotDirection, int shotType)
@@ -780,3 +781,13 @@ std::vector<std::string> Player::getShotVector(std::string pivotCoord, std::stri
 		
 	return coordVector;
 }
+
+/*
+void markSpecialShot(std::vector<std::string> coordVector)
+{
+	for(auto& shot: coordVector)
+	{
+		markShot(
+	}
+}
+*/

@@ -136,8 +136,8 @@ void Client::PlayerVsPlayer(int num_ships)
 					else if(shotType == 2)
 					{
 						shotType = player1->selectSpecialShot();
-						/*TODO: define fireSpecialShot()*/	
-						player1->fireSpecialShot(shotType);
+						/*TODO: define coordinateSpecialShot()*/	
+						player1->coordinateSpecialShot(shotType);
 					}
 				}
 				else
