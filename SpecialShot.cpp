@@ -89,3 +89,15 @@ void SpecialShot::menu()
 	std::cout << "6) Sextuple: " << m_sext << "\n";
 	std::cout << "=============================\n";
 }
+
+bool SpecialShot::inArsenal()
+{
+	if(m_double || m_triple || m_quad || m_quint || m_sext)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
