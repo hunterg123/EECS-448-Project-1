@@ -99,6 +99,7 @@ void Client::PlayerVsPlayer(int num_ships)
 {
 	Player* player1 = new Player;		//create each player
 	Player* player2 = new Player;
+	int shotType;
 
 	player1->placeShips(num_ships, 1);	//let both players place ships
 	std::cout << "\n";
@@ -121,8 +122,29 @@ void Client::PlayerVsPlayer(int num_ships)
 			bool valid_input = false; //Makes sure that user input is good before advancing
 			while (valid_input == false) //start input loop
 			{
-				std::cout << "Coordinate to fire at: ";
-				std::cin >> shot;
+				if(player1->hasSpecialShot())
+				{
+					std::cout << "1) Select SINGLE shot\n";
+					std::cout << "2) Select SPECIAL shot\n";
+					std::cin >> shotType;
+					/*TODO: validate shotType input*/	
+					if(shotType == 1)
+					{
+						std::cout << "Coordinate to fire at: ";
+						std::cin >> shot;
+					}
+					else if(shotType == 2)
+					{
+						shotType = player1->selectSpecialShot();
+						/*TODO: define fireSpecialShot()*/	
+						player1->fireSpecialShot(shotType);
+					}
+				}
+				else
+				{
+					std::cout << "Coordinate to fire at: ";
+					std::cin >> shot;
+				}
 
 				if((CheckShotInput(shot) == false) || (std::cin.fail())) //Is the user input good?
 				{
