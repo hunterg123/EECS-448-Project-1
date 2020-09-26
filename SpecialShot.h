@@ -10,6 +10,8 @@ class SpecialShot
 	int m_quint;
 	int m_sext;
 
+	void menu();
+
 	public:
 	void acquire(int shotType);
 	void deplete(int shotType);

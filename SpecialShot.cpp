@@ -77,3 +77,15 @@ void SpecialShot::deplete(int shotType)
 	}
 }
 
+void SpecialShot::menu()
+{
+	std::cout << "=============================\n";
+	std::cout << "---------{ ARSENAL }---------\n";
+	std::cout << "1) Single: infinite\n";
+	std::cout << "2) Double: " << m_double << "\n";
+	std::cout << "3) Triple: " << m_triple << "\n";
+	std::cout << "4) Quadruple: " << m_quad << "\n";
+	std::cout << "5) Quintuple: " << m_quint << "\n";
+	std::cout << "6) Sextuple: " << m_sext << "\n";
+	std::cout << "=============================\n";
+}
