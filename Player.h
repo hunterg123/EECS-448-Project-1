@@ -110,5 +110,11 @@ class Player
          * 	@returns How many ships the player has remaining that haven't been sunk.
          */
         int shipsRemaining();
+
+				bool hasSpecialShot();
+
+				int selectSpecialShot();
+
+				void fireSpecialShot(int shotType);
 };
 #endif

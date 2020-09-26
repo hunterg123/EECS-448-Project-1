@@ -662,3 +662,86 @@ int Player::shipsRemaining()
 {
   return m_ships_remaining; 
 }
+
+bool Player::hasSpecialShot()
+{
+	return(m_SpecialShot.inArsenal());
+}
+
+int Player::selectSpecialShot()
+{
+	std::string shotType;
+
+	m_SpecialShot.menu();	
+	do
+	{
+		std::cout << "Enter your choice: ";	
+		std::cin >> shotType;
+
+		if(shotType != "1" || shotType != "2" || shotType != "3" ||
+			 shotType != "4" || shotType != "5" || shotType != "6")
+	 	{
+			std::cout << "Please enter a number (1-6).\n";
+	 	}
+	}while(shotType != "1" || shotType != "2" || shotType != "3" ||
+				 shotType != "4" || shotType != "5" || shotType != "6");
+
+	return(std::stoi(shotType));
+}
+
+void Player::fireSpecialShot(int shotType)
+{
+	std::str shotTypeStr;
+	std::str pivotCoord;
+	std::str pivotDirection;
+	std::vector<std::str> coordVector;
+	std::str coord;
+
+	switch(shotType)
+	{
+		case 1:
+			shotTypeStr = "single";
+			break;
+
+		case 2:
+			shotTypeStr = "double";
+			break;
+
+		case 3:
+			shotTypeStr = "triple";
+			break;
+
+		case 4:
+			shotTypeStr = "quadruple";
+			break;
+
+		case 5;
+			shotTypeStr = "quintuple";
+			break;
+
+		case 6;
+			shotTypeStr = "sextuple";
+			break;
+	}
+
+	if(shotType > 1 || shotType <= 6)
+	{
+		std::cout << "Choose a pivot coordinate for " << shotTypeStr << " shot (col row): ";
+		//TODO: validate pivotCoord
+		std::cin >> pivotCoord;
+		std::cout << "Up, Down, Left, or Right from pivot? (U, D, L, R): ";
+		//TODO: validate pivotDirection
+		std::cin >> pivotDirection;
+
+		coordVector = getShotVector(pivotCoord, pivotDirection);
+	}
+	else
+	{
+		std::cout << "Coordinate to fire " << shotTypeStr << " shot (col row): ";
+		//TODO: validate coordinates
+		std::cin >> coord;
+		coordVector.push_back(coord);
+	}
+
+	markSpecialShot(coordVector);
+}
