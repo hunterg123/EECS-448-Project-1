@@ -11,6 +11,7 @@
 #include "SpecialShot.h"
 #include "Boards.h"
 #include "Ship.h"
+#include <vector>
 
 class Player
 {
@@ -116,5 +117,7 @@ class Player
 				int selectSpecialShot();
 
 				void fireSpecialShot(int shotType);
+
+				std::vector<std::string> getShotVector(std:string pivotCoord, std::string pivotDirection, int shotType);
 };
 #endif

@@ -1,4 +1,3 @@
-#include "SpecialShot.h"
 #include "Player.h"
 
 Player::Player()
@@ -691,11 +690,11 @@ int Player::selectSpecialShot()
 
 void Player::fireSpecialShot(int shotType)
 {
-	std::str shotTypeStr;
-	std::str pivotCoord;
-	std::str pivotDirection;
+	std::string shotTypeStr;
+	std::string pivotCoord;
+	std::string pivotDirection;
 	std::vector<std::str> coordVector;
-	std::str coord;
+	std::string coord;
 
 	switch(shotType)
 	{
@@ -744,4 +743,40 @@ void Player::fireSpecialShot(int shotType)
 	}
 
 	markSpecialShot(coordVector);
+}
+
+std::vector<std::string> Player::getShotVector(std::string pivotCoord, std::string pivotDirection, int shotType)
+{
+	//TODO: pre: inputs must be valid
+
+	int row = std::stoi(pivotCoord[1]);
+	char col = pivotCoord[0];
+	std::vector<std::string> coordVector;
+	std::string coord;
+
+	for(int i = shotType; i > 0; i--)
+	{
+		coord = col + std::to_string(row);	
+		switch(pivotDirection)
+		{
+			case "U":
+				row--;
+				break;
+
+			case "D":
+				row++;
+				break;
+
+			case "L":
+				col--;
+				break;
+
+			case "R":
+				col++;
+				break;
+		}
+		coordVector.push_back(coord);				
+	}
+		
+	return coordVector;
 }
