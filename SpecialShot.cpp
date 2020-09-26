@@ -20,27 +20,27 @@ void SpecialShot::acquire(int shotType)
 	switch(shotType)
 	{
 		case 2: 
-			std::cout << "A DOUBLE shot was captured!!!\n";
+			std::cout << "\nA DOUBLE shot was captured!!!\n";
 			m_double++;
 			break;
 
 		case 3:
-			std::cout << "A TRIPLE shot was captured!!!\n";
+			std::cout << "\nA TRIPLE shot was captured!!!\n";
 			m_triple++;
 			break;
 
 		case 4:
-			std::cout << "A QUADRUPLE shot was captured!!!\n";
+			std::cout << "\nA QUADRUPLE shot was captured!!!\n";
 			m_quad++;
 			break;
 
 		case 5:
-			std::cout << "A QUINTUPLE shot was captured!!!\n";
+			std::cout << "\nA QUINTUPLE shot was captured!!!\n";
 			m_quint++;
 			break;
 
 		case 6:
-			std::cout << "A SEXTUPLE shot was captured!!!\n";
+			std::cout << "\nA SEXTUPLE shot was captured!!!\n";
 			m_sext++;
 			break;
 	}
@@ -52,34 +52,34 @@ void SpecialShot::deplete(int shotType)
 	{
 		case 2:
 			m_double--;
-			std::cout << "DOUBLE shot launched!!!\n";
+			std::cout << "\nDOUBLE shot launched!!!\n";
 			break;
 		
 		case 3:
 			m_triple--;
-			std::cout << "TRIPLE shot launched!!!\n";
+			std::cout << "\nTRIPLE shot launched!!!\n";
 			break;
 
 		case 4:
 			m_quad--;
-			std::cout << "QUADRUPLE shot launched!!!\n";
+			std::cout << "\nQUADRUPLE shot launched!!!\n";
 			break;
 
-		case 5;
+		case 5:
 			m_quint--;
-			std::cout << "QUINTUPLE shot launched!!!\n";
+			std::cout << "\nQUINTUPLE shot launched!!!\n";
 			break;
 
-		case 6;
+		case 6:
 			m_sext--;
-			std::cout << "SEXTUPLE shot launched!!!\n";
+			std::cout << "\nSEXTUPLE shot launched!!!\n";
 			break;
 	}
 }
 
 void SpecialShot::menu()
 {
-	std::cout << "=============================\n";
+	std::cout << "\n=============================\n";
 	std::cout << "---------{ ARSENAL }---------\n";
 	std::cout << "1) Single: infinite\n";
 	std::cout << "2) Double: " << m_double << "\n";

@@ -1,5 +1,5 @@
-Run: main.o Client.o Player.o Boards.o Ship.o Ai.o
-	g++ -std=c++11 -g -Wall main.o Client.o Player.o Boards.o Ship.o Ai.o -o Run
+Run: main.o Client.o Player.o Boards.o Ship.o Ai.o SpecialShot.o
+	g++ -std=c++11 -g -Wall main.o Client.o Player.o Boards.o Ship.o Ai.o SpecialShot.o -o Run
 
 main.o: main.cpp Client.h
 	g++ -std=c++11 -g -Wall -c main.cpp
@@ -18,6 +18,9 @@ Boards.o: Boards.h Boards.cpp
 
 Ship.o: Ship.h Ship.cpp
 	g++ -std=c++11 -g -Wall -c Ship.cpp
+
+SpecialShot.o: SpecialShot.h SpecialShot.cpp
+	g++ -std=c++11 -g -Wall -c SpecialShot.cpp
 
 clean:
 	rm *.o Run

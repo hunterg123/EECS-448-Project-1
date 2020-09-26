@@ -1,5 +1,5 @@
-#define SPECIAL_SHOT_H
 #ifndef SPECIAL_SHOT_H
+#define SPECIAL_SHOT_H
 
 class SpecialShot
 {
@@ -13,6 +13,9 @@ class SpecialShot
 	void menu();
 
 	public:
+	SpecialShot();
+	~SpecialShot();
+
 	void acquire(int shotType);
 	void deplete(int shotType);
 
