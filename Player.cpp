@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "SpecialShot.h"
 
 Player::Player()
 {
@@ -618,30 +619,40 @@ bool Player::isSunk(std::string shot)
   {
     m_bs_remaining = 100;
     m_ships_remaining--; //decrements the ships remaining counter since a ship has been sunk
+
+		m_SpecialShot.acquire(6);
     return true;
   }
   else if (m_cs_remaining == 0)
   {
     m_cs_remaining = 100;
     m_ships_remaining--;
+
+		m_SpecialShot.acquire(5);
     return true;
   }
   else if (m_fs_remaining == 0)
   {
     m_fs_remaining = 100;
     m_ships_remaining--;
+
+		m_SpecialShot.acquire(2);
     return true;
   }
   else if (m_ss_remaining == 0)
   {
     m_ss_remaining = 100;
     m_ships_remaining--;
+
+		m_SpecialShot.acquire(4);
     return true;
   }
   else if (m_ds_remaining == 0)
   {
     m_ds_remaining = 100;
     m_ships_remaining--;
+
+		m_SpecialShot.acquire(3);
     return true;
   }      
   return false;

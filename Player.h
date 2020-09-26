@@ -10,6 +10,7 @@
 #include <string>
 #include "Boards.h"
 #include "Ship.h"
+#include "SpecialShot.h"
 
 class Player
 {
@@ -24,6 +25,8 @@ class Player
         int m_fs_remaining; //etc.
         int m_ss_remaining; //...
         int m_ds_remaining; //...
+
+				int m_SpecialShot;
         
         /**
          * 	Checks if the coordinates the user entered to place a ship at is valid or not.
