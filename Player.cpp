@@ -274,6 +274,194 @@ void Player::markBoard(Ship ship)
   }
 }
 
+void Player::replaceShip(int number_ships, int player_number)
+{
+  std::string ship_coord1;
+  std::string ship_coord2;
+
+  if (player_number == 1)
+  {
+    m_player_number = "ONE";
+  }
+  else
+  {
+    m_player_number = "TWO";
+  }
+
+  //Replace ships
+  char replacemyship = ' ';
+  int choose_size = 0;
+
+  Replaceship:
+  std::cout << '\n';
+  m_ship_board.print();
+  std::cout <<"==Here is your SHIP POSITION layout==\n";
+  std::cout << "Do you want to Replace your SIZE ONE? (Enter Y to replace, enter other to continue the game): ";
+  std::cin >> replacemyship;
+
+  if (replacemyship == 'Y')
+  {
+      Correctsize:
+      std::cout << "Which SIZE you want to replace (Enter(1 - 5)): ";
+      std::cin >> choose_size;
+
+      if(choose_size <= number_ships && choose_size == 5)
+      {
+        for(int i = 0; i < 9; i++)
+        {
+          for(int j = 0; j < 9; j++)
+          {
+            if(m_ship_board.getValue(i+1, j+1) == 'B')
+            {
+                m_ship_board.getValue(i+1, j+1);
+                m_ship_board.setValue(i+1, j+1, '~');
+            }
+          }
+        }
+        std::cout << "Where would you like to place your SIZE FIVE battleship?: ";
+        std::cin >> ship_coord1;
+        std::cin >> ship_coord2;
+        while (!checkValidPlacement(ship_coord1, ship_coord2, 5))
+        {
+          std::cout << "That is not a valid placement, check how you typed it and the location and try again: ";
+          std::cin >> ship_coord1;
+          std::cin >> ship_coord2;
+        }
+        Ship battleship(5, ship_coord1, ship_coord2, "battleship");
+        m_bs_remaining = 5;
+        markBoard(battleship);
+
+        goto Replaceship;
+      }
+
+      else if(choose_size <= number_ships && choose_size == 4)
+      {
+        for(int i = 0; i < 9; i++)
+        {
+          for(int j = 0; j < 9; j++)
+          {
+            if(m_ship_board.getValue(i+1, j+1) == 'C')
+            {
+                m_ship_board.getValue(i+1, j+1);
+                m_ship_board.setValue(i+1, j+1, '~');
+            }
+          }
+        }
+        std::cout << "Where would you like to place your SIZE FOUR cruiser?: ";
+        std::cin >> ship_coord1;
+        std::cin >> ship_coord2;
+        while (!checkValidPlacement(ship_coord1, ship_coord2, 4))
+        {
+          std::cout << "That is not a valid placement, check how you typed it and the location and try again: ";
+          std::cin >> ship_coord1;
+          std::cin >> ship_coord2;
+        }
+        Ship cruiser(4, ship_coord1, ship_coord2, "cruiser");
+        m_cs_remaining = 4;
+        markBoard(cruiser);
+
+        goto Replaceship;
+      }
+
+      else if(choose_size <= number_ships && choose_size == 3)
+      {
+        for(int i = 0; i < 9; i++)
+        {
+          for(int j = 0; j < 9; j++)
+          {
+            if(m_ship_board.getValue(i+1, j+1) == 'S')
+            {
+                m_ship_board.getValue(i+1, j+1);
+                m_ship_board.setValue(i+1, j+1, '~');
+            }
+          }
+        }
+        std::cout << "Where would you like to place your SIZE THREE submarine?: ";
+        std::cin >> ship_coord1;
+        std::cin >> ship_coord2;
+        while (!checkValidPlacement(ship_coord1, ship_coord2, 3))
+        {
+          std::cout << "That is not a valid placement, check how you typed it and the location and try again: ";
+          std::cin >> ship_coord1;
+          std::cin >> ship_coord2;
+        }
+        Ship submarine(3, ship_coord1, ship_coord2, "submarine");
+        m_ss_remaining = 3;
+        markBoard(submarine);
+
+        goto Replaceship;
+      }
+
+      else if(choose_size <= number_ships && choose_size == 2)
+      {
+        for(int i = 0; i < 9; i++)
+        {
+          for(int j = 0; j < 9; j++)
+          {
+            if(m_ship_board.getValue(i+1, j+1) == 'D')
+            {
+                m_ship_board.getValue(i+1, j+1);
+                m_ship_board.setValue(i+1, j+1, '~');
+            }
+          }
+        }
+        std::cout << "Where would you like to place your SIZE TWO destroyer?: ";
+        std::cin >> ship_coord1;
+        std::cin >> ship_coord2;
+        while (!checkValidPlacement(ship_coord1, ship_coord2, 2))
+        {
+          std::cout << "That is not a valid placement, check how you typed it and the location and try again: ";
+          std::cin >> ship_coord1;
+          std::cin >> ship_coord2;
+        }
+        Ship destroyer(2, ship_coord1, ship_coord2, "destroyer");
+        m_ds_remaining = 2;
+        markBoard(destroyer);
+
+        goto Replaceship;
+      }
+
+      else if(choose_size <= number_ships && choose_size == 1)
+      {
+        for(int i = 0; i < 9; i++)
+        {
+          for(int j = 0; j < 9; j++)
+          {
+            if(m_ship_board.getValue(i+1, j+1) == 'F')
+            {
+                m_ship_board.getValue(i+1, j+1);
+                m_ship_board.setValue(i+1, j+1, '~');
+            }
+          }
+        }
+        std::cout << "Where would you like to place your SIZE ONE frigate?: ";
+        std::cin >> ship_coord1;
+    		std::cin.clear();
+    		std::cin.ignore(10000, '\n'); //this has to be cleared and ignored in case the user types two coordinates instead of one, so it flushes the stream
+        ship_coord2 = ship_coord1;    //so that checkValidPlacement works correctly
+        while (!checkValidPlacement(ship_coord1, ship_coord2, 1)) //runs until a valid placement is made
+        {
+          std::cout << "That is not a valid placement, check how you typed it and the location and try again: ";
+          std::cin >> ship_coord1;
+          std::cin.clear();
+          std::cin.ignore(10000, '\n');
+          ship_coord2 = ship_coord1;
+        }
+        Ship frigate(1, ship_coord1, ship_coord2, "frigate"); //creates the correct ship
+        m_fs_remaining = 1; //updates how many parts of it remain
+        markBoard(frigate); //marks it on the map
+
+        goto Replaceship;
+      }
+
+      else
+      {
+        std::cout << "Invalid Ship Size! Please enter number NO MORE than "<<number_ships<<'\n';
+        goto Correctsize;
+      }
+  }
+}
+
 void Player::placeShips(int number_ships, int player_number)
 {
   std::string ship_coord1;
@@ -324,27 +512,12 @@ void Player::placeShips(int number_ships, int player_number)
     markBoard(frigate); //marks it on the map
     //--------------------------------------------------------------------------------------------------------
 
-
-    //Replace ships
-    char replacemyship = ' ';
-
-    std::cout << '\n';
-    m_ship_board.print();
-    std::cout <<"==Here is your SHIP POSITION layout==\n";
-    std::cout << "Do you want to Replace your SIZE ONE? (Enter Y to replace, enter other to continue the game): ";
-    std::cin >> replacemyship;
-
-    if (replacemyship == 'Y')
-    {
-        m_ship_board.changepointat(ship_coord1, '~');
-        goto ReplaceNum1size1;
-    }
   }
   //--------------------------------------------------------------------------------------------------------
   //the rest of the if statements are the same as above, just with more ships
   else if (number_ships == 2)
   {
-    ReplaceNum2size2:
+    //ReplaceNum2size2:
     std::cout << "Where would you like to place your SIZE TWO destroyer?: ";
     std::cin >> ship_coord1;
     std::cin >> ship_coord2;
@@ -358,7 +531,7 @@ void Player::placeShips(int number_ships, int player_number)
     m_ds_remaining = 2;
     markBoard(destroyer);
 
-    ReplaceNum2size1:
+    //ReplaceNum2size1:
     std::cout << "Where would you like to place your SIZE ONE frigate?: ";
     std::cin >> ship_coord1;
 		std::cin.clear();
@@ -376,60 +549,11 @@ void Player::placeShips(int number_ships, int player_number)
     m_fs_remaining = 1;
     markBoard(frigate);
     //--------------------------------------------------------------------------------------------------------
-
-
-    //Replace ships
-    char replacemyship = ' ';
-    int choose_size = 0;
-
-    std::cout << '\n';
-    m_ship_board.print();
-    std::cout <<"==Here is your SHIP POSITION layout==\n";
-    std::cout << "Do you want to Replace your SIZE ONE? (Enter Y to replace, enter other to continue the game): ";
-    std::cin >> replacemyship;
-
-    if (replacemyship == 'Y')
-    {
-        std::cout << "Which SIZE you want to replace (Enter(1 - 5)): ";
-        std::cin >> choose_size;
-
-        if(choose_size == 2)
-        {
-          for(int i = 0; i < 10; i++)
-          {
-            for(int j = 0; j < 10; j++)
-            {
-              if(m_ship_board.getValue(i, j) == 'D')
-              {
-                  m_ship_board.getValue(i, j);
-                  m_ship_board.setValue(i, j, '~');
-              }
-            }
-          }
-          goto ReplaceNum2size2;
-        }
-
-        else if(choose_size == 1)
-        {
-          for(int i = 0; i < 10; i++)
-          {
-            for(int j = 0; j < 10; j++)
-            {
-              if(m_ship_board.getValue(i, j) == 'F')
-              {
-                  m_ship_board.getValue(i, j);
-                  m_ship_board.setValue(i, j, '~');
-              }
-            }
-          }
-          goto ReplaceNum2size1;
-        }
-    }
   }
   //--------------------------------------------------------------------------------------------------------
   else if (number_ships == 3)
   {
-    ReplaceNum3size3:
+    //ReplaceNum3size3:
     std::cout << "Where would you like to place your SIZE THREE submarine?: ";
     std::cin >> ship_coord1;
     std::cin >> ship_coord2;
@@ -443,7 +567,7 @@ void Player::placeShips(int number_ships, int player_number)
     m_ss_remaining = 3;
     markBoard(submarine);
 
-    ReplaceNum3size2:
+    //ReplaceNum3size2:
     std::cout << "Where would you like to place your SIZE TWO destroyer?: ";
     std::cin >> ship_coord1;
     std::cin >> ship_coord2;
@@ -457,7 +581,7 @@ void Player::placeShips(int number_ships, int player_number)
     m_ds_remaining = 2;
     markBoard(destroyer);
 
-    ReplaceNum3size1:
+    //ReplaceNum3size1:
     std::cout << "Where would you like to place your SIZE ONE frigate?: ";
     std::cin >> ship_coord1;
 		std::cin.clear();
@@ -475,76 +599,11 @@ void Player::placeShips(int number_ships, int player_number)
     m_fs_remaining = 1;
     markBoard(frigate);
     //--------------------------------------------------------------------------------------------------------
-
-
-    //Replace ships
-    char replacemyship = ' ';
-    int choose_size = 0;
-
-    std::cout << '\n';
-    m_ship_board.print();
-    std::cout <<"==Here is your SHIP POSITION layout==\n";
-    std::cout << "Do you want to Replace your SIZE ONE? (Enter Y to replace, enter other to continue the game): ";
-    std::cin >> replacemyship;
-
-    if (replacemyship == 'Y')
-    {
-        std::cout << "Which SIZE you want to replace (Enter(1 - 5)): ";
-        std::cin >> choose_size;
-
-        if(choose_size == 3)
-        {
-          for(int i = 0; i < 10; i++)
-          {
-            for(int j = 0; j < 10; j++)
-            {
-              if(m_ship_board.getValue(i, j) == 'S')
-              {
-                  m_ship_board.getValue(i, j);
-                  m_ship_board.setValue(i, j, '~');
-              }
-            }
-          }
-          goto ReplaceNum3size3;
-        }
-
-        else if(choose_size == 2)
-        {
-          for(int i = 0; i < 10; i++)
-          {
-            for(int j = 0; j < 10; j++)
-            {
-              if(m_ship_board.getValue(i, j) == 'D')
-              {
-                  m_ship_board.getValue(i, j);
-                  m_ship_board.setValue(i, j, '~');
-              }
-            }
-          }
-          goto ReplaceNum3size2;
-        }
-
-        else if(choose_size == 1)
-        {
-          for(int i = 0; i < 10; i++)
-          {
-            for(int j = 0; j < 10; j++)
-            {
-              if(m_ship_board.getValue(i, j) == 'F')
-              {
-                  m_ship_board.getValue(i, j);
-                  m_ship_board.setValue(i, j, '~');
-              }
-            }
-          }
-          goto ReplaceNum3size1;
-        }
-    }
   }
   //--------------------------------------------------------------------------------------------------------
   else if (number_ships == 4)
   {
-    ReplaceNum4size4:
+    //ReplaceNum4size4:
     std::cout << "Where would you like to place your SIZE FOUR cruiser?: ";
     std::cin >> ship_coord1;
     std::cin >> ship_coord2;
@@ -558,7 +617,7 @@ void Player::placeShips(int number_ships, int player_number)
     m_cs_remaining = 4;
     markBoard(cruiser);
 
-    ReplaceNum4size3:
+    //ReplaceNum4size3:
     std::cout << "Where would you like to place your SIZE THREE submarine?: ";
     std::cin >> ship_coord1;
     std::cin >> ship_coord2;
@@ -572,7 +631,7 @@ void Player::placeShips(int number_ships, int player_number)
     m_ss_remaining = 3;
     markBoard(submarine);
 
-    ReplaceNum4size2:
+    //ReplaceNum4size2:
     std::cout << "Where would you like to place your SIZE TWO destroyer?: ";
     std::cin >> ship_coord1;
     std::cin >> ship_coord2;
@@ -586,7 +645,7 @@ void Player::placeShips(int number_ships, int player_number)
     m_ds_remaining = 2;
     markBoard(destroyer);
 
-    ReplaceNum4size1:
+    //ReplaceNum4size1:
     std::cout << "Where would you like to place your SIZE ONE frigate?: ";
     std::cin >> ship_coord1;
 		std::cin.clear();
@@ -604,92 +663,11 @@ void Player::placeShips(int number_ships, int player_number)
     m_fs_remaining = 1;
     markBoard(frigate);
     //--------------------------------------------------------------------------------------------------------
-
-
-    //Replace ships
-    char replacemyship = ' ';
-    int choose_size = 0;
-
-    std::cout << '\n';
-    m_ship_board.print();
-    std::cout <<"==Here is your SHIP POSITION layout==\n";
-    std::cout << "Do you want to Replace your SIZE ONE? (Enter Y to replace, enter other to continue the game): ";
-    std::cin >> replacemyship;
-
-    if (replacemyship == 'Y')
-    {
-        std::cout << "Which SIZE you want to replace (Enter(1 - 5)): ";
-        std::cin >> choose_size;
-
-        if(choose_size == 4)
-        {
-          for(int i = 0; i < 10; i++)
-          {
-            for(int j = 0; j < 10; j++)
-            {
-              if(m_ship_board.getValue(i, j) == 'C')
-              {
-                  m_ship_board.getValue(i, j);
-                  m_ship_board.setValue(i, j, '~');
-              }
-            }
-          }
-          goto ReplaceNum4size4;
-        }
-
-        else if(choose_size == 3)
-        {
-          for(int i = 0; i < 10; i++)
-          {
-            for(int j = 0; j < 10; j++)
-            {
-              if(m_ship_board.getValue(i, j) == 'S')
-              {
-                  m_ship_board.getValue(i, j);
-                  m_ship_board.setValue(i, j, '~');
-              }
-            }
-          }
-          goto ReplaceNum4size3;
-        }
-
-        else if(choose_size == 2)
-        {
-          for(int i = 0; i < 10; i++)
-          {
-            for(int j = 0; j < 10; j++)
-            {
-              if(m_ship_board.getValue(i, j) == 'D')
-              {
-                  m_ship_board.getValue(i, j);
-                  m_ship_board.setValue(i, j, '~');
-              }
-            }
-          }
-          goto ReplaceNum4size2;
-        }
-
-        else if(choose_size == 1)
-        {
-          for(int i = 0; i < 10; i++)
-          {
-            for(int j = 0; j < 10; j++)
-            {
-              if(m_ship_board.getValue(i, j) == 'F')
-              {
-                  m_ship_board.getValue(i, j);
-                  m_ship_board.setValue(i, j, '~');
-              }
-            }
-          }
-          goto ReplaceNum4size1;
-        }
-      }
   }
   //--------------------------------------------------------------------------------------------------------
   else if (number_ships == 5)
   {
-    ReplaceNum5size5:
+    //ReplaceNum5size5:
     std::cout << "Where would you like to place your SIZE FIVE battleship?: ";
     std::cin >> ship_coord1;
     std::cin >> ship_coord2;
@@ -703,7 +681,7 @@ void Player::placeShips(int number_ships, int player_number)
     m_bs_remaining = 5;
     markBoard(battleship);
 
-    ReplaceNum5size4:
+    //ReplaceNum5size4:
     std::cout << "Where would you like to place your SIZE FOUR cruiser?: ";
     std::cin >> ship_coord1;
     std::cin >> ship_coord2;
@@ -717,7 +695,7 @@ void Player::placeShips(int number_ships, int player_number)
     m_cs_remaining = 4;
     markBoard(cruiser);
 
-    ReplaceNum5size3:
+    //ReplaceNum5size3:
     std::cout << "Where would you like to place your second SIZE THREE submarine?: ";
     std::cin >> ship_coord1;
     std::cin >> ship_coord2;
@@ -731,7 +709,7 @@ void Player::placeShips(int number_ships, int player_number)
     m_ss_remaining = 3;
     markBoard(submarine);
 
-    ReplaceNum5size2:
+    //ReplaceNum5size2:
     std::cout << "Where would you like to place your SIZE TWO destroyer?: ";
     std::cin >> ship_coord1;
     std::cin >> ship_coord2;
@@ -745,7 +723,7 @@ void Player::placeShips(int number_ships, int player_number)
     m_ds_remaining = 2;
     markBoard(destroyer);
 
-    ReplaceNum5size1:
+    //ReplaceNum5size1:
     std::cout << "Where would you like to place your SIZE ONE frigate?: ";
     std::cin >> ship_coord1;
 		std::cin.clear();
@@ -763,104 +741,6 @@ void Player::placeShips(int number_ships, int player_number)
     m_fs_remaining = 1;
     markBoard(frigate);
     //--------------------------------------------------------------------------------------------------------
-
-
-    //Replace ships
-    char replacemyship = ' ';
-    int choose_size = 0;
-
-    std::cout << '\n';
-    m_ship_board.print();
-    std::cout <<"==Here is your SHIP POSITION layout==\n";
-    std::cout << "Do you want to Replace your SIZE ONE? (Enter Y to replace, enter other to continue the game): ";
-    std::cin >> replacemyship;
-
-    if (replacemyship == 'Y')
-    {
-        std::cout << "Which SIZE you want to replace (Enter(1 - 5)): ";
-        std::cin >> choose_size;
-
-
-        if(choose_size == 4)
-        {
-          for(int i = 0; i < 10; i++)
-          {
-            for(int j = 0; j < 10; j++)
-            {
-              if(m_ship_board.getValue(i, j) == 'B')
-              {
-                  m_ship_board.getValue(i, j);
-                  m_ship_board.setValue(i, j, '~');
-              }
-            }
-          }
-          goto ReplaceNum5size5;
-        }
-
-        else if(choose_size == 4)
-        {
-          for(int i = 0; i < 10; i++)
-          {
-            for(int j = 0; j < 10; j++)
-            {
-              if(m_ship_board.getValue(i, j) == 'C')
-              {
-                  m_ship_board.getValue(i, j);
-                  m_ship_board.setValue(i, j, '~');
-              }
-            }
-          }
-          goto ReplaceNum5size4;
-        }
-
-        if(choose_size == 3)
-        {
-          for(int i = 0; i < 10; i++)
-          {
-            for(int j = 0; j < 10; j++)
-            {
-              if(m_ship_board.getValue(i, j) == 'S')
-              {
-                  m_ship_board.getValue(i, j);
-                  m_ship_board.setValue(i, j, '~');
-              }
-            }
-          }
-          goto ReplaceNum5size3;
-        }
-
-        else if(choose_size == 2)
-        {
-          for(int i = 0; i < 10; i++)
-          {
-            for(int j = 0; j < 10; j++)
-            {
-              if(m_ship_board.getValue(i, j) == 'D')
-              {
-                  m_ship_board.getValue(i, j);
-                  m_ship_board.setValue(i, j, '~');
-              }
-            }
-          }
-          goto ReplaceNum5size2;
-        }
-
-        else if(choose_size == 1)
-        {
-          for(int i = 0; i < 10; i++)
-          {
-            for(int j = 0; j < 10; j++)
-            {
-              if(m_ship_board.getValue(i, j) == 'F')
-              {
-                  m_ship_board.getValue(i, j);
-                  m_ship_board.setValue(i, j, '~');
-              }
-            }
-          }
-          goto ReplaceNum5size1;
-        }
-    }
   }
   //--------------------------------------------------------------------------------------------------------
   else
