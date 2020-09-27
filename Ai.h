@@ -16,7 +16,7 @@ class AI
         char getShipType(int size); // helper function to figure out which kind of ship the AI needs to place
 
         void Move();
-        void easyMove();
+        std::string easyMove();
         void mediumMove();
         void hardMove();
 

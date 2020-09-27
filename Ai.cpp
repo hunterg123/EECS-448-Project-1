@@ -97,9 +97,14 @@ void AI::Move() // Decides which kind of move to make based on difficulty settin
     else hardMove();
 }
 
-void AI::easyMove()
+std::string AI::easyMove()
 {
-
+  srand(time(NULL));
+  std::string letter = "ABCDEFGHI";
+  std::string row = string (1, letter[rand()%9]);
+  std::string col = to_string((rand() % 9) + 1);
+  std:: string shot_coord = row + col;
+  return shot_coord;
 }
 
 void AI::hardMove()
