@@ -130,7 +130,6 @@ class Player
 
 				bool validCoord(std::string coord);
 
-				//void markSpecialShot(std::vector<std::string> coordVector);
-
+				bool validShots(std::vector<std::string> shotVector);
 };
 #endif

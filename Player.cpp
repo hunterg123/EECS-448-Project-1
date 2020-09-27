@@ -733,6 +733,11 @@ std::vector<std::string> Player::coordinateSpecialShot(int shotType)
 		do{
 			std::cout << "Choose a pivot coordinate for that " << shotTypeStr << " shot (col row): ";
 			std::cin >> pivotCoord;
+			if(!validCoord(pivotCoord))
+			{
+				std::cout << "\nConnection to missiles lost... Please enter a valid input..\n";
+				std::cout << "Valid inputs are A through I and 1 through 9, i.e. A2 A5\n\n";
+			}
 		}while(!validCoord(pivotCoord));
 
 		//validate pivotDirection
@@ -915,12 +920,55 @@ bool Player::validCoord(std::string coord)
 	return valid;
 }
 
-/*
-void markSpecialShot(std::vector<std::string> coordVector)
+bool validShots(std::vector<std::string shotVector)
 {
-	for(auto& shot: coordVector)
+	int numDuplicates = 0;
+	std::string shot;
+
+	if(shotVector.size() == 1) //single shot selected
 	{
-		markShot(
+		shot = shotVector[0];
+		if(!validCoord(shot)) //Is the user input good?
+		{
+			std::cout << "\nConnection to missiles lost... Please enter a valid input..\n";
+			std::cout << "Valid inputs are A through I and 1 through 9, i.e. A2 A5\n\n";
+			return false;
+		}
+		else
+		{
+			if(uniqueShot(shot)) //Is the shot unique?
+			{
+				return true;	
+			}
+			else
+			{
+				std::cout << "\nCaptain! We have already shot at that location!\n";
+				return false;
+			}
+		}
+	}
+	else //special shot selected
+	{
+		for(auto& shot: shotVector)
+		{
+			if(!validCoord(shot))
+			{
+				std::cout << "Your special shot is out-of-range!\n\n";
+				return false;
+			}
+			else
+			{
+				if(!uniqueShot(shot))
+				{
+					numDuplicates++;
+				}
+			}
+		}
+
+		if(numDuplicates == shotVector.size())
+		{
+			return false;
+		}
+		else return true;
 	}
 }
-*/
