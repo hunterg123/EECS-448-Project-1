@@ -1,0 +1,10 @@
+=============================
+---------{ ARSENAL }---------
+1) Single: infinite
+2) Double: n
+3) Triple: n
+4) Quadruple: n
+5) Quintuple: n
+6) Sextuple: n
+=============================
+Enter your shot type: 

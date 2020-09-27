@@ -1,5 +1,5 @@
-#define SPECIAL_SHOT_H
 #ifndef SPECIAL_SHOT_H
+#define SPECIAL_SHOT_H
 
 class SpecialShot
 {
@@ -10,11 +10,15 @@ class SpecialShot
 	int m_quint;
 	int m_sext;
 
-	void menu();
 
 	public:
+	SpecialShot();
+	~SpecialShot();
+
+	void menu();
 	void acquire(int shotType);
 	void deplete(int shotType);
+	bool inArsenal(int shotType);
 
 };
 #endif

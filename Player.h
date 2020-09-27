@@ -8,8 +8,10 @@
 #define PLAYER_H
 #include <iostream>
 #include <string>
+#include "SpecialShot.h"
 #include "Boards.h"
 #include "Ship.h"
+#include <vector>
 
 class Player
 {
@@ -25,6 +27,8 @@ class Player
         int m_ss_remaining; //...
         int m_ds_remaining; //...
 
+				SpecialShot m_SpecialShot;
+				
         /**
          * 	Checks if the coordinates the user entered to place a ship at is valid or not.
          *  It will be valid if the coordinates were entered in the correct format, is trying to be placed vertical or horizontal (not diagonal),
@@ -65,6 +69,13 @@ class Player
         void placeShips(int number_ships, int player_number);
 
         /**
+         * 	Determines if the user has previously already shot at this location.
+         *  @param shot A string containing the coordinates of where the player is attempting to shoot.
+         *  @returns True if the player has not previously shot at that location, false if they've already shot and hit or missed.
+         */
+        bool uniqueShot(std::string shot);
+
+        /**
          *  If the player's shot successfully hits an enemies ship it will be marked as a hit (X), if they miss it's a miss (*).
          *  @param shot The coordinates of where the user shot at.
          *  @param hit A boolean value containing whether or not the shot was a hit (true) or a miss (false).
@@ -81,13 +92,6 @@ class Player
          * 	Prints out the player's m_ship_board, which is the location of their ships and what their current status are.
          */
         void printShipBoard();
-
-        /**
-         * 	Determines if the user has previously already shot at this location.
-         *  @param shot A string containing the coordinates of where the player is attempting to shoot.
-         *  @returns True if the player has not previously shot at that location, false if they've already shot and hit or missed.
-         */
-        bool uniqueShot(std::string shot);
 
         /**
          * 	Determines whether or not the enemies shot was a hit on one of the player's ships or not.
@@ -107,6 +111,26 @@ class Player
          * 	@returns How many ships the player has remaining that haven't been sunk.
          */
         int shipsRemaining();
+
+				bool hasSpecialShot();
+
+				int selectShot();
+
+				std::vector<std::string> coordinateShot(int shotType);
+
+				std::vector<std::string> getShotVector(std::string pivotCoord, char pivotDirection, int shotType);
+
+				std::string getShipSunk();
+
+				void resetShipSunk();
+
+				void acquireSpecialShot(std::string shipSunk);
+
+				void depleteSpecialShot(int shotType);
+
+				bool validCoord(std::string coord);
+
+				bool validateShot(std::vector<std::string> shotVector);
 
         //Shujing -replaceShip
         void replaceShip(int number_ships, int player_number);

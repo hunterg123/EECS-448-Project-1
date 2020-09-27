@@ -3,6 +3,7 @@
 #include <string>
 #include "Player.h"
 #include "Ai.h"
+#include <vector>
 
 
 void Client::RunSetup(){
@@ -105,6 +106,10 @@ void Client::PlayerVsPlayer(int num_ships)
 {
 	Player* player1 = new Player;		//create each player
 	Player* player2 = new Player;
+	std::string shot;
+	int shotType = 0;
+	std::vector<std::string> shotVector;
+	std::string shipSunk;
 
 	player1->placeShips(num_ships, 1);	//let both players place ships
 	player1->replaceShip(num_ships, 1);
@@ -125,58 +130,63 @@ void Client::PlayerVsPlayer(int num_ships)
 			player1->printShootBoard(); //prints shoot board
 			std::cout << "X = hit, * = miss\n\n";
 
-			std::string shot;
 			bool valid_input = false; //Makes sure that user input is good before advancing
 			while (valid_input == false) //start input loop
 			{
-				std::cout << "Coordinate to fire at: ";
-				std::cin >> shot;
+				shotType = player1->selectShot();
+				shotVector = player1->coordinateShot(shotType);
+				valid_input = player1->validateShot(shotVector);
+			} //end input loop
+			
+			player1->depleteSpecialShot(shotType);		
 
-				if((CheckShotInput(shot) == false) || (std::cin.fail())) //Is the user input good?
+			//iterate through shotVector
+			for(auto& shot: shotVector)
+			{
+				std::cout << "\nFIRE!!!\n";
+
+				if (player2->isHit(shot) == true) //Is it a hit?
 				{
-					std::cin.clear();
-					std::cin.ignore();
-					std::cout << "\nConnection to missiles lost... Please enter a valid input..\n";
-					std::cout << "Valid inputs are A through I and 1 through 9, i.e. A2 A5\n\n";
-				}
-				else
-				{
-					if (player1->uniqueShot(shot) == true) //Is the shot unique?
+					player1->markShot(shot, true);
+					std::cout << "BANG!!!";
+
+					if (player2->isSunk(shot) == true) //Is it a sunk?
 					{
-						std::cout << "\nFIRE!!!\n";
-						valid_input = true;
+						std::cout << "\nYou have sunk their ship with that shot!\n";
+						shipSunk = player2->getShipSunk();
+						player2->resetShipSunk();
+
+						player1->acquireSpecialShot(shipSunk);
 					}
 					else
 					{
-			 			std::cout << "\nCaptain! We have already shot at that location!\n";
+						std::cout << "\nThats a hit!\n";
 					}
-				}
-			} //end input loop
-			if (player2->isHit(shot) == true) //Is it a hit?
-			{
-				player1->markShot(shot, true);
-				std::cout << "BANG!!!";
-				if (player2->isSunk(shot) == true) //Is it a sunk?
-				{
-					std::cout << "\nYou have sunk their ship with that shot!\n";
 				}
 				else
 				{
-					std::cout << "\nThats a hit!\n";
+					if(!player1->uniqueShot(shot))
+					{
+						std::cout << "SPLASH!!!\n";
+						std::cout << "You only hit debris!\n";
+					}
+					else
+					{
+						player1->markShot(shot, false);
+						std::cout << "SPLASH!!!\n";
+						std::cout << "You hit empty waters.\n";
+					}
+				}
+				if (player2->shipsRemaining() == 0) //Game win condition
+				{
+					std::cout << "\n##########- PLAYER 1 HAS WON THE GAME!!! -##########\n";
+					player1->printShootBoard();
+					std::cout << "##########- PLAYER 1 HAS WON THE GAME!!! -##########\n";
+					end_game = true;
+					break;
 				}
 			}
-			else
-			{
-				player1->markShot(shot, false);
-				std::cout << "*bloooop.....the missile was off-target.\n";
-			}
-			if (player2->shipsRemaining() == 0) //Game win condition
-			{
-				std::cout << "\n##########- PLAYER 1 HAS WON THE GAME!!! -##########\n";
-				player1->printShootBoard();
-				std::cout << "##########- PLAYER 1 HAS WON THE GAME!!! -##########\n";
-				end_game = true;
-			}
+			shotVector.clear();
 		//------------------------------------------------------------------------------------------
 		}
 		else //Player 2 turn
@@ -189,58 +199,63 @@ void Client::PlayerVsPlayer(int num_ships)
 			player2->printShootBoard(); //prints shoot board
 			std::cout << "X = hit, * = miss\n\n";
 
-			std::string shot;
 			bool valid_input = false; //Makes sure that user input is good before advancing
 			while (valid_input == false) //start input loop
 			{
-				std::cout << "Coordinate to fire at: ";
-				std::cin >> shot;
+				shotType = player2->selectShot();
+				shotVector = player2->coordinateShot(shotType);
+				valid_input = player2->validateShot(shotVector);
+			} //end input loop
 
-				if((CheckShotInput(shot) == false) || (std::cin.fail())) //Is the user input good?
+			player2->depleteSpecialShot(shotType);		
+		
+			//iterate through shotVector
+			for(auto& shot: shotVector)
+			{
+				std::cout << "\nFIRE!!!\n";
+
+				if (player1->isHit(shot) == true) //Is it a hit?
 				{
-					std::cin.clear();
-					std::cin.ignore();
-					std::cout << "\nConnection to missiles lost... Please enter a valid input..\n";
-					std::cout << "Valid inputs are A through I and 1 through 9, i.e. A2 A5\n\n";
-				}
-				else
-				{
-					if (player2->uniqueShot(shot) == true) //Is the shot unique?
+					player2->markShot(shot, true);
+					std::cout << "BANG!!!";
+
+					if (player1->isSunk(shot) == true) //Is it a sunk?
 					{
-						std::cout << "\nFIRE!!!\n";
-						valid_input = true;
+						std::cout << "\nYou have sunk their ship with that shot!\n";
+						shipSunk = player1->getShipSunk();
+						player1->resetShipSunk();
+
+						player2->acquireSpecialShot(shipSunk);
 					}
 					else
 					{
-						std::cout << "\nCaptain! We have already shot at that location!\n";
+						std::cout << "\nThats a hit!\n";
 					}
-				}
-			} //end input loop
-			if (player1->isHit(shot) == true) //Is it a hit?
-			{
-				player2->markShot(shot, true);
-				std::cout << "BANG!!!";
-				if (player1->isSunk(shot) == true) //Is it a sunk?
-				{
-					std::cout << "\nYou have sunk their ship with that shot!\n";
 				}
 				else
 				{
-					std::cout << "\nThats a hit!\n";
+					if(!player2->uniqueShot(shot))
+					{
+						std::cout << "SPLASH!!!\n";
+						std::cout << "You only hit debris!\n";
+					}
+					else
+					{
+						player2->markShot(shot, false);
+						std::cout << "SPLASH!!!\n";
+						std::cout << "You hit empty waters.\n";
+					}
+				}
+				if (player1->shipsRemaining() == 0) //Game win condition
+				{
+					std::cout << "\n##########- PLAYER 2 HAS WON THE GAME!!! -##########\n";
+					player2->printShootBoard();
+					std::cout << "##########- PLAYER 2 HAS WON THE GAME!!! -##########\n";
+					end_game = true;
+					break;
 				}
 			}
-			else
-			{
-				player2->markShot(shot, false);
-				std::cout << "bloooop.....the missile was off-target.\n";
-			}
-			if (player1->shipsRemaining() == 0) //Game win condition
-			{
-				std::cout << "\n##########- PLAYER 2 HAS WON THE GAME!!! -##########\n";
-				player2->printShootBoard();
-				std::cout << "##########- PLAYER 2 HAS WON THE GAME!!! -##########\n";
-				end_game = true;
-			}
+			shotVector.clear();
 		} //end of turn selection
 		if (turn == false) //Switch turns
 		{
@@ -400,7 +415,7 @@ bool Client::CheckShotInput(std::string shot_check)
 			return true; //Then the input is good!
 		}
 	}
-	 return false;
+	return false;
 }
 
 Client::Client(){ // constructor that defaults to the ship count being 3
