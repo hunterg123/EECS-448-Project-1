@@ -25,7 +25,7 @@ class AI
 	bool isSunk();
 	int getShipsRemaining();
 
-        void addCoords(string c);
+        void addCoords(string c); // Function to add coords to the list when passed in by user
 
 	private:
 	int difficulty;
@@ -34,8 +34,9 @@ class AI
 
         Boards ship_board;
         Boards shoot_board;
+        void shootCoords(vector<string> coords); // Function to update the coords list after a shot
 
-        vector<string> m_coordsList;
+        vector<string> m_coordsList; // list of coordinates to be shot at
 
 
 };

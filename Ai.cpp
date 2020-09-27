@@ -109,9 +109,11 @@ std::string AI::easyMove()
 
 void AI::hardMove()
 {
+  shootCoords(m_coordsList);
+  // Shoot(coords list, board)
+  // Update coords list
 
 }
-
 
 void AI::mediumMove()
 {
@@ -168,4 +170,9 @@ int AI::getShipsRemaining(){
   int ships_remaining = 0;
   for (int i = 0; i < num_ships; i++) if (ship_healths[i] > 0) ships_remaining++;
   return ships_remaining;
+}
+
+void AI::shootCoords(vector<string> coords)
+{
+  coords.pop_back();
 }
