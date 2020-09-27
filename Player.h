@@ -118,7 +118,13 @@ class Player
 
 				std::vector<std::string> coordinateSpecialShot(int shotType);
 
-				std::vector<std::string> getShotVector(std:string pivotCoord, std::string pivotDirection, int shotType);
+				std::vector<std::string> getShotVector(std::string pivotCoord, char pivotDirection, int shotType);
+
+				std::string getShipSunk();
+
+				void resetShipSunk();
+
+				void acquireSpecialShot(std::string shipSunk);
 
 				//void markSpecialShot(std::vector<std::string> coordVector);
 
