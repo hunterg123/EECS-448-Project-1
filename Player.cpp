@@ -911,18 +911,12 @@ bool Player::validCoord(std::string coord)
 		valid = false;
 	}
 
-	if(!valid)
-	{
-		std::cout << "\nConnection to missiles lost... Please enter a valid input..\n";
-		std::cout << "Valid inputs are A through I and 1 through 9, i.e. A2 A5\n\n";
-	}
-
 	return valid;
 }
 
-bool validShots(std::vector<std::string shotVector)
+bool Player::validShots(std::vector<std::string> shotVector)
 {
-	int numDuplicates = 0;
+	unsigned int numDuplicates = 0;
 	std::string shot;
 
 	if(shotVector.size() == 1) //single shot selected
@@ -961,14 +955,17 @@ bool validShots(std::vector<std::string shotVector)
 				if(!uniqueShot(shot))
 				{
 					numDuplicates++;
+					std::cout << "\nCaptain! We have already shot at that location!\n";
 				}
 			}
 		}
 
 		if(numDuplicates == shotVector.size())
 		{
+			std::cout << "Captain! We have already shot at ALL of those locations!\n";
 			return false;
 		}
-		else return true;
 	}
+
+	return true;
 }

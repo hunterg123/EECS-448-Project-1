@@ -69,6 +69,13 @@ class Player
         void placeShips(int number_ships, int player_number);
 
         /**
+         * 	Determines if the user has previously already shot at this location.
+         *  @param shot A string containing the coordinates of where the player is attempting to shoot.
+         *  @returns True if the player has not previously shot at that location, false if they've already shot and hit or missed.
+         */
+        bool uniqueShot(std::string shot);
+
+        /**
          *  If the player's shot successfully hits an enemies ship it will be marked as a hit (X), if they miss it's a miss (*).
          *  @param shot The coordinates of where the user shot at.
          *  @param hit A boolean value containing whether or not the shot was a hit (true) or a miss (false).
@@ -85,13 +92,6 @@ class Player
          * 	Prints out the player's m_ship_board, which is the location of their ships and what their current status are.
          */
         void printShipBoard();
-
-        /**
-         * 	Determines if the user has previously already shot at this location.
-         *  @param shot A string containing the coordinates of where the player is attempting to shoot.
-         *  @returns True if the player has not previously shot at that location, false if they've already shot and hit or missed.
-         */
-        bool uniqueShot(std::string shot);
 
         /**
          * 	Determines whether or not the enemies shot was a hit on one of the player's ships or not.
