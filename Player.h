@@ -114,9 +114,9 @@ class Player
 
 				bool hasSpecialShot();
 
-				int selectSpecialShot();
+				int selectShot();
 
-				std::vector<std::string> coordinateSpecialShot(int shotType);
+				std::vector<std::string> coordinateShot(int shotType);
 
 				std::vector<std::string> getShotVector(std::string pivotCoord, char pivotDirection, int shotType);
 
@@ -130,6 +130,6 @@ class Player
 
 				bool validCoord(std::string coord);
 
-				bool validShots(std::vector<std::string> shotVector);
+				bool validateShot(std::vector<std::string> shotVector);
 };
 #endif

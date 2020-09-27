@@ -18,7 +18,7 @@ class SpecialShot
 	void menu();
 	void acquire(int shotType);
 	void deplete(int shotType);
-	bool inArsenal();
+	bool inArsenal(int shotType);
 
 };
 #endif

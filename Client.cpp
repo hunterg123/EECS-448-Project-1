@@ -104,7 +104,6 @@ void Client::PlayerVsPlayer(int num_ships)
 	int shotType = 0;
 	std::vector<std::string> shotVector;
 	std::string shipSunk;
-	unsigned int duplicateShots = 0;
 
 	player1->placeShips(num_ships, 1);	//let both players place ships
 	std::cout << "\n";
@@ -126,25 +125,12 @@ void Client::PlayerVsPlayer(int num_ships)
 			bool valid_input = false; //Makes sure that user input is good before advancing
 			while (valid_input == false) //start input loop
 			{
-				if(player1->hasSpecialShot())
-				{
-					shotType = player1->selectSpecialShot();
-					shotVector = player1->coordinateSpecialShot(shotType);
-				}
-				else
-				{
-					std::cout << "Coordinate to fire at: ";
-					std::cin >> shot;
-					shotVector.push_back(shot);
-				}
-				valid_input = player1->validShots(shotVector);
+				shotType = player1->selectShot();
+				shotVector = player1->coordinateShot(shotType);
+				valid_input = player1->validateShot(shotVector);
 			} //end input loop
 			
-			//deplete special shot when selected
-			if(shotVector.size() > 1 && shotType > 1)
-			{
-				player1->depleteSpecialShot(shotType);		
-			}
+			player1->depleteSpecialShot(shotType);		
 
 			//iterate through shotVector
 			for(auto& shot: shotVector)
@@ -199,73 +185,13 @@ void Client::PlayerVsPlayer(int num_ships)
 			bool valid_input = false; //Makes sure that user input is good before advancing
 			while (valid_input == false) //start input loop
 			{
-				if(player2->hasSpecialShot())
-				{
-					shotType = player2->selectSpecialShot();
-					shotVector = player2->coordinateSpecialShot(shotType);
-				}
-				else
-				{
-					std::cout << "Coordinate to fire at: ";
-					std::cin >> shot;
-					shotVector.push_back(shot);
-				}
-				//TODO: validate shotVector based on out_of_range and all shot coords land on '*' spots
-
-				if(shotVector.size() == 1) //single shot selected
-				{
-					shot = shotVector[0];
-					if((CheckShotInput(shot) == false) || (std::cin.fail())) //Is the user input good?
-					{
-						std::cin.clear();
-						std::cin.ignore();
-						std::cout << "\nConnection to missiles lost... Please enter a valid input..\n";
-						std::cout << "Valid inputs are A through I and 1 through 9, i.e. A2 A5\n\n";
-					}
-					else
-					{
-						if (player2->uniqueShot(shot) == true) //Is the shot unique?
-						{
-							valid_input = true;
-						}
-						else
-						{
-							std::cout << "\nCaptain! We have already shot at that location!\n";
-						}
-					}
-				}
-				else //special shot selected
-				{
-					duplicateShots = 0;
-
-					for(auto& shot: shotVector)
-					{
-						if(CheckShotInput(shot) == false)
-						{
-							std::cout << "Your special shot is out-of-range!\n\n";
-							valid_input = false;
-							break;
-						}
-						else
-						{
-							if(player2->uniqueShot(shot) == false)
-							{
-								duplicateShots++;
-							}
-						}
-
-						if(duplicateShots < shotVector.size())
-						{
-							valid_input = true;	
-						}
-						else
-						{
-							valid_input = false;
-						}
-					}
-				}
+				shotType = player2->selectShot();
+				shotVector = player2->coordinateShot(shotType);
+				valid_input = player2->validateShot(shotVector);
 			} //end input loop
-			
+
+			player2->depleteSpecialShot(shotType);		
+		
 			//iterate through shotVector
 			for(auto& shot: shotVector)
 			{

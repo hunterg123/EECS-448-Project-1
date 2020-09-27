@@ -90,14 +90,40 @@ void SpecialShot::menu()
 	std::cout << "=============================\n";
 }
 
-bool SpecialShot::inArsenal()
+bool SpecialShot::inArsenal(int shotType)
 {
-	if(m_double || m_triple || m_quad || m_quint || m_sext)
+	switch(shotType)
 	{
-		return true;
+		case 0:
+			if(m_double || m_triple || m_quad || m_quint || m_sext) //any special shot
+			{
+				return true;
+			}
+			break;
+
+		case 1:
+			return true;
+
+		case 2:
+			if(m_double){ return true; }
+			break;
+
+		case 3:
+			if(m_triple){ return true; }
+			break;
+
+		case 4:
+			if(m_quad){ return true; }
+			break;
+
+		case 5:
+			if(m_quint){ return true; }
+			break;
+
+		case 6:
+			if(m_sext){ return true; }
+			break;
 	}
-	else
-	{
-		return false;
-	}
+
+	return false;
 }

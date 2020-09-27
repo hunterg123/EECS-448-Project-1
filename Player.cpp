@@ -649,49 +649,60 @@ int Player::shipsRemaining()
 
 bool Player::hasSpecialShot()
 {
-	return(m_SpecialShot.inArsenal());
+	return(m_SpecialShot.inArsenal(0));
 }
 
-int Player::selectSpecialShot()
+int Player::selectShot()
 {
 	std::string shotType;
-
-	//validate shotType input
-	do
-	{
-		std::cout << "1) Select SINGLE shot\n";
-		std::cout << "2) Select SPECIAL shot\n";
-		std::cout << "Enter your choice: ";
-		std::cin >> shotType;
-
-		if(shotType != "1" && shotType != "2")
-		{
-			std::cout << "Please enter a number (1 or 2).\n";
-		}
-	}while(shotType != "1" && shotType != "2");
 	
-	if(shotType == "2")
+	if(!hasSpecialShot())
 	{
-		m_SpecialShot.menu();	
-
+		shotType = "1";
+	}
+	else
+	{
+		//validate shotType input
 		do
 		{
-			std::cout << "Enter your choice: ";	
+			std::cout << "1) Select SINGLE shot\n";
+			std::cout << "2) Select SPECIAL shot\n";
+			std::cout << "Enter your choice: ";
 			std::cin >> shotType;
 
-			if(shotType != "1" && shotType != "2" && shotType != "3" &&
-				 shotType != "4" && shotType != "5" && shotType != "6")
+			if(shotType != "1" && shotType != "2")
 			{
-				std::cout << "Please enter a number (1-6).\n";
+				std::cout << "Please enter a number (1 or 2).\n";
 			}
-		}while(shotType != "1" && shotType != "2" && shotType != "3" &&
-					 shotType != "4" && shotType != "5" && shotType != "6");
-	}
+		}while(shotType != "1" && shotType != "2");
+		
+		if(shotType == "2")
+		{
+			m_SpecialShot.menu();	
 
+			do
+			{
+				std::cout << "Enter your choice: ";	
+				std::cin >> shotType;
+
+				if(shotType != "1" && shotType != "2" && shotType != "3" &&
+					 shotType != "4" && shotType != "5" && shotType != "6")
+				{
+					std::cout << "Please enter a number (1-6).\n";
+				}
+				else if(!m_SpecialShot.inArsenal(std::stoi(shotType)))
+				{
+					std::cout << "Captain, we don't have that weapon!\n";
+					shotType = "0";
+				}
+			}while(shotType != "1" && shotType != "2" && shotType != "3" &&
+						 shotType != "4" && shotType != "5" && shotType != "6");
+		}
+	}
 	return(std::stoi(shotType));
 }
 
-std::vector<std::string> Player::coordinateSpecialShot(int shotType)
+std::vector<std::string> Player::coordinateShot(int shotType)
 {
 	/*TODO: validate shotVector*/	
 	std::string shotTypeStr;
@@ -914,7 +925,7 @@ bool Player::validCoord(std::string coord)
 	return valid;
 }
 
-bool Player::validShots(std::vector<std::string> shotVector)
+bool Player::validateShot(std::vector<std::string> shotVector)
 {
 	unsigned int numDuplicates = 0;
 	std::string shot;
