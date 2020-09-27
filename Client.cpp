@@ -32,8 +32,10 @@ void Client::RunSetup(){
 				std::cout << "\nStarting the game with " << ship_count << " ships! \n\n";
 				PlayerVsPlayer(ship_count);
 			}
+
 			else if (userChoice == 2)
 			{
+				SelectMode:
 				int difficulty;
 				std::cout << "\n\n========================\nSelect Difficulty\n";
 				std::cout << "1) Easy \n2) Medium \n3) Hard \n";
@@ -44,6 +46,7 @@ void Client::RunSetup(){
 				PlayerVsAI(ship_count, difficulty);
 			}
 			else std::cout << "Not a valid option. Try again.\n";
+			goto SelectMode;
 
   		}
 
