@@ -16,6 +16,11 @@ Player::~Player()
 
 }
 
+vector<string> Player::getCoords()
+{
+  return m_playerCoords;
+}
+
 bool Player::checkValidPlacement(std::string ship_coord1, std::string ship_coord2, int ship_size)
 {
 	if (ship_coord1.length() + ship_coord2.length() != 4) //is it exactly 5 characters long?
@@ -510,6 +515,7 @@ void Player::placeShips(int number_ships, int player_number)
     Ship frigate(1, ship_coord1, ship_coord2, "frigate"); //creates the correct ship
     m_fs_remaining = 1; //updates how many parts of it remain
     markBoard(frigate); //marks it on the map
+    m_playerCoords.push_back(ship_coord2);
     //--------------------------------------------------------------------------------------------------------
 
   }
@@ -530,6 +536,8 @@ void Player::placeShips(int number_ships, int player_number)
     Ship destroyer(2, ship_coord1, ship_coord2, "destroyer");
     m_ds_remaining = 2;
     markBoard(destroyer);
+    m_playerCoords.push_back(ship_coord1);
+    m_playerCoords.push_back(ship_coord2);
 
     //ReplaceNum2size1:
     std::cout << "Where would you like to place your SIZE ONE frigate?: ";
@@ -548,6 +556,7 @@ void Player::placeShips(int number_ships, int player_number)
     Ship frigate(1, ship_coord1, ship_coord2, "frigate");
     m_fs_remaining = 1;
     markBoard(frigate);
+    m_playerCoords.push_back(ship_coord2);
     //--------------------------------------------------------------------------------------------------------
   }
   //--------------------------------------------------------------------------------------------------------
@@ -566,6 +575,8 @@ void Player::placeShips(int number_ships, int player_number)
     Ship submarine(3, ship_coord1, ship_coord2, "submarine");
     m_ss_remaining = 3;
     markBoard(submarine);
+    m_playerCoords.push_back(ship_coord1);
+    m_playerCoords.push_back(ship_coord2);
 
     //ReplaceNum3size2:
     std::cout << "Where would you like to place your SIZE TWO destroyer?: ";
@@ -580,6 +591,8 @@ void Player::placeShips(int number_ships, int player_number)
     Ship destroyer(2, ship_coord1, ship_coord2, "destroyer");
     m_ds_remaining = 2;
     markBoard(destroyer);
+    m_playerCoords.push_back(ship_coord1);
+    m_playerCoords.push_back(ship_coord2);
 
     //ReplaceNum3size1:
     std::cout << "Where would you like to place your SIZE ONE frigate?: ";
@@ -598,6 +611,7 @@ void Player::placeShips(int number_ships, int player_number)
     Ship frigate(1, ship_coord1, ship_coord2, "frigate");
     m_fs_remaining = 1;
     markBoard(frigate);
+    m_playerCoords.push_back(ship_coord2);
     //--------------------------------------------------------------------------------------------------------
   }
   //--------------------------------------------------------------------------------------------------------
@@ -616,6 +630,8 @@ void Player::placeShips(int number_ships, int player_number)
     Ship cruiser(4, ship_coord1, ship_coord2, "cruiser");
     m_cs_remaining = 4;
     markBoard(cruiser);
+    m_playerCoords.push_back(ship_coord1);
+    m_playerCoords.push_back(ship_coord2);
 
     //ReplaceNum4size3:
     std::cout << "Where would you like to place your SIZE THREE submarine?: ";
@@ -630,6 +646,8 @@ void Player::placeShips(int number_ships, int player_number)
     Ship submarine(3, ship_coord1, ship_coord2, "submarine");
     m_ss_remaining = 3;
     markBoard(submarine);
+    m_playerCoords.push_back(ship_coord1);
+    m_playerCoords.push_back(ship_coord2);
 
     //ReplaceNum4size2:
     std::cout << "Where would you like to place your SIZE TWO destroyer?: ";
@@ -644,6 +662,8 @@ void Player::placeShips(int number_ships, int player_number)
     Ship destroyer(2, ship_coord1, ship_coord2, "destroyer");
     m_ds_remaining = 2;
     markBoard(destroyer);
+    m_playerCoords.push_back(ship_coord1);
+    m_playerCoords.push_back(ship_coord2);
 
     //ReplaceNum4size1:
     std::cout << "Where would you like to place your SIZE ONE frigate?: ";
@@ -662,6 +682,7 @@ void Player::placeShips(int number_ships, int player_number)
     Ship frigate(1, ship_coord1, ship_coord2, "frigate");
     m_fs_remaining = 1;
     markBoard(frigate);
+    m_playerCoords.push_back(ship_coord2);
     //--------------------------------------------------------------------------------------------------------
   }
   //--------------------------------------------------------------------------------------------------------
@@ -680,6 +701,8 @@ void Player::placeShips(int number_ships, int player_number)
     Ship battleship(5, ship_coord1, ship_coord2, "battleship");
     m_bs_remaining = 5;
     markBoard(battleship);
+    m_playerCoords.push_back(ship_coord1);
+    m_playerCoords.push_back(ship_coord2);
 
     //ReplaceNum5size4:
     std::cout << "Where would you like to place your SIZE FOUR cruiser?: ";
@@ -694,6 +717,8 @@ void Player::placeShips(int number_ships, int player_number)
     Ship cruiser(4, ship_coord1, ship_coord2, "cruiser");
     m_cs_remaining = 4;
     markBoard(cruiser);
+    m_playerCoords.push_back(ship_coord1);
+    m_playerCoords.push_back(ship_coord2);
 
     //ReplaceNum5size3:
     std::cout << "Where would you like to place your second SIZE THREE submarine?: ";
@@ -708,6 +733,8 @@ void Player::placeShips(int number_ships, int player_number)
     Ship submarine(3, ship_coord1, ship_coord2, "submarine");
     m_ss_remaining = 3;
     markBoard(submarine);
+    m_playerCoords.push_back(ship_coord1);
+    m_playerCoords.push_back(ship_coord2);
 
     //ReplaceNum5size2:
     std::cout << "Where would you like to place your SIZE TWO destroyer?: ";
@@ -722,6 +749,8 @@ void Player::placeShips(int number_ships, int player_number)
     Ship destroyer(2, ship_coord1, ship_coord2, "destroyer");
     m_ds_remaining = 2;
     markBoard(destroyer);
+    m_playerCoords.push_back(ship_coord1);
+    m_playerCoords.push_back(ship_coord2);
 
     //ReplaceNum5size1:
     std::cout << "Where would you like to place your SIZE ONE frigate?: ";
@@ -740,6 +769,7 @@ void Player::placeShips(int number_ships, int player_number)
     Ship frigate(1, ship_coord1, ship_coord2, "frigate");
     m_fs_remaining = 1;
     markBoard(frigate);
+    m_playerCoords.push_back(ship_coord2);
     //--------------------------------------------------------------------------------------------------------
   }
   //--------------------------------------------------------------------------------------------------------
