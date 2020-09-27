@@ -383,7 +383,7 @@ bool Client::CheckShotInput(std::string shot_check)
 		return false;
 	}
 
-	char letter = shot_check[0];
+	char letter = toupper(shot_check[0]);
 	char number = shot_check[1];
 
 	if (( number >= '1' ) && ( number <= '9' ))
@@ -399,10 +399,10 @@ bool Client::CheckShotInput(std::string shot_check)
 
 Client::Client(){ // constructor that defaults to the ship count being 3
 
-   end_program = false;
-	 end_game = false;
-	 ship_count = 3;
-	 turn = false;
+	end_program = false;
+	end_game = false;
+	ship_count = 3;
+	turn = false;
 }
 
 Client::~Client(){	//destructor
