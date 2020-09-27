@@ -24,7 +24,7 @@ class Player
         int m_fs_remaining; //etc.
         int m_ss_remaining; //...
         int m_ds_remaining; //...
-        
+
         /**
          * 	Checks if the coordinates the user entered to place a ship at is valid or not.
          *  It will be valid if the coordinates were entered in the correct format, is trying to be placed vertical or horizontal (not diagonal),
@@ -33,7 +33,7 @@ class Player
          *  @param ship_coord2 The coordinate where their ship will end at.
          *  @param ship_size How large the ship will be (sizes vary between 1 and 5).
          *  @returns True if the coordinates are valid, false if they are invalid.
-         */        
+         */
         bool checkValidPlacement(std::string ship_coord1, std::string ship_coord2, int ship_size);
 
         /**
@@ -107,5 +107,8 @@ class Player
          * 	@returns How many ships the player has remaining that haven't been sunk.
          */
         int shipsRemaining();
+
+        //Shujing -replaceShip
+        void replaceShip(int number_ships, int player_number);
 };
 #endif
