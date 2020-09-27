@@ -255,13 +255,16 @@ void Client::PlayerVsPlayer(int num_ships)
 void Client::PlayerVsAI(int num_ships, int difficulty)
 {
 	Player* player = new Player;		//create each player
+	Player* playerAI = new Player;
 	player->placeShips(num_ships, 1);	//let both players place ships
 	std::cout << "\n";
 
 	AI ai(difficulty, num_ships);
+	std::cout << "AI board\n";
 	ai.printBoard(); // for check now
 
 	end_game = false;
+	turn = false;
 
 	while (end_game == false)
 	{
@@ -325,9 +328,41 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 				player->markShot(shot, false);
 				std::cout << "bloooop.....the missile was off-target.\n";
 			}
+		}
+		else{
+			std::cout << "\nIts AI's turn!\n";
+			std::cout << "\nWHERE AI'VE SHOT\n";
+			std::cout << "Your Ships Remaining: " << player->shipsRemaining() << "\n";
+			playerAI->printShootBoard(); //prints shoot board
+			std::cout << "X = hit, * = miss\n\n";
 
+			if (difficulty == 1){
+				std::string shot = ai.easyMove();
+				std::cout << shot << std::endl;
+				std::cout << "\nFIRE!!!\n";
+				if (player->isHit(shot) == true) //Is it a hit?
+				{
 
-			//break; // implementation only for player now
+					playerAI->markShot(shot, true);
+					std::cout << "BANG!!!";
+					if (player->isSunk(shot) == true) //Is it a sunk?
+					{
+						std::cout << "\n##########- AI HAS WON THE GAME!!! -##########\n";
+						playerAI->printShootBoard();
+						std::cout << "##########- AI HAS WON THE GAME!!! -##########\n";
+						end_game = true;
+					}
+					else
+					{
+						std::cout << "\nThats a hit!\n";
+					}
+				}
+				else
+				{
+					playerAI->markShot(shot, false);
+					std::cout << "bloooop.....the missile was off-target.\n";
+				}
+			}
 		}
 		turn = !turn; // switch turns
 	}
