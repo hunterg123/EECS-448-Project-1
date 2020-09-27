@@ -25,7 +25,7 @@ class AI
 	bool isSunk();
 	int getShipsRemaining();
 
-        void addCoords(string c); // Function to add coords to the list when passed in by user
+        void getCoords(vector<string> coords); // Function to get coords from player class
 
 	private:
 	int difficulty;

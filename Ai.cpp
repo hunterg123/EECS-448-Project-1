@@ -120,9 +120,9 @@ void AI::mediumMove()
 
 }
 
-void AI::addCoords(string c)
+void AI::getCoords(vector<string> coords)
 {
-    m_coordsList.push_back(c);
+    m_coordsList = coords;
 }
 
 bool AI::isHit(std::string shot)
