@@ -101,9 +101,10 @@ void Client::PlayerVsPlayer(int num_ships)
 	Player* player1 = new Player;		//create each player
 	Player* player2 = new Player;
 	std::string shot;
-	int shotType;
+	int shotType = 0;
 	std::vector<std::string> shotVector;
 	std::string shipSunk;
+	unsigned int duplicateShots = 0;
 
 	player1->placeShips(num_ships, 1);	//let both players place ships
 	std::cout << "\n";
@@ -127,23 +128,8 @@ void Client::PlayerVsPlayer(int num_ships)
 			{
 				if(player1->hasSpecialShot())
 				{
-					std::cout << "1) Select SINGLE shot\n";
-					std::cout << "2) Select SPECIAL shot\n";
-					std::cout << "Enter your choice: ";
-					std::cin >> shotType;
-					/*TODO: validate shotType input*/	
-					if(shotType == 1)
-					{
-						std::cout << "Coordinate to fire at: ";
-						std::cin >> shot;
-						shotVector.push_back(shot);
-					}
-					else if(shotType == 2)
-					{
-						shotType = player1->selectSpecialShot();
-						shotVector = player1->coordinateSpecialShot(shotType);
-						/*TODO: validate shotVector*/	
-					}
+					shotType = player1->selectSpecialShot();
+					shotVector = player1->coordinateSpecialShot(shotType);
 				}
 				else
 				{
@@ -151,10 +137,11 @@ void Client::PlayerVsPlayer(int num_ships)
 					std::cin >> shot;
 					shotVector.push_back(shot);
 				}
+				//TODO: validate shotVector based on out_of_range and all shot coords land on '*' spots
 
-				//validate shot coordinate
-				for(auto& shot: shotVector)
+				if(shotVector.size() == 1) //single shot selected
 				{
+					shot = shotVector[0];
 					if((CheckShotInput(shot) == false) || (std::cin.fail())) //Is the user input good?
 					{
 						std::cin.clear();
@@ -174,9 +161,44 @@ void Client::PlayerVsPlayer(int num_ships)
 						}
 					}
 				}
+				else //special shot selected
+				{
+					duplicateShots = 0;
 
+					for(auto& shot: shotVector)
+					{
+						if(CheckShotInput(shot) == false)
+						{
+							std::cout << "Your special shot is out-of-range!\n\n";
+							valid_input = false;
+							break;
+						}
+						else
+						{
+							if(player1->uniqueShot(shot) == false)
+							{
+								duplicateShots++;
+							}
+						}
+
+						if(duplicateShots < shotVector.size())
+						{
+							valid_input = true;	
+						}
+						else
+						{
+							valid_input = false;
+						}
+					}
+				}
 			} //end input loop
 			
+			//deplete special shot when selected
+			if(shotVector.size() > 1 && shotType > 1)
+			{
+				player1->depleteSpecialShot(shotType);		
+			}
+
 			//iterate through shotVector
 			for(auto& shot: shotVector)
 			{
@@ -232,23 +254,8 @@ void Client::PlayerVsPlayer(int num_ships)
 			{
 				if(player2->hasSpecialShot())
 				{
-					std::cout << "1) Select SINGLE shot\n";
-					std::cout << "2) Select SPECIAL shot\n";
-					std::cout << "Enter your choice: ";
-					std::cin >> shotType;
-					/*TODO: validate shotType input*/	
-					if(shotType == 1)
-					{
-						std::cout << "Coordinate to fire at: ";
-						std::cin >> shot;
-						shotVector.push_back(shot);
-					}
-					else if(shotType == 2)
-					{
-						shotType = player2->selectSpecialShot();
-						shotVector = player2->coordinateSpecialShot(shotType);
-						/*TODO: validate shotVector*/	
-					}
+					shotType = player2->selectSpecialShot();
+					shotVector = player2->coordinateSpecialShot(shotType);
 				}
 				else
 				{
@@ -256,10 +263,11 @@ void Client::PlayerVsPlayer(int num_ships)
 					std::cin >> shot;
 					shotVector.push_back(shot);
 				}
+				//TODO: validate shotVector based on out_of_range and all shot coords land on '*' spots
 
-				//validate shot coordinate
-				for(auto& shot: shotVector)
+				if(shotVector.size() == 1) //single shot selected
 				{
+					shot = shotVector[0];
 					if((CheckShotInput(shot) == false) || (std::cin.fail())) //Is the user input good?
 					{
 						std::cin.clear();
@@ -279,7 +287,36 @@ void Client::PlayerVsPlayer(int num_ships)
 						}
 					}
 				}
+				else //special shot selected
+				{
+					duplicateShots = 0;
 
+					for(auto& shot: shotVector)
+					{
+						if(CheckShotInput(shot) == false)
+						{
+							std::cout << "Your special shot is out-of-range!\n\n";
+							valid_input = false;
+							break;
+						}
+						else
+						{
+							if(player2->uniqueShot(shot) == false)
+							{
+								duplicateShots++;
+							}
+						}
+
+						if(duplicateShots < shotVector.size())
+						{
+							valid_input = true;	
+						}
+						else
+						{
+							valid_input = false;
+						}
+					}
+				}
 			} //end input loop
 			
 			//iterate through shotVector
@@ -443,7 +480,7 @@ bool Client::CheckShotInput(std::string shot_check)
 			return true; //Then the input is good!
 		}
 	}
-	 return false;
+	return false;
 }
 
 Client::Client(){ // constructor that defaults to the ship count being 3

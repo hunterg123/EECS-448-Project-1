@@ -126,6 +126,10 @@ class Player
 
 				void acquireSpecialShot(std::string shipSunk);
 
+				void depleteSpecialShot(int shotType);
+
+				bool validCoord(std::string coord);
+
 				//void markSpecialShot(std::vector<std::string> coordVector);
 
 };

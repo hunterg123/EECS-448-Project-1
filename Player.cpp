@@ -656,30 +656,49 @@ int Player::selectSpecialShot()
 {
 	std::string shotType;
 
-	m_SpecialShot.menu();	
+	//validate shotType input
 	do
 	{
-		std::cout << "Enter your choice: ";	
+		std::cout << "1) Select SINGLE shot\n";
+		std::cout << "2) Select SPECIAL shot\n";
+		std::cout << "Enter your choice: ";
 		std::cin >> shotType;
 
-		if(shotType != "1" && shotType != "2" && shotType != "3" &&
-			 shotType != "4" && shotType != "5" && shotType != "6")
-	 	{
-			std::cout << "Please enter a number (1-6).\n";
-	 	}
-	}while(shotType != "1" && shotType != "2" && shotType != "3" &&
-				 shotType != "4" && shotType != "5" && shotType != "6");
+		if(shotType != "1" && shotType != "2")
+		{
+			std::cout << "Please enter a number (1 or 2).\n";
+		}
+	}while(shotType != "1" && shotType != "2");
+	
+	if(shotType == "2")
+	{
+		m_SpecialShot.menu();	
+
+		do
+		{
+			std::cout << "Enter your choice: ";	
+			std::cin >> shotType;
+
+			if(shotType != "1" && shotType != "2" && shotType != "3" &&
+				 shotType != "4" && shotType != "5" && shotType != "6")
+			{
+				std::cout << "Please enter a number (1-6).\n";
+			}
+		}while(shotType != "1" && shotType != "2" && shotType != "3" &&
+					 shotType != "4" && shotType != "5" && shotType != "6");
+	}
 
 	return(std::stoi(shotType));
 }
 
 std::vector<std::string> Player::coordinateSpecialShot(int shotType)
 {
+	/*TODO: validate shotVector*/	
 	std::string shotTypeStr;
 	std::string pivotCoord;
 	char pivotDirection;
-	std::vector<std::string> coordVector;
-	std::string coord;
+	std::vector<std::string> shotVector;
+	std::string shot;
 
 	switch(shotType)
 	{
@@ -710,27 +729,34 @@ std::vector<std::string> Player::coordinateSpecialShot(int shotType)
 
 	if(shotType > 1 && shotType <= 6)
 	{
-		std::cout << "Choose a pivot coordinate for that " << shotTypeStr << " shot (col row): ";
-		//TODO: validate pivotCoord
-		std::cin >> pivotCoord;
-		std::cout << "Up, Down, Left, or Right from pivot? (U, D, L, R): ";
-		//TODO: validate pivotDirection
-		std::cin >> pivotDirection;
+		//validate pivotCoord
+		do{
+			std::cout << "Choose a pivot coordinate for that " << shotTypeStr << " shot (col row): ";
+			std::cin >> pivotCoord;
+		}while(!validCoord(pivotCoord));
 
-		coordVector = getShotVector(pivotCoord, pivotDirection, shotType);
+		//validate pivotDirection
+		do{
+			std::cout << "Up, Down, Left, or Right from pivot? (U, D, L, R): ";
+			std::cin >> pivotDirection;
+			if(pivotDirection != 'U' && pivotDirection != 'D' &&
+				 pivotDirection != 'L' && pivotDirection != 'R')
+			{
+				std::cout << "Please enter U, D, L, or R.\n";
+			}
+		}while(pivotDirection != 'U' && pivotDirection != 'D' &&
+					 pivotDirection != 'L' && pivotDirection != 'R');
+
+		shotVector = getShotVector(pivotCoord, pivotDirection, shotType);
 	}
 	else
 	{
-		std::cout << "Coordinate to fire " << shotTypeStr << " shot (col row): ";
-		//TODO: validate coordinates
-		std::cin >> coord;
-		coordVector.push_back(coord);
+		std::cout << "Coordinate to fire at: ";
+		std::cin >> shot;
+		shotVector.push_back(shot);
 	}
 
-	m_SpecialShot.deplete(shotType);
-
-	return coordVector;
-	//markSpecialShot(coordVector);
+	return shotVector;
 }
 
 std::vector<std::string> Player::getShotVector(std::string pivotCoord, char pivotDirection, int shotType)
@@ -846,6 +872,47 @@ void Player::acquireSpecialShot(std::string shipSunk)
 	}
 
 	m_SpecialShot.acquire(shotType);
+}
+
+void Player::depleteSpecialShot(int shotType)
+{
+	m_SpecialShot.deplete(shotType);
+}
+
+bool Player::validCoord(std::string coord)
+{
+	bool valid;
+	char letter = coord[0];
+	char number = coord[1];
+
+	if (coord.length() != 2) //Is it exactly two letter long?
+	{
+		valid = false;
+	}
+	else if (( number >= '1' ) && ( number <= '9' ))
+	{
+		//compares ascii values
+		if ( (letter >= 'A' ) && ( letter <= 'I' )) //Is the alpha within range?
+		{
+			valid = true; //Then the input is good!
+		}
+		else
+		{
+			valid = false;
+		}
+	}
+	else
+	{
+		valid = false;
+	}
+
+	if(!valid)
+	{
+		std::cout << "\nConnection to missiles lost... Please enter a valid input..\n";
+		std::cout << "Valid inputs are A through I and 1 through 9, i.e. A2 A5\n\n";
+	}
+
+	return valid;
 }
 
 /*
