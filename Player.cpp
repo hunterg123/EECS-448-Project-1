@@ -827,31 +827,26 @@ bool Player::isSunk(std::string shot)
   //if there are no more parts of a certain ship left un-hit, then it will be sunk.
   if (m_bs_remaining == 0)
   {
-    m_bs_remaining = 100;
     m_ships_remaining--; //decrements the ships remaining counter since a ship has been sunk
     return true;
   }
   else if (m_cs_remaining == 0)
   {
-    m_cs_remaining = 100;
     m_ships_remaining--;
     return true;
   }
   else if (m_fs_remaining == 0)
   {
-    m_fs_remaining = 100;
     m_ships_remaining--;
     return true;
   }
   else if (m_ss_remaining == 0)
   {
-    m_ss_remaining = 100;
     m_ships_remaining--;
     return true;
   }
   else if (m_ds_remaining == 0)
   {
-    m_ds_remaining = 100;
     m_ships_remaining--;
     return true;
   }
@@ -861,4 +856,339 @@ bool Player::isSunk(std::string shot)
 int Player::shipsRemaining()
 {
   return m_ships_remaining;
+}
+
+bool Player::hasSpecialShot()
+{
+	return(m_SpecialShot.inArsenal(0));
+}
+
+int Player::selectShot()
+{
+	std::string shotType;
+	
+	if(!hasSpecialShot())
+	{
+		shotType = "1";
+	}
+	else
+	{
+		//validate shotType input
+		do
+		{
+			std::cout << "========================\n";
+			std::cout << "1) Select SINGLE shot\n";
+			std::cout << "2) Select SPECIAL shot\n";
+			std::cout << "========================\n";
+			std::cout << "Enter your choice: ";
+			std::cin >> shotType;
+
+			if(shotType != "1" && shotType != "2")
+			{
+				std::cout << "\nPlease enter 1 or 2.\n\n";
+			}
+		}while(shotType != "1" && shotType != "2");
+		
+		if(shotType == "2")
+		{
+			do
+			{
+				m_SpecialShot.menu();	
+				std::cout << "Enter your choice: ";	
+				std::cin >> shotType;
+
+				if(shotType != "1" && shotType != "2" && shotType != "3" &&
+					 shotType != "4" && shotType != "5" && shotType != "6")
+				{
+					std::cout << "\nPlease enter a number (1-6).\n";
+				}
+				else if(!m_SpecialShot.inArsenal(std::stoi(shotType)))
+				{
+					std::cout << "\nCaptain, we don't have that weapon!\n";
+					shotType = "0";
+				}
+			}while(shotType != "1" && shotType != "2" && shotType != "3" &&
+						 shotType != "4" && shotType != "5" && shotType != "6");
+		}
+	}
+	return(std::stoi(shotType));
+}
+
+std::vector<std::string> Player::coordinateShot(int shotType)
+{
+	/*TODO: validate shotVector*/	
+	std::string shotTypeStr;
+	std::string pivotCoord;
+	char pivotDirection;
+	std::vector<std::string> shotVector;
+	std::string shot;
+
+	switch(shotType)
+	{
+		case 1:
+			shotTypeStr = "SINGLE";
+			break;
+
+		case 2:
+			shotTypeStr = "DOUBLE";
+			break;
+
+		case 3:
+			shotTypeStr = "TRIPLE";
+			break;
+
+		case 4:
+			shotTypeStr = "QUADRUPLE";
+			break;
+
+		case 5:
+			shotTypeStr = "QUINTUPLE";
+			break;
+
+		case 6:
+			shotTypeStr = "SEXTUPLE";
+			break;
+	}
+
+	if(shotType > 1 && shotType <= 6)
+	{
+		//validate pivotCoord
+		do{
+			std::cout << "Choose a pivot coordinate for that " << shotTypeStr << " shot (col row): ";
+			std::cin >> pivotCoord;
+			if(!validCoord(pivotCoord))
+			{
+				std::cout << "\nConnection to missiles lost... Please enter a valid input..\n";
+				std::cout << "Valid inputs are A through I and 1 through 9, i.e. A2 A5\n\n";
+			}
+		}while(!validCoord(pivotCoord));
+
+		//validate pivotDirection
+		do{
+			std::cout << "Up, Down, Left, or Right from pivot? (U, D, L, R): ";
+			std::cin >> pivotDirection;
+			if(pivotDirection != 'U' && pivotDirection != 'D' &&
+				 pivotDirection != 'L' && pivotDirection != 'R')
+			{
+				std::cout << "Please enter U, D, L, or R.\n";
+			}
+		}while(pivotDirection != 'U' && pivotDirection != 'D' &&
+					 pivotDirection != 'L' && pivotDirection != 'R');
+
+		shotVector = getShotVector(pivotCoord, pivotDirection, shotType);
+	}
+	else
+	{
+		std::cout << "Coordinate to fire at: ";
+		std::cin >> shot;
+		shotVector.push_back(shot);
+	}
+
+	return shotVector;
+}
+
+std::vector<std::string> Player::getShotVector(std::string pivotCoord, char pivotDirection, int shotType)
+{
+	//TODO: pre: inputs must be valid
+
+	int row = pivotCoord[1] - '0';
+	char col = pivotCoord[0];
+	std::vector<std::string> coordVector;
+	std::string coord;
+
+	for(int i = shotType; i > 0; i--)
+	{
+		coord = col + std::to_string(row);	
+		switch(pivotDirection)
+		{
+			case 'U':
+				row--;
+				break;
+
+			case 'D':
+				row++;
+				break;
+
+			case 'L':
+				col--;
+				break;
+
+			case 'R':
+				col++;
+				break;
+		}
+		coordVector.push_back(coord);				
+	}
+		
+	return coordVector;
+}
+
+std::string Player::getShipSunk()
+{
+  if (m_bs_remaining == 0)
+  {
+    return "battleship";
+  }
+  else if (m_cs_remaining == 0)
+  {
+    return "cruiser";
+  }
+  else if (m_ss_remaining == 0)
+  {
+    return "submarine";
+  }
+  else if (m_ds_remaining == 0)
+  {
+    return "destroyer";
+  }      
+  else if (m_fs_remaining == 0)
+  {
+    return "frigate";
+  }
+
+  return "noShip";
+}
+
+void Player::resetShipSunk()
+{
+	//if there are no more parts of a certain ship left un-hit, then it will be sunk.
+  if (m_bs_remaining == 0)
+  {
+    m_bs_remaining = 100;
+  }
+  else if (m_cs_remaining == 0)
+  {
+    m_cs_remaining = 100;
+  }
+  else if (m_ss_remaining == 0)
+  {
+    m_ss_remaining = 100;
+  }
+  else if (m_ds_remaining == 0)
+  {
+    m_ds_remaining = 100;
+  }      
+  else if (m_fs_remaining == 0)
+  {
+    m_fs_remaining = 100;
+  }
+}
+
+void Player::acquireSpecialShot(std::string shipSunk)
+{
+	int shotType;
+
+	if(shipSunk == "battleship")
+	{
+		shotType = 6;
+	}
+	else if(shipSunk == "cruiser")
+	{
+		shotType = 5;
+	}
+	else if(shipSunk == "submarine")
+	{
+		shotType = 4;
+	}
+	else if(shipSunk == "destroyer")
+	{
+		shotType = 3;
+	}
+	else if(shipSunk == "frigate")
+	{
+		shotType = 2;
+	}
+
+	m_SpecialShot.acquire(shotType);
+}
+
+void Player::depleteSpecialShot(int shotType)
+{
+	m_SpecialShot.deplete(shotType);
+}
+
+bool Player::validCoord(std::string coord)
+{
+	bool valid;
+	char letter = coord[0];
+	char number = coord[1];
+
+	if (coord.length() != 2) //Is it exactly two letter long?
+	{
+		valid = false;
+	}
+	else if (( number >= '1' ) && ( number <= '9' ))
+	{
+		//compares ascii values
+		if ( (letter >= 'A' ) && ( letter <= 'I' )) //Is the alpha within range?
+		{
+			valid = true; //Then the input is good!
+		}
+		else
+		{
+			valid = false;
+		}
+	}
+	else
+	{
+		valid = false;
+	}
+
+	return valid;
+}
+
+bool Player::validateShot(std::vector<std::string> shotVector)
+{
+	unsigned int numDuplicates = 0;
+	std::string shot;
+
+	if(shotVector.size() == 1) //single shot selected
+	{
+		shot = shotVector[0];
+		if(!validCoord(shot)) //Is the user input good?
+		{
+			std::cout << "\nConnection to missiles lost... Please enter a valid input..\n";
+			std::cout << "Valid inputs are A through I and 1 through 9, i.e. A2 A5\n\n";
+			return false;
+		}
+		else
+		{
+			if(uniqueShot(shot)) //Is the shot unique?
+			{
+				return true;	
+			}
+			else
+			{
+				std::cout << "\nCaptain! We have already shot at that location!\n\n";
+				return false;
+			}
+		}
+	}
+	else //special shot selected
+	{
+		for(auto& shot: shotVector)
+		{
+			if(!validCoord(shot))
+			{
+				std::cout << "\nYour special shot is out-of-range!\n\n";
+				return false;
+			}
+			else
+			{
+				if(!uniqueShot(shot))
+				{
+					numDuplicates++;
+				}
+			}
+		}
+
+		if(numDuplicates == shotVector.size())
+		{
+			std::cout << "\nCaptain! That area is only filled with debris!\n";
+			std::cout << "Try again!\n\n";
+			return false;
+		}
+	}
+
+	return true;
 }
