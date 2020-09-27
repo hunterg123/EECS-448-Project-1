@@ -90,11 +90,13 @@ void AI::printBoard()
     ship_board.print();
 }
 
-void AI::Move() // Decides which kind of move to make based on difficulty setting
+std::string AI::Move() // Decides which kind of move to make based on difficulty setting
 {
-    if (difficulty == '1') easyMove();
-    else if (difficulty == '2') mediumMove();
-    else hardMove();
+    std::string shot;
+    if (difficulty == 1) shot = easyMove();
+    else if (difficulty == 2) shot = mediumMove();
+    else shot = hardMove();
+    return shot;
 }
 
 std::string AI::easyMove()
@@ -107,13 +109,13 @@ std::string AI::easyMove()
   return shot_coord;
 }
 
-void AI::hardMove()
+std::string AI::hardMove()
 {
 
 }
 
 
-void AI::mediumMove()
+std::string AI::mediumMove()
 {
 
 }

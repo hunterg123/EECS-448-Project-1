@@ -123,7 +123,7 @@ void Client::PlayerVsPlayer(int num_ships)
 			{
 				std::cout << "Coordinate to fire at: ";
 				std::cin >> shot;
-
+				shot[0] = toupper(shot[0]);
 				if((CheckShotInput(shot) == false) || (std::cin.fail())) //Is the user input good?
 				{
 					std::cin.clear();
@@ -160,6 +160,7 @@ void Client::PlayerVsPlayer(int num_ships)
 			else
 			{
 				player1->markShot(shot, false);
+				player2->markEnemyMiss(shot);
 				std::cout << "*bloooop.....the missile was off-target.\n";
 			}
 			if (player2->shipsRemaining() == 0) //Game win condition
@@ -187,7 +188,7 @@ void Client::PlayerVsPlayer(int num_ships)
 			{
 				std::cout << "Coordinate to fire at: ";
 				std::cin >> shot;
-
+				shot[0] = toupper(shot[0]);
 				if((CheckShotInput(shot) == false) || (std::cin.fail())) //Is the user input good?
 				{
 					std::cin.clear();
@@ -224,6 +225,7 @@ void Client::PlayerVsPlayer(int num_ships)
 			else
 			{
 				player2->markShot(shot, false);
+				player1->markEnemyMiss(shot);
 				std::cout << "bloooop.....the missile was off-target.\n";
 			}
 			if (player1->shipsRemaining() == 0) //Game win condition
@@ -284,7 +286,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 			{
 				std::cout << "Coordinate to fire at: ";
 				std::cin >> shot;
-
+				shot[0] = toupper(shot[0]);
 				if((CheckShotInput(shot) == false) || (std::cin.fail())) //Is the user input good?
 				{
 					std::cin.clear();
@@ -337,7 +339,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 			std::cout << "X = hit, * = miss\n\n";
 
 			if (difficulty == 1){
-				std::string shot = ai.easyMove();
+				std::string shot = ai.Move();
 				std::cout << shot << std::endl;
 				std::cout << "\nFIRE!!!\n";
 				if (player->isHit(shot) == true) //Is it a hit?
@@ -360,6 +362,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 				else
 				{
 					playerAI->markShot(shot, false);
+					player->markEnemyMiss(shot);
 					std::cout << "bloooop.....the missile was off-target.\n";
 				}
 			}

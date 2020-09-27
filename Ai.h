@@ -15,10 +15,10 @@ class AI
         void placeShips(); // Places AI ships
         char getShipType(int size); // helper function to figure out which kind of ship the AI needs to place
 
-        void Move();
+        std::string Move();
         std::string easyMove();
-        void mediumMove();
-        void hardMove();
+        std::string mediumMove();
+        std::string hardMove();
 
         void printBoard();
 	bool isHit(std::string shot);

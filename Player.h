@@ -72,6 +72,9 @@ class Player
          */
         void markShot(std::string shot, bool hit);
 
+
+        void markEnemyMiss(std::string shot);
+
         /**
          * 	Prints out the player's m_shoot_board, which is the locations of where they have shot and what the outcome has been.
          */
