@@ -20,27 +20,27 @@ void SpecialShot::acquire(int shotType)
 	switch(shotType)
 	{
 		case 2: 
-			std::cout << "\nA DOUBLE shot was captured!!!\n";
+			std::cout << "A DOUBLE shot was captured!!!\n";
 			m_double++;
 			break;
 
 		case 3:
-			std::cout << "\nA TRIPLE shot was captured!!!\n";
+			std::cout << "A TRIPLE shot was captured!!!\n";
 			m_triple++;
 			break;
 
 		case 4:
-			std::cout << "\nA QUADRUPLE shot was captured!!!\n";
+			std::cout << "A QUADRUPLE shot was captured!!!\n";
 			m_quad++;
 			break;
 
 		case 5:
-			std::cout << "\nA QUINTUPLE shot was captured!!!\n";
+			std::cout << "A QUINTUPLE shot was captured!!!\n";
 			m_quint++;
 			break;
 
 		case 6:
-			std::cout << "\nA SEXTUPLE shot was captured!!!\n";
+			std::cout << "A SEXTUPLE shot was captured!!!\n";
 			m_sext++;
 			break;
 	}

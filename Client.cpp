@@ -157,8 +157,17 @@ void Client::PlayerVsPlayer(int num_ships)
 				}
 				else
 				{
-					player1->markShot(shot, false);
-					std::cout << "*bloooop.....the missile was off-target.\n";
+					if(!player1->uniqueShot(shot))
+					{
+						std::cout << "SPLASH!!!\n";
+						std::cout << "You only hit debris!\n";
+					}
+					else
+					{
+						player1->markShot(shot, false);
+						std::cout << "SPLASH!!!\n";
+						std::cout << "You hit empty waters.\n";
+					}
 				}
 				if (player2->shipsRemaining() == 0) //Game win condition
 				{
@@ -217,8 +226,17 @@ void Client::PlayerVsPlayer(int num_ships)
 				}
 				else
 				{
-					player2->markShot(shot, false);
-					std::cout << "*bloooop.....the missile was off-target.\n";
+					if(!player2->uniqueShot(shot))
+					{
+						std::cout << "SPLASH!!!\n";
+						std::cout << "You only hit debris!\n";
+					}
+					else
+					{
+						player2->markShot(shot, false);
+						std::cout << "SPLASH!!!\n";
+						std::cout << "You hit empty waters.\n";
+					}
 				}
 				if (player1->shipsRemaining() == 0) //Game win condition
 				{

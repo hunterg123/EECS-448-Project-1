@@ -665,34 +665,35 @@ int Player::selectShot()
 		//validate shotType input
 		do
 		{
+			std::cout << "========================\n";
 			std::cout << "1) Select SINGLE shot\n";
 			std::cout << "2) Select SPECIAL shot\n";
+			std::cout << "========================\n";
 			std::cout << "Enter your choice: ";
 			std::cin >> shotType;
 
 			if(shotType != "1" && shotType != "2")
 			{
-				std::cout << "Please enter a number (1 or 2).\n";
+				std::cout << "\nPlease enter 1 or 2.\n\n";
 			}
 		}while(shotType != "1" && shotType != "2");
 		
 		if(shotType == "2")
 		{
-			m_SpecialShot.menu();	
-
 			do
 			{
+				m_SpecialShot.menu();	
 				std::cout << "Enter your choice: ";	
 				std::cin >> shotType;
 
 				if(shotType != "1" && shotType != "2" && shotType != "3" &&
 					 shotType != "4" && shotType != "5" && shotType != "6")
 				{
-					std::cout << "Please enter a number (1-6).\n";
+					std::cout << "\nPlease enter a number (1-6).\n";
 				}
 				else if(!m_SpecialShot.inArsenal(std::stoi(shotType)))
 				{
-					std::cout << "Captain, we don't have that weapon!\n";
+					std::cout << "\nCaptain, we don't have that weapon!\n";
 					shotType = "0";
 				}
 			}while(shotType != "1" && shotType != "2" && shotType != "3" &&
@@ -947,7 +948,7 @@ bool Player::validateShot(std::vector<std::string> shotVector)
 			}
 			else
 			{
-				std::cout << "\nCaptain! We have already shot at that location!\n";
+				std::cout << "\nCaptain! We have already shot at that location!\n\n";
 				return false;
 			}
 		}
@@ -958,7 +959,7 @@ bool Player::validateShot(std::vector<std::string> shotVector)
 		{
 			if(!validCoord(shot))
 			{
-				std::cout << "Your special shot is out-of-range!\n\n";
+				std::cout << "\nYour special shot is out-of-range!\n\n";
 				return false;
 			}
 			else
@@ -966,14 +967,14 @@ bool Player::validateShot(std::vector<std::string> shotVector)
 				if(!uniqueShot(shot))
 				{
 					numDuplicates++;
-					std::cout << "\nCaptain! We have already shot at that location!\n";
 				}
 			}
 		}
 
 		if(numDuplicates == shotVector.size())
 		{
-			std::cout << "Captain! We have already shot at ALL of those locations!\n";
+			std::cout << "\nCaptain! That area is only filled with debris!\n";
+			std::cout << "Try again!\n\n";
 			return false;
 		}
 	}
