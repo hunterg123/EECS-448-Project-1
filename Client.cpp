@@ -32,8 +32,10 @@ void Client::RunSetup(){
 				std::cout << "\nStarting the game with " << ship_count << " ships! \n\n";
 				PlayerVsPlayer(ship_count);
 			}
+
 			else if (userChoice == 2)
 			{
+				SelectMode:
 				int difficulty;
 				std::cout << "\n\n========================\nSelect Difficulty\n";
 				std::cout << "1) Easy \n2) Medium \n3) Hard \n";
@@ -44,6 +46,7 @@ void Client::RunSetup(){
 				PlayerVsAI(ship_count, difficulty);
 			}
 			else std::cout << "Not a valid option. Try again.\n";
+			goto SelectMode;
 
   		}
 
@@ -101,8 +104,10 @@ void Client::PlayerVsPlayer(int num_ships)
 	Player* player2 = new Player;
 
 	player1->placeShips(num_ships, 1);	//let both players place ships
+	player1->replaceShip(num_ships, 1);
 	std::cout << "\n";
 	player2->placeShips(num_ships, 2);
+	player2->replaceShip(num_ships, 2);
 	end_game = false;
 
 	while (end_game == false)
@@ -257,6 +262,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 	Player* player = new Player;		//create each player
 	Player* playerAI = new Player;
 	player->placeShips(num_ships, 1);	//let both players place ships
+	player->replaceShip(num_ships, 1);
 	std::cout << "\n";
 
 	AI ai(difficulty, num_ships);
