@@ -382,7 +382,6 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 					}
 				}
 			}
-<<<<<<< HEAD
 			else if (difficulty == 3){
 				std::string shot = ai.Move();
 				std::cout << shot << std::endl;
@@ -412,15 +411,6 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 					std::cout << "bloooop.....the missile was off-target.\n";
 				}
 			}
-||||||| merged common ancestors
-=======
-			else
-			{
-				ai.markShot(shot, false);
-				player->markEnemyMiss(shot);
-				std::cout << "bloooop.....the missile was off-target.\n";
-			}
->>>>>>> d3901d41b9c3e5213b8e769d4cd5d7b54c21735a
 		}
 		turn = !turn; // switch turns
 	}
