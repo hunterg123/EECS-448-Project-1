@@ -499,7 +499,7 @@ void Player::placeShips(int number_ships, int player_number)
 
   if (number_ships == 1)
   {
-    ReplaceNum1size1:
+    //ReplaceNum1size1:
     std::cout << "Where would you like to place your SIZE ONE frigate?: ";
     std::cin >> ship_coord1;
 		std::cin.clear();
@@ -877,7 +877,7 @@ bool Player::hasSpecialShot()
 int Player::selectShot()
 {
 	std::string shotType;
-	
+
 	if(!hasSpecialShot())
 	{
 		shotType = "1";
@@ -899,13 +899,13 @@ int Player::selectShot()
 				std::cout << "\nPlease enter 1 or 2.\n\n";
 			}
 		}while(shotType != "1" && shotType != "2");
-		
+
 		if(shotType == "2")
 		{
 			do
 			{
-				m_SpecialShot.menu();	
-				std::cout << "Enter your choice: ";	
+				m_SpecialShot.menu();
+				std::cout << "Enter your choice: ";
 				std::cin >> shotType;
 
 				if(shotType != "1" && shotType != "2" && shotType != "3" &&
@@ -927,7 +927,7 @@ int Player::selectShot()
 
 std::vector<std::string> Player::coordinateShot(int shotType)
 {
-	/*TODO: validate shotVector*/	
+	/*TODO: validate shotVector*/
 	std::string shotTypeStr;
 	std::string pivotCoord;
 	char pivotDirection;
@@ -1009,7 +1009,7 @@ std::vector<std::string> Player::getShotVector(std::string pivotCoord, char pivo
 
 	for(int i = shotType; i > 0; i--)
 	{
-		coord = col + std::to_string(row);	
+		coord = col + std::to_string(row);
 		switch(pivotDirection)
 		{
 			case 'U':
@@ -1028,9 +1028,9 @@ std::vector<std::string> Player::getShotVector(std::string pivotCoord, char pivo
 				col++;
 				break;
 		}
-		coordVector.push_back(coord);				
+		coordVector.push_back(coord);
 	}
-		
+
 	return coordVector;
 }
 
@@ -1051,7 +1051,7 @@ std::string Player::getShipSunk()
   else if (m_ds_remaining == 0)
   {
     return "destroyer";
-  }      
+  }
   else if (m_fs_remaining == 0)
   {
     return "frigate";
@@ -1078,7 +1078,7 @@ void Player::resetShipSunk()
   else if (m_ds_remaining == 0)
   {
     m_ds_remaining = 100;
-  }      
+  }
   else if (m_fs_remaining == 0)
   {
     m_fs_remaining = 100;
@@ -1087,7 +1087,7 @@ void Player::resetShipSunk()
 
 void Player::acquireSpecialShot(std::string shipSunk)
 {
-	int shotType;
+	int shotType = 0;
 
 	if(shipSunk == "battleship")
 	{
@@ -1166,7 +1166,7 @@ bool Player::validateShot(std::vector<std::string> shotVector)
 		{
 			if(uniqueShot(shot)) //Is the shot unique?
 			{
-				return true;	
+				return true;
 			}
 			else
 			{
