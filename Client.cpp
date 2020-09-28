@@ -257,13 +257,13 @@ void Client::PlayerVsPlayer(int num_ships)
 void Client::PlayerVsAI(int num_ships, int difficulty)
 {
 	Player* player = new Player;		//create each player
-	Player* playerAI = new Player;
+	//Player* playerAI = new Player;
 	player->placeShips(num_ships, 1);	//let both players place ships
 	std::cout << "\n";
 
 	AI ai(difficulty, num_ships);
 	std::cout << "AI board\n";
-	ai.printBoard(); // for check now
+	ai.printShipBoard(); // for check now
 
 	end_game = false;
 	turn = false;
@@ -313,17 +313,18 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 
 				player->markShot(shot, true);
 				std::cout << "BANG!!!";
-				if (ai.isSunk() == true) //Is it a sunk?
+				if (ai.getShipsRemaining() == 0) //Is it a sunk?
 				{
 					std::cout << "\n##########- PLAYER HAS WON THE GAME!!! -##########\n";
 					player->printShootBoard();
 					std::cout << "##########- PLAYER HAS WON THE GAME!!! -##########\n";
 					end_game = true;
 				}
-				else
+				else if (ai.isSunk(shot))
 				{
-					std::cout << "\nThats a hit!\n";
+					std::cout<< "\nYou have sunk their ship with that shot!\n";
 				}
+				else std::cout << "That's a hit! \n";
 			}
 			else
 			{
@@ -335,7 +336,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 			std::cout << "\nIts AI's turn!\n";
 			std::cout << "\nWHERE AI'VE SHOT\n";
 			std::cout << "Your Ships Remaining: " << player->shipsRemaining() << "\n";
-			playerAI->printShootBoard(); //prints shoot board
+			ai.printShipBoard(); //prints shoot board
 			std::cout << "X = hit, * = miss\n\n";
 
 			if (difficulty == 1){
@@ -345,23 +346,23 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 				if (player->isHit(shot) == true) //Is it a hit?
 				{
 
-					playerAI->markShot(shot, true);
+					ai.markShot(shot, true);
 					std::cout << "BANG!!!";
-					if (player->isSunk(shot) == true) //Is it a sunk?
+					if (player->shipsRemaining() == 0) //Is it a sunk?
 					{
 						std::cout << "\n##########- AI HAS WON THE GAME!!! -##########\n";
-						playerAI->printShootBoard();
+						ai.printShootBoard();
 						std::cout << "##########- AI HAS WON THE GAME!!! -##########\n";
 						end_game = true;
 					}
-					else
+					else if (player->isSunk(shot))
 					{
-						std::cout << "\nThats a hit!\n";
+						std::cout << "One of your ship's was destroyed! \n";
 					}
 				}
 				else
 				{
-					playerAI->markShot(shot, false);
+					ai.markShot(shot, false);
 					player->markEnemyMiss(shot);
 					std::cout << "bloooop.....the missile was off-target.\n";
 				}

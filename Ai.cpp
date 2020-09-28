@@ -20,6 +20,15 @@ char AI::getShipType(int size)
     else return 'F';
 }
 
+int AI::getShipIndex(char type)
+{
+  if (type == 'B') return 4;
+  else if (type == 'C') return 3;
+  else if (type == 'S') return 2;
+  else if (type == 'D') return 1;
+  else return 0;
+}
+
 bool AI::placer(char direction, int row, int col, int size, char shipType)
 {
     if (direction == 'u')
@@ -79,16 +88,14 @@ void AI::placeShips()
             int col = (rand() % 9) + 1; // choose random col to try
             char direction = directions[rand() % 4]; // generate random direction to try
 
-            ship_placed = placer(direction, row, col, i, shipType);
+            ship_placed = placer(direction, row, col, i, shipType); // place the ship
         }
     }
 }
 
 
-void AI::printBoard()
-{
-    ship_board.print();
-}
+void AI::printShootBoard() { shoot_board.print(); }
+void AI::printShipBoard() { ship_board.print(); }
 
 std::string AI::Move() // Decides which kind of move to make based on difficulty setting
 {
@@ -125,45 +132,39 @@ void AI::addCoords(string c)
     m_coordsList.push_back(c);
 }
 
-bool AI::isHit(std::string shot)
+void AI::markShot(std::string shot, bool hit)
 {
-  //if the player's ship was hit, it will enter the correct if statement depending on which type of ship was hit
-  if (ship_board.getpointat(shot) == 'B')
+  if (hit)  //if the shot is a hit
   {
-    ship_board.changepointat(shot, 'X'); //updates it from a B to show its been hit
-    ship_healths[4]--;
-    return true;
+    shoot_board.changepointat(shot, 'X');
   }
-  else if (ship_board.getpointat(shot) == 'C')
+  else      //if it is a miss
   {
-    ship_board.changepointat(shot, 'X'); //same as above
-    ship_healths[3]--;
-    return true;
+    shoot_board.changepointat(shot, '*');
   }
-  else if (ship_board.getpointat(shot) == 'F')
-  {
-    ship_board.changepointat(shot, 'X');
-    ship_healths[0]--;
-    return true;
-  }
-  else if (ship_board.getpointat(shot) == 'S')
-  {
-    ship_board.changepointat(shot, 'X');
-    ship_healths[2]--;
-    return true;
-  }
-  else if (ship_board.getpointat(shot) == 'D')
-  {
-    ship_board.changepointat(shot, 'X');
-    ship_healths[1]--;
-    return true;
-  }
-  return false;
 }
 
-bool AI::isSunk(){
-  if (getShipsRemaining() == 0) return true;
-  else return false;
+bool AI::isHit(std::string shot)
+{
+  char shipType = ship_board.getpointat(shot); // retrieve the type of ship (or '~' for no ship) that was hit
+
+  if (shipType != '~') // check if a ship has been hit
+  {
+    ship_board.changepointat(shot, 'X'); 
+    ship_healths[getShipIndex(shipType)]--; // decrement the ship's health
+    return true;
+  }
+  else // no ship has been hit
+  {
+    ship_board.changepointat(shot, '*');
+    return false;
+  }
+}
+
+bool AI::isSunk(std::string shot){
+  char shipType = ship_board.getpointat(shot);
+  int shipIndex = getShipIndex(shipType);
+  return (ship_healths[shipIndex] == 0);
 }
 
 int AI::getShipsRemaining(){

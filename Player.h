@@ -72,7 +72,7 @@ class Player
          */
         void markShot(std::string shot, bool hit);
 
-
+        //Connor - made new function to show where the enemy has shot at you and missed
         void markEnemyMiss(std::string shot);
 
         /**
