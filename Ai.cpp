@@ -176,3 +176,11 @@ void AI::shootCoords(vector<string> coords)
 {
   coords.pop_back();
 }
+
+void AI::printCoords()
+{
+  for(int i =0; i<m_coordsList.size(); i++)
+  {
+    cout << m_coordsList.at(i) << " ";
+  }
+}

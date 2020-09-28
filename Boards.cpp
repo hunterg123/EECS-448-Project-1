@@ -98,3 +98,9 @@ int* Boards::stoiCoord(std::string coord)
 
 	return intCoord;
 }
+
+
+char** Boards::getBattleBoard()
+{
+  return BattleBoard;
+}

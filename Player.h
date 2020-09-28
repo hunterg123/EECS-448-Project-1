@@ -50,7 +50,7 @@ class Player
         void markBoard(Ship ship);
 
 
-        void getCoordinatesFromBoard(Boards board); // Get coordinates from a given board
+        vector<string> getCoordinatesFromBoard(); // Get coordinates list from a given board
 
 
 

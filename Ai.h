@@ -26,6 +26,7 @@ class AI
 	int getShipsRemaining();
 
         void getCoords(vector<string> coords); // Function to get coords from player class
+        void printCoords();
 
 	private:
 	int difficulty;

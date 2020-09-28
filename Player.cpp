@@ -18,6 +18,7 @@ Player::~Player()
 
 vector<string> Player::getCoords()
 {
+  getCoordinatesFromBoard();
   return m_playerCoords;
 }
 
@@ -1196,4 +1197,51 @@ bool Player::validateShot(std::vector<std::string> shotVector)
 	}
 
 	return true;
+}
+
+vector<string> Player::getCoordinatesFromBoard() // Get coordinates from player class
+{
+  char** board = m_ship_board.getBattleBoard();
+  for(int i=1; i<10; i++)
+  {
+    for(int j=1; j<10; j++)
+    {
+      if(board[i][j] == 'B') // 5 coords
+      {
+        string letter = to_string(i);
+        string number = to_string(j);
+        string coord = letter.append(number);
+        m_playerCoords.push_back(coord);
+      }
+      if(board[i][j] == 'C') // 4 coords
+      {
+        string letter = to_string(i);
+        string number = to_string(j);
+        string coord = letter.append(number);
+        m_playerCoords.push_back(coord);
+      }
+      if(board[i][j] == 'S') // 3 coords
+      {
+        string letter = to_string(i);
+        string number = to_string(j);
+        string coord = letter.append(number);
+        m_playerCoords.push_back(coord);
+      }
+      if(board[i][j] == 'D') // 2 coords
+      {
+        string letter = to_string(i);
+        string number = to_string(j);
+        string coord = letter.append(number);
+        m_playerCoords.push_back(coord);
+      }
+      if(board[i][j] == 'F') // 1 coord
+      {
+        string letter = to_string(i);
+        string number = to_string(j);
+        string coord = letter.append(number);
+        m_playerCoords.push_back(coord);
+      }
+    }
+  }
+  return m_playerCoords;
 }
