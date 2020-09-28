@@ -284,8 +284,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 	std::cout << "AI board\n";
 
 	ai.printShipBoard(); // for check now
-	ai.getCoords(player->getCoords());
-	ai.printCoords();
+	ai.getCoords(player->getCoords()); // Gets the coordinates from the player
 
 	end_game = false;
 	turn = false;
@@ -364,6 +363,35 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 			if (difficulty == 1){
 				std::string shot = ai.Move();
 				std::cout << shot << std::endl;
+				std::cout << "\nFIRE!!!\n";
+				if (player->isHit(shot) == true) //Is it a hit?
+				{
+
+					ai.markShot(shot, true);
+					std::cout << "BANG!!!";
+					if (player->shipsRemaining() == 0) //Is it a sunk?
+					{
+						std::cout << "\n##########- AI HAS WON THE GAME!!! -##########\n";
+						ai.printShootBoard();
+						std::cout << "##########- AI HAS WON THE GAME!!! -##########\n";
+						end_game = true;
+					}
+					else if (player->isSunk(shot))
+					{
+						std::cout << "One of your ship's was destroyed! \n";
+					}
+				}
+				else
+				{
+					ai.markShot(shot, false);
+					player->markEnemyMiss(shot);
+					std::cout << "bloooop.....the missile was off-target.\n";
+				}
+			}
+			else if (difficulty == 3){
+				std::string shot = ai.Move();
+				std::cout << shot << std::endl;
+				ai.printCoords();
 				std::cout << "\nFIRE!!!\n";
 				if (player->isHit(shot) == true) //Is it a hit?
 				{

@@ -1213,37 +1213,37 @@ vector<string> Player::getCoordinatesFromBoard() // Get coordinates from player 
     {
       if(board[i][j] == 'B') // 5 coords
       {
-        string letter = to_string(i);
+        char l = static_cast<char>(i+64);
         string number = to_string(j);
-        string coord = letter.append(number);
+        string coord = l + number;
         m_playerCoords.push_back(coord);
       }
       if(board[i][j] == 'C') // 4 coords
       {
-        string letter = to_string(i);
+        char l = static_cast<char>(i + 64);
         string number = to_string(j);
-        string coord = letter.append(number);
+        string coord = l + number;
         m_playerCoords.push_back(coord);
       }
       if(board[i][j] == 'S') // 3 coords
       {
-        string letter = to_string(i);
+        char l = static_cast<char>(i + 64);
         string number = to_string(j);
-        string coord = letter.append(number);
+        string coord = l + number;
         m_playerCoords.push_back(coord);
       }
       if(board[i][j] == 'D') // 2 coords
       {
-        string letter = to_string(i);
+        char l = static_cast<char>(i + 64);
         string number = to_string(j);
-        string coord = letter.append(number);
+        string coord = l + number;
         m_playerCoords.push_back(coord);
       }
       if(board[i][j] == 'F') // 1 coord
       {
-        string letter = to_string(i);
+        char l = static_cast<char>(i + 64);
         string number = to_string(j);
-        string coord = letter.append(number);
+        string coord = l + number;
         m_playerCoords.push_back(coord);
       }
     }
