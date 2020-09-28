@@ -17,16 +17,12 @@ class AI
                 int getShipsRemaining();
                 bool isHit(std::string shot);
                 bool isSunk(std::string shot);
-                std::string Move();
-
                 void placeShips(); // Places AI ships
                 void printShootBoard();
                 void printShipBoard();
                 void markShot(std::string shot, bool hit);
                 void addCoords(string c);
                 bool placer(char direction, int row, int col, int size, char shipType); // helper function to test whether ships can be placed
-                void placeShips(); // Places AI ships
-                char getShipType(int size); // helper function to figure out which kind of ship the AI needs to place
 
                 string Move();
 
@@ -47,11 +43,6 @@ class AI
 
                 Boards ship_board;
                 Boards shoot_board;
-
-                vector<string> m_coordsList;
-	        int difficulty;
-                int ship_healths[5] = {0, 0, 0, 0, 0};
-                int num_ships;
 
                 void shootCoords(vector<string> coords); // Function to update the coords list after a shot
 
