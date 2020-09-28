@@ -53,49 +53,44 @@ void Client::RunSetup(){
 			}
 
   		}
-
-		if (userChoice == 2){	//###Edit Ship Count -- This checks for the correct num of ships
+		else if (userChoice == 2){	//###Edit Ship Count -- This checks for the correct num of ships
 
 			int userShips = 0;
 
 			std::cout << "\nEnter how many ships you would like next game to be played with (1 - 5): ";
 
-			while (true) {
+			while (true) 
+			{
+				bool valid_num_of_ships = true;
+				std::cin >> userShips;
 
-			bool valid_num_of_ships = true;
-			std::cin >> userShips;
+				if(std::cin.fail()) {
+					valid_num_of_ships = false;
+					std::cin.clear();
+					std::cin.ignore();
+					std::cout << "\n\nPlease enter the number of ships to play with\n\n";
 
-			if(std::cin.fail()) {
-				valid_num_of_ships = false;
-				std::cin.clear();
-				std::cin.ignore();
-				std::cout << "\n\nPlease enter the number of ships to play with\n\n";
+				}
+				if(userShips > 5) {
+					valid_num_of_ships = false;
+					std::cin.clear();
+					std::cin.ignore();
+					std::cout << "\nPlease enter less than 6 ships to play with: ";
 
-			}
-			if(userShips > 5) {
-				valid_num_of_ships = false;
-				std::cin.clear();
-				std::cin.ignore();
-				std::cout << "\nPlease enter less than 6 ships to play with: ";
-
-			}
-			if(userShips <= 0) {
-				valid_num_of_ships = false;
-				std::cin.clear();
-				std::cin.ignore();
-				std::cout << "\nPlease enter at least 1 ship to play with: ";
-
-			}
-			if(valid_num_of_ships == true) {
-
-				break;
-
-			}
-	  }
-		ship_count = userShips;
-		std::cout << "\nGame settings updated to be played with " << ship_count << " ship(s)!\n";
-   }
-		if (userChoice == 3){	//###Exit Program
+				}
+				if(userShips <= 0) {
+					valid_num_of_ships = false;
+					std::cin.clear();
+					std::cin.ignore();
+					std::cout << "\nPlease enter at least 1 ship to play with: ";
+				}
+				
+				if(valid_num_of_ships == true) break;
+	  		}
+			ship_count = userShips;
+			std::cout << "\nGame settings updated to be played with " << ship_count << " ship(s)!\n";
+   		}
+		else if (userChoice == 3){	//###Exit Program
 			end_program = true;
 		}
 }	//end of run conidition
