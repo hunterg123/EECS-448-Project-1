@@ -116,7 +116,7 @@ std::string AI::easyMove()
   return shot_coord;
 }
 
-void AI::hardMove()
+string AI::hardMove()
 {
   shootCoords(m_coordsList);
   // Shoot(coords list, board)

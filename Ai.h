@@ -28,7 +28,7 @@ class AI
                 void placeShips(); // Places AI ships
                 char getShipType(int size); // helper function to figure out which kind of ship the AI needs to place
 
-                void Move();
+                string Move();
 
                 void printBoard();
 
@@ -37,7 +37,7 @@ class AI
 
 
 	private:
-                void hardMove();
+                string hardMove();
                 std::string easyMove();
                 std::string mediumMove();
                 
