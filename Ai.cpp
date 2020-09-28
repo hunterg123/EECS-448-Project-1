@@ -152,7 +152,7 @@ bool AI::isHit(std::string shot)
 
   if (shipType != '~') // check if a ship has been hit
   {
-    ship_board.changepointat(shot, 'X'); 
+    ship_board.changepointat(shot, 'X');
     ship_healths[getShipIndex(shipType)]--; // decrement the ship's health
     return true;
   }
