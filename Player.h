@@ -12,7 +12,7 @@
 #include "Boards.h"
 #include "Ship.h"
 #include <vector>
-#include "AI.h"
+#include "Ai.h"
 
 class Player
 {
@@ -30,7 +30,7 @@ class Player
         int m_ds_remaining; //...
 
 				SpecialShot m_SpecialShot;
-				
+
         /**
          * 	Checks if the coordinates the user entered to place a ship at is valid or not.
          *  It will be valid if the coordinates were entered in the correct format, is trying to be placed vertical or horizontal (not diagonal),

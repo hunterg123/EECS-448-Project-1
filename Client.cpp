@@ -59,7 +59,7 @@ void Client::RunSetup(){
 
 			std::cout << "\nEnter how many ships you would like next game to be played with (1 - 5): ";
 
-			while (true) 
+			while (true)
 			{
 				bool valid_num_of_ships = true;
 				std::cin >> userShips;
@@ -84,7 +84,7 @@ void Client::RunSetup(){
 					std::cin.ignore();
 					std::cout << "\nPlease enter at least 1 ship to play with: ";
 				}
-				
+
 				if(valid_num_of_ships == true) break;
 	  		}
 			ship_count = userShips;
@@ -132,8 +132,8 @@ void Client::PlayerVsPlayer(int num_ships)
 				shotVector = player1->coordinateShot(shotType);
 				valid_input = player1->validateShot(shotVector);
 			} //end input loop
-			
-			player1->depleteSpecialShot(shotType);		
+
+			player1->depleteSpecialShot(shotType);
 
 			//iterate through shotVector
 			for(auto& shot: shotVector)
@@ -203,8 +203,8 @@ void Client::PlayerVsPlayer(int num_ships)
 				valid_input = player2->validateShot(shotVector);
 			} //end input loop
 
-			player2->depleteSpecialShot(shotType);		
-		
+			player2->depleteSpecialShot(shotType);
+
 			//iterate through shotVector
 			for(auto& shot: shotVector)
 			{
@@ -298,7 +298,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 			std::cout << "YOUR CURRENT SHIP STATUS\n";
 			player->printShipBoard(); //prints ship board
 			std::cout << "\nWHERE YOU'VE SHOT\n";
-			std::cout << "Enemy Ships Remaining: " << ai.getShipsRemaining() << "\n";
+			std::cout << "AI Ships Remaining: " << ai.getShipsRemaining() << "\n";
 			player->printShootBoard(); //prints shoot board
 			std::cout << "X = hit, * = miss\n\n";
 
@@ -358,7 +358,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 			std::cout << "\nIts AI's turn!\n";
 			std::cout << "\nWHERE AI'VE SHOT\n";
 			std::cout << "Your Ships Remaining: " << player->shipsRemaining() << "\n";
-			ai.printShipBoard(); //prints shoot board
+			ai.printShootBoard(); //prints shoot board
 			std::cout << "X = hit, * = miss\n\n";
 
 			if (difficulty == 1){
