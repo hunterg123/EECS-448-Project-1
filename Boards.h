@@ -29,7 +29,7 @@ class Boards
 
     /**
 	 *  This method will return the character at the given coordinate. This can be used to see if at those coordinates there is a ship, sea, etc.
-	 *  @param coord A string containing the coordinates in two characters: a letter between A-I (column) and a number between 1-9 (row).
+	 *  @param coord A char string containing the coordinates in two characters: a letter between A-I (column) and a number between 1-9 (row).
 	 *  @returns The corresponding character at those coordinates on the board.
 	 */
     char getpointat(std::string coord);
