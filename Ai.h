@@ -24,12 +24,22 @@ class AI
                 void printShipBoard();
                 void markShot(std::string shot, bool hit);
                 void addCoords(string c);
+                bool placer(char direction, int row, int col, int size, char shipType); // helper function to test whether ships can be placed
+                void placeShips(); // Places AI ships
+                char getShipType(int size); // helper function to figure out which kind of ship the AI needs to place
+
+                void Move();
+
+                void printBoard();
+
+                void getCoords(vector<string> coords); // Function to get coords from player class
+                void printCoords();
+
 
 	private:
+                void hardMove();
                 std::string easyMove();
                 std::string mediumMove();
-                std::string hardMove();
-                bool placer(char direction, int row, int col, int size, char shipType); // helper function to test whether ships can be placed
                 
                 int difficulty;
                 int ship_healths[5] = {0, 0, 0, 0, 0};
@@ -39,6 +49,13 @@ class AI
                 Boards shoot_board;
 
                 vector<string> m_coordsList;
+	        int difficulty;
+                int ship_healths[5] = {0, 0, 0, 0, 0};
+                int num_ships;
+
+                void shootCoords(vector<string> coords); // Function to update the coords list after a shot
+
+                vector<string> m_coordsList; // list of coordinates to be shot at
 };
 
 #endif

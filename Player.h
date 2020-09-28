@@ -12,6 +12,7 @@
 #include "Boards.h"
 #include "Ship.h"
 #include <vector>
+#include "AI.h"
 
 class Player
 {
@@ -20,6 +21,7 @@ class Player
         Boards m_shoot_board;           //Contains where the player has shot, hit, or sunk the enemies ships.
         std::string m_player_number;    //Are they player one or player two?
         int m_ships_remaining;          //How many ships the player has remaining.
+        vector<string> m_playerCoords;  // list of players coordinates
 
         int m_bs_remaining; //How many b's characters remain (haven't been sunk)
         int m_cs_remaining; //How many c characters remain
@@ -47,7 +49,14 @@ class Player
          */
         void markBoard(Ship ship);
 
+
+        vector<string> getCoordinatesFromBoard(); // Get coordinates list from a given board
+
+
+
     public:
+
+        vector<string> getCoords(); // returns players coords
 
         /**
          * 	The default constructor for the Player class.

@@ -282,7 +282,11 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 
 	AI ai(difficulty, num_ships);
 	std::cout << "AI board\n";
+
 	ai.printShipBoard(); // for check now
+	ai.printBoard(); // for check now
+	ai.getCoords(player->getCoords());
+	ai.printCoords();
 
 	end_game = false;
 	turn = false;

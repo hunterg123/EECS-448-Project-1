@@ -116,8 +116,11 @@ std::string AI::easyMove()
   return shot_coord;
 }
 
-std::string AI::hardMove()
+void AI::hardMove()
 {
+  shootCoords(m_coordsList);
+  // Shoot(coords list, board)
+  // Update coords list
 
 }
 
@@ -127,9 +130,9 @@ std::string AI::mediumMove()
 
 }
 
-void AI::addCoords(string c)
+void AI::getCoords(vector<string> coords)
 {
-    m_coordsList.push_back(c);
+    m_coordsList = coords;
 }
 
 void AI::markShot(std::string shot, bool hit)
@@ -171,4 +174,17 @@ int AI::getShipsRemaining(){
   int ships_remaining = 0;
   for (int i = 0; i < num_ships; i++) if (ship_healths[i] > 0) ships_remaining++;
   return ships_remaining;
+}
+
+void AI::shootCoords(vector<string> coords)
+{
+  coords.pop_back();
+}
+
+void AI::printCoords()
+{
+  for(int i =0; i<m_coordsList.size(); i++)
+  {
+    cout << m_coordsList.at(i) << " ";
+  }
 }
