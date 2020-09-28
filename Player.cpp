@@ -763,6 +763,11 @@ void Player::markShot(std::string shot, bool hit)
   }
 }
 
+void Player::markEnemyMiss(std::string shot)
+{
+  m_ship_board.changepointat(shot, '*');
+}
+
 void Player::printShootBoard()
 {
   m_shoot_board.print();

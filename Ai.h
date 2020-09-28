@@ -9,35 +9,36 @@ using namespace std;
 class AI
 {
 	public:
-        AI(int my_difficulty, int ships);
-        ~AI();
-        bool placer(char direction, int row, int col, int size, char shipType); // helper function to test whether ships can be placed
-        void placeShips(); // Places AI ships
-        char getShipType(int size); // helper function to figure out which kind of ship the AI needs to place
+                AI(int my_difficulty, int ships);
+                ~AI();
+                
+                char getShipType(int size); // helper function to figure out which kind of ship the AI needs to place based on its size
+                int getShipIndex(char type); /// helper function that will return the index of the ship in the ship_healths array based on its character type
+                int getShipsRemaining();
+                bool isHit(std::string shot);
+                bool isSunk(std::string shot);
+                std::string Move();
 
-        void Move();
-        std::string easyMove();
-        void mediumMove();
-        void hardMove();
-
-        void printBoard();
-	bool isHit(std::string shot);
-	bool isSunk();
-	int getShipsRemaining();
-
-        void addCoords(string c);
+                void placeShips(); // Places AI ships
+                void printShootBoard();
+                void printShipBoard();
+                void markShot(std::string shot, bool hit);
+                void addCoords(string c);
 
 	private:
-	int difficulty;
-        int ship_healths[5] = {0, 0, 0, 0, 0};
-        int num_ships;
+                std::string easyMove();
+                std::string mediumMove();
+                std::string hardMove();
+                bool placer(char direction, int row, int col, int size, char shipType); // helper function to test whether ships can be placed
+                
+                int difficulty;
+                int ship_healths[5] = {0, 0, 0, 0, 0};
+                int num_ships;
 
-        Boards ship_board;
-        Boards shoot_board;
+                Boards ship_board;
+                Boards shoot_board;
 
-        vector<string> m_coordsList;
-
-
+                vector<string> m_coordsList;
 };
 
 #endif

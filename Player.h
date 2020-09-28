@@ -83,6 +83,9 @@ class Player
          */
         void markShot(std::string shot, bool hit);
 
+        //Connor - made new function to show where the enemy has shot at you and missed
+        void markEnemyMiss(std::string shot);
+
         /**
          * 	Prints out the player's m_shoot_board, which is the locations of where they have shot and what the outcome has been.
          */

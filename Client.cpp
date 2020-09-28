@@ -173,6 +173,7 @@ void Client::PlayerVsPlayer(int num_ships)
 					else
 					{
 						player1->markShot(shot, false);
+						player2->markEnemyMiss(shot);
 						std::cout << "SPLASH!!!\n";
 						std::cout << "You hit empty waters.\n";
 					}
@@ -242,6 +243,7 @@ void Client::PlayerVsPlayer(int num_ships)
 					else
 					{
 						player2->markShot(shot, false);
+						player1->markEnemyMiss(shot);
 						std::cout << "SPLASH!!!\n";
 						std::cout << "You hit empty waters.\n";
 					}
@@ -278,14 +280,14 @@ void Client::PlayerVsPlayer(int num_ships)
 void Client::PlayerVsAI(int num_ships, int difficulty)
 {
 	Player* player = new Player;		//create each player
-	Player* playerAI = new Player;
+	//Player* playerAI = new Player;
 	player->placeShips(num_ships, 1);	//let both players place ships
 	player->replaceShip(num_ships, 1);
 	std::cout << "\n";
 
 	AI ai(difficulty, num_ships);
 	std::cout << "AI board\n";
-	ai.printBoard(); // for check now
+	ai.printShipBoard(); // for check now
 
 	end_game = false;
 	turn = false;
@@ -308,7 +310,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 			{
 				std::cout << "Coordinate to fire at: ";
 				std::cin >> shot;
-
+				shot[0] = toupper(shot[0]);
 				if((CheckShotInput(shot) == false) || (std::cin.fail())) //Is the user input good?
 				{
 					std::cin.clear();
@@ -335,17 +337,18 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 
 				player->markShot(shot, true);
 				std::cout << "BANG!!!";
-				if (ai.isSunk() == true) //Is it a sunk?
+				if (ai.getShipsRemaining() == 0) //Is it a sunk?
 				{
 					std::cout << "\n##########- PLAYER HAS WON THE GAME!!! -##########\n";
 					player->printShootBoard();
 					std::cout << "##########- PLAYER HAS WON THE GAME!!! -##########\n";
 					end_game = true;
 				}
-				else
+				else if (ai.isSunk(shot))
 				{
-					std::cout << "\nThats a hit!\n";
+					std::cout<< "\nYou have sunk their ship with that shot!\n";
 				}
+				else std::cout << "That's a hit! \n";
 			}
 			else
 			{
@@ -357,33 +360,34 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 			std::cout << "\nIts AI's turn!\n";
 			std::cout << "\nWHERE AI'VE SHOT\n";
 			std::cout << "Your Ships Remaining: " << player->shipsRemaining() << "\n";
-			playerAI->printShootBoard(); //prints shoot board
+			ai.printShipBoard(); //prints shoot board
 			std::cout << "X = hit, * = miss\n\n";
 
 			if (difficulty == 1){
-				std::string shot = ai.easyMove();
+				std::string shot = ai.Move();
 				std::cout << shot << std::endl;
 				std::cout << "\nFIRE!!!\n";
 				if (player->isHit(shot) == true) //Is it a hit?
 				{
 
-					playerAI->markShot(shot, true);
+					ai.markShot(shot, true);
 					std::cout << "BANG!!!";
-					if (player->isSunk(shot) == true) //Is it a sunk?
+					if (player->shipsRemaining() == 0) //Is it a sunk?
 					{
 						std::cout << "\n##########- AI HAS WON THE GAME!!! -##########\n";
-						playerAI->printShootBoard();
+						ai.printShootBoard();
 						std::cout << "##########- AI HAS WON THE GAME!!! -##########\n";
 						end_game = true;
 					}
-					else
+					else if (player->isSunk(shot))
 					{
-						std::cout << "\nThats a hit!\n";
+						std::cout << "One of your ship's was destroyed! \n";
 					}
 				}
 				else
 				{
-					playerAI->markShot(shot, false);
+					ai.markShot(shot, false);
+					player->markEnemyMiss(shot);
 					std::cout << "bloooop.....the missile was off-target.\n";
 				}
 			}
@@ -404,7 +408,7 @@ bool Client::CheckShotInput(std::string shot_check)
 		return false;
 	}
 
-	char letter = shot_check[0];
+	char letter = toupper(shot_check[0]);
 	char number = shot_check[1];
 
 	if (( number >= '1' ) && ( number <= '9' ))
@@ -420,10 +424,10 @@ bool Client::CheckShotInput(std::string shot_check)
 
 Client::Client(){ // constructor that defaults to the ship count being 3
 
-   end_program = false;
-	 end_game = false;
-	 ship_count = 3;
-	 turn = false;
+	end_program = false;
+	end_game = false;
+	ship_count = 3;
+	turn = false;
 }
 
 Client::~Client(){	//destructor
