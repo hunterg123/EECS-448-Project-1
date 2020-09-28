@@ -118,10 +118,9 @@ std::string AI::easyMove()
 
 string AI::hardMove()
 {
-  shootCoords(m_coordsList);
-  // Shoot(coords list, board)
-  // Update coords list
-
+  string shot = m_coordsList.back();
+  m_coordsList.pop_back();
+  return shot;
 }
 
 
