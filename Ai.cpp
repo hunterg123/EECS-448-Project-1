@@ -5,11 +5,12 @@ AI::AI(int my_difficulty, int ships)
 {
     difficulty = my_difficulty;
     num_ships = ships;
-    for (int i = 0; i < ships; i++) ship_healths[i] = i + 1;
+    cout << num_ships;
+    for (int i = 0; i < num_ships; i++) ship_healths[i] = i + 1;
     placeShips();
 }
 
-AI::~AI() {};
+AI::~AI() {}
 
 char AI::getShipType(int size)
 {
@@ -39,7 +40,6 @@ bool AI::placer(char direction, int row, int col, int size, char shipType)
             for (int j = row; j >= row - size + 1; j--) ship_board.setValue(j, col, shipType);
             return true;
         }
-        return false;
     }
     else if (direction == 'd')
     {
@@ -49,7 +49,6 @@ bool AI::placer(char direction, int row, int col, int size, char shipType)
             for (int j = row; j <= row + size - 1; j++) ship_board.setValue(j, col, shipType);
             return true;
         }
-        return false;
     }
     else if (direction == 'l')
     {
@@ -59,7 +58,6 @@ bool AI::placer(char direction, int row, int col, int size, char shipType)
             for (int j = col; j >= col - size + 1; j--) ship_board.setValue(row, j, shipType);
             return true;
         }
-        return false;
     }
     else
     {
@@ -69,7 +67,6 @@ bool AI::placer(char direction, int row, int col, int size, char shipType)
             for (int j = col; j <= col + size - 1; j++) ship_board.setValue(row, j, shipType);
             return true;
         }
-        return false;
     }
     return false;
 }
@@ -100,9 +97,17 @@ void AI::printShipBoard() { ship_board.print(); }
 std::string AI::Move() // Decides which kind of move to make based on difficulty setting
 {
     std::string shot;
-    if (difficulty == 1) shot = easyMove();
-    else if (difficulty == 2) shot = mediumMove();
-    else shot = hardMove();
+    bool uniqueMove = false;
+
+    while (!uniqueMove) // wait until there is a unique move
+    {
+      if (difficulty == 1) shot = easyMove();
+      else if (difficulty == 2) shot = mediumMove();
+      else shot = hardMove();
+
+      if (shoot_board.getpointat(shot) == '~') uniqueMove = true; // if the AI has not previously shot here this is a valid move
+    }
+
     return shot;
 }
 
@@ -150,8 +155,8 @@ bool AI::isHit(std::string shot)
 
   if (shipType != '~') // check if a ship has been hit
   {
-    ship_board.changepointat(shot, 'X'); 
-    ship_healths[getShipIndex(shipType)]--; // decrement the ship's health
+    //ship_board.changepointat(shot, 'X'); 
+    ship_healths[getShipIndex(shipType)] -= 1; // decrement the ship's health
     return true;
   }
   else // no ship has been hit

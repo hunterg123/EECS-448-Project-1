@@ -5,6 +5,14 @@
 #include "Ai.h"
 #include <vector>
 
+void Client::WaitEnter()
+{
+	cin.ignore();
+	cout << "Press ENTER to end turn...";
+	cin.get();
+	for (int i = 0; i <= 50; i++) cout << endl;
+}
+
 
 void Client::RunSetup(){
 
@@ -93,7 +101,7 @@ void Client::RunSetup(){
 		else if (userChoice == 3){	//###Exit Program
 			end_program = true;
 		}
-}	//end of run conidition
+	}	//end of run conidition
 }	//end of Client::Run
 
 //Connor—Changed name to PlayerVsPlayer as I am adding a PlayerVsAI function
@@ -183,6 +191,7 @@ void Client::PlayerVsPlayer(int num_ships)
 				}
 			}
 			shotVector.clear();
+			WaitEnter();
 		//------------------------------------------------------------------------------------------
 		}
 		else //Player 2 turn
@@ -253,6 +262,7 @@ void Client::PlayerVsPlayer(int num_ships)
 				}
 			}
 			shotVector.clear();
+			WaitEnter();
 		} //end of turn selection
 		if (turn == false) //Switch turns
 		{
@@ -350,6 +360,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 				player->markShot(shot, false);
 				std::cout << "bloooop.....the missile was off-target.\n";
 			}
+			WaitEnter();
 		}
 		else{
 			std::cout << "\nIts AI's turn!\n";
@@ -361,29 +372,30 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 			if (difficulty == 1){
 				std::string shot = ai.Move();
 				std::cout << shot << std::endl;
-				std::cout << "\nFIRE!!!\n";
+				std::cout << "\nFIRE!!! \n";
 				if (player->isHit(shot) == true) //Is it a hit?
 				{
-
 					ai.markShot(shot, true);
-					std::cout << "BANG!!!";
-					if (player->shipsRemaining() == 0) //Is it a sunk?
+					std::cout << "BANG!!! ";
+
+					if (player->isSunk(shot))
 					{
-						std::cout << "\n##########- AI HAS WON THE GAME!!! -##########\n";
-						ai.printShootBoard();
-						std::cout << "##########- AI HAS WON THE GAME!!! -##########\n";
-						end_game = true;
+						std::cout << "One of your ships was destroyed! \n";
 					}
-					else if (player->isSunk(shot))
-					{
-						std::cout << "One of your ship's was destroyed! \n";
-					}
+					else std::cout << "One of your ships has been hit! \n";
 				}
 				else
 				{
 					ai.markShot(shot, false);
 					player->markEnemyMiss(shot);
 					std::cout << "bloooop.....the missile was off-target.\n";
+				}
+				if (player->shipsRemaining() == 0) //Is it a sunk?
+				{
+					std::cout << "\n##########- AI HAS WON THE GAME!!! -##########\n";
+					ai.printShootBoard();
+					std::cout << "##########- AI HAS WON THE GAME!!! -##########\n";
+					end_game = true;
 				}
 			}
 		}
