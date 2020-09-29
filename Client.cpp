@@ -355,9 +355,10 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 		}
 		else{
 			std::cout << "\nIts AI's turn!\n";
-			std::cout << "\nWHERE AI'VE SHOT\n";
+			//std::cout << "\nWHERE AI'VE SHOT\n";
+			std::cout << "AI is shooting at: " << ai.getShotCoord() << "\n";
 			std::cout << "Your Ships Remaining: " << player->shipsRemaining() << "\n";
-			ai.printShootBoard(); //prints shoot board
+			//ai.printShootBoard(); //prints shoot board
 			std::cout << "X = hit, * = miss\n\n";
 
 			std::string shot = ai.Move();
