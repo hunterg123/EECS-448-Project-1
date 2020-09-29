@@ -116,7 +116,8 @@ std::string AI::easyMove()
   srand(time(NULL));
   std::string letter = "ABCDEFGHI";
   rowNum = rand()%9;
-  colNum = (rand() % 9) + 1;  if (shoot_board.getValue(colNum,rowNum+1) != 'X' && shoot_board.getValue(colNum,rowNum+1) != '*'){
+  colNum = (rand() % 9) + 1;
+  if (shoot_board.getValue(colNum,rowNum+1) != 'X' && shoot_board.getValue(colNum,rowNum+1) != '*'){
     row = string (1, letter[rowNum]);
     col = to_string(colNum);
     shot_coord = row + col;
