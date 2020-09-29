@@ -835,7 +835,6 @@ bool Player::isHit(std::string shot)
 
 bool Player::isSunk(std::string shot)
 {
-  std::cout <<m_ships_remaining <<std::endl;
   //if there are no more parts of a certain ship left un-hit, then it will be sunk.
   if (m_bs_remaining == 0)
   {
