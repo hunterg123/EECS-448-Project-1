@@ -117,17 +117,16 @@ std::string AI::easyMove()
   std::string letter = "ABCDEFGHI";
   rowNum = rand()%9;
   colNum = (rand() % 9) + 1;
-  row = string (1, letter[rowNum]);
-  col = to_string(colNum);
-  shot_coord = row + col;
-  if (shoot_board.getValue(rowNum,colNum-1) != 'X' && shoot_board.getValue(rowNum,colNum-1) != '*'){
-    return shot_coord;
+  if (shoot_board.getValue(colNum,rowNum+1) != 'X' && shoot_board.getValue(colNum,rowNum+1) != '*'){
+    row = string (1, letter[rowNum]);
+    col = to_string(colNum);
+    shot_coord = row + col;
   }
   else{
-    while (shoot_board.getValue(rowNum,colNum-1) == 'X' && shoot_board.getValue(rowNum,colNum-1) == '*'){
+    while (shoot_board.getValue(colNum,rowNum+1) == 'X' || shoot_board.getValue(colNum,rowNum+1) == '*'){
       rowNum = rand()%9;
       colNum = (rand() % 9) + 1;
-      cout << "repeat\n";
+
     }
     row = string (1, letter[rowNum]);
     col = to_string(colNum);
