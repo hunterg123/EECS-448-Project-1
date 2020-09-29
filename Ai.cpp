@@ -143,10 +143,46 @@ string AI::hardMove()
 }
 
 
-std::string AI::mediumMove()
+string AI::getOrthogonalMove(int row, int col)
 {
-
+  for(unsigned int i = 0; i < m_coordsList.size(); i++)
+  {
+      string potential = m_coordsList.at(i);
+      if (shoot_board.getpointat(potential) != 'X')
+      {
+        int v_col = potential[0] - 64;
+        int v_row = potential[1] - 48;
+        
+        if ((row - v_row == 0 && abs(col - v_col) == 1)  || (abs(row - v_row) == 1 && col - v_col == 0))
+        {
+          return potential;
+        }
+      }
+  }
+  return "";
 }
+
+string AI::mediumMove()
+{
+  bool orthognalMove = false;
+  string shot = "";
+
+  for (int i = 1; i < 10; i++)
+  {
+    for (int j = 1; j < 10; j++)
+    {
+      if (shoot_board.getValue(i, j) == 'X')
+      {
+        string shot = getOrthogonalMove(i, j);
+        if (shot != "") return shot;
+      }
+    }
+  }
+  cout << "coudlnt find orth move \n";
+  shot = easyMove();
+  return shot;
+}
+
 
 void AI::getCoords(vector<string> coords)
 {
@@ -171,15 +207,11 @@ bool AI::isHit(std::string shot)
 
   if (shipType != '~') // check if a ship has been hit
   {
-    ship_board.changepointat(shot, 'X');
+    //ship_board.changepointat(shot, 'X');
     ship_healths[getShipIndex(shipType)]--; // decrement the ship's health
     return true;
   }
-  else // no ship has been hit
-  {
-    ship_board.changepointat(shot, '*');
-    return false;
-  }
+  else return false;
 }
 
 bool AI::isSunk(std::string shot){

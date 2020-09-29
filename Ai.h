@@ -34,9 +34,10 @@ class AI
 
 	private:
                 string hardMove();
-                std::string easyMove();
-                std::string mediumMove();
-                
+                string easyMove();
+                string mediumMove();
+                string getOrthogonalMove(int row, int col); // helper function for medium move, will check if there is a spot orthogonal to a hit that is another ship
+
                 int difficulty;
                 int ship_healths[5] = {0, 0, 0, 0, 0};
                 int num_ships;
