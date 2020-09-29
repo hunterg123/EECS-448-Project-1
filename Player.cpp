@@ -967,6 +967,8 @@ std::vector<std::string> Player::coordinateShot(int shotType)
 		do{
 			std::cout << "Choose a pivot coordinate for that " << shotTypeStr << " shot (col row): ";
 			std::cin >> pivotCoord;
+			pivotCoord[0] = toupper(pivotCoord[0]);
+
 			if(!validCoord(pivotCoord))
 			{
 				std::cout << "\nConnection to missiles lost... Please enter a valid input..\n";
@@ -978,6 +980,7 @@ std::vector<std::string> Player::coordinateShot(int shotType)
 		do{
 			std::cout << "Up, Down, Left, or Right from pivot? (U, D, L, R): ";
 			std::cin >> pivotDirection;
+			pivotDirection = toupper(pivotDirection);
 			if(pivotDirection != 'U' && pivotDirection != 'D' &&
 				 pivotDirection != 'L' && pivotDirection != 'R')
 			{
@@ -992,6 +995,7 @@ std::vector<std::string> Player::coordinateShot(int shotType)
 	{
 		std::cout << "Coordinate to fire at: ";
 		std::cin >> shot;
+		shot[0] = toupper(shot[0]);
 		shotVector.push_back(shot);
 	}
 
