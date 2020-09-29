@@ -276,6 +276,8 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 {
 	Player* player = new Player;		//create each player
 	//Player* playerAI = new Player;
+	std::vector<std::string> shotVector;
+	int shotType;
 	player->placeShips(num_ships, 1);	//let both players place ships
 	player->replaceShip(num_ships, 1);
 	std::cout << "\n";
@@ -305,53 +307,39 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 			bool valid_input = false; //Makes sure that user input is good before advancing
 			while (valid_input == false) //start input loop
 			{
-				std::cout << "Coordinate to fire at: ";
-				std::cin >> shot;
-				shot[0] = toupper(shot[0]);
-				if((CheckShotInput(shot) == false) || (std::cin.fail())) //Is the user input good?
+				shotType = player->selectShot();
+				shotVector = player->coordinateShot(shotType);
+				valid_input = player->validateShot(shotVector);
+			} //end input loop
+
+			for(auto& shot: shotVector)
+			{
+				if (ai.isHit(shot) == true) //Is it a hit?
 				{
-					std::cin.clear();
-					std::cin.ignore();
-					std::cout << "\nConnection to missiles lost... Please enter a valid input..\n";
-					std::cout << "Valid inputs are A through I and 1 through 9, i.e. A2 A5\n\n";
+					std::cout << "\nFIRE!!!\n";
+					std::cout << "BANG!!!";
+					player->markShot(shot, true);
+					if (ai.getShipsRemaining() == 0) //Is it a sunk?
+					{
+						std::cout << "\n##########- PLAYER HAS WON THE GAME!!! -##########\n";
+						player->printShootBoard();
+						std::cout << "##########- PLAYER HAS WON THE GAME!!! -##########\n";
+						end_game = true;
+					}
+					else if (ai.isSunk(shot))
+					{
+						std::cout<< "\nYou have sunk their ship with that shot!\n";
+					}
+					else std::cout << "That's a hit! \n";
 				}
 				else
 				{
-					if (player->uniqueShot(shot) == true) //Is the shot unique?
-					{
-						std::cout << "\nFIRE!!!\n";
-						valid_input = true;
-					}
-					else
-					{
-			 			std::cout << "\nCaptain! We have already shot at that location!\n";
-					}
+					std::cout << "\nFIRE!!!\n";
+					player->markShot(shot, false);
+					std::cout << "bloooop.....the missile was off-target.\n";
 				}
-			} //end input loop
-
-			if (ai.isHit(shot) == true) //Is it a hit?
-			{
-
-				player->markShot(shot, true);
-				std::cout << "BANG!!!";
-				if (ai.getShipsRemaining() == 0) //Is it a sunk?
-				{
-					std::cout << "\n##########- PLAYER HAS WON THE GAME!!! -##########\n";
-					player->printShootBoard();
-					std::cout << "##########- PLAYER HAS WON THE GAME!!! -##########\n";
-					end_game = true;
-				}
-				else if (ai.isSunk(shot))
-				{
-					std::cout<< "\nYou have sunk their ship with that shot!\n";
-				}
-				else std::cout << "That's a hit! \n";
 			}
-			else
-			{
-				player->markShot(shot, false);
-				std::cout << "bloooop.....the missile was off-target.\n";
-			}
+			shotVector.clear();
 		}
 		else{
 			std::cout << "\nIts AI's turn!\n";
