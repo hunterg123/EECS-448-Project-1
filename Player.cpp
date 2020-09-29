@@ -1211,35 +1211,35 @@ vector<string> Player::getCoordinatesFromBoard() // Get coordinates from player 
   {
     for(int j=1; j<10; j++)
     {
-      if(board[i][j] == 'B') // 5 coords
+      if(board[j][i] == 'B') // 5 coords
       {
         char l = static_cast<char>(i+64);
         string number = to_string(j);
         string coord = l + number;
         m_playerCoords.push_back(coord);
       }
-      if(board[i][j] == 'C') // 4 coords
+      if(board[j][i] == 'C') // 4 coords
       {
         char l = static_cast<char>(i + 64);
         string number = to_string(j);
         string coord = l + number;
         m_playerCoords.push_back(coord);
       }
-      if(board[i][j] == 'S') // 3 coords
+      if(board[j][i] == 'S') // 3 coords
       {
         char l = static_cast<char>(i + 64);
         string number = to_string(j);
         string coord = l + number;
         m_playerCoords.push_back(coord);
       }
-      if(board[i][j] == 'D') // 2 coords
+      if(board[j][i] == 'D') // 2 coords
       {
         char l = static_cast<char>(i + 64);
         string number = to_string(j);
         string coord = l + number;
         m_playerCoords.push_back(coord);
       }
-      if(board[i][j] == 'F') // 1 coord
+      if(board[j][i] == 'F') // 1 coord
       {
         char l = static_cast<char>(i + 64);
         string number = to_string(j);

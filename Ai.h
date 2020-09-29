@@ -44,8 +44,6 @@ class AI
                 Boards ship_board;
                 Boards shoot_board;
 
-                void shootCoords(vector<string> coords); // Function to update the coords list after a shot
-
                 vector<string> m_coordsList; // list of coordinates to be shot at
 };
 
