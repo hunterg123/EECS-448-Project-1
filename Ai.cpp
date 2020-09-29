@@ -120,17 +120,18 @@ std::string AI::easyMove()
   row = string (1, letter[rowNum]);
   col = to_string(colNum);
   shot_coord = row + col;
-  if (shoot_board.getValue(rowNum+1,colNum) != 'X' || shoot_board.getValue(rowNum+1,colNum) != '*'){
+  if (shoot_board.getValue(rowNum,colNum-1) != 'X' && shoot_board.getValue(rowNum,colNum-1) != '*'){
     return shot_coord;
   }
   else{
-    while (shoot_board.getValue(rowNum+1,colNum) == 'X' || shoot_board.getValue(rowNum+1,colNum) == '*'){
+    while (shoot_board.getValue(rowNum,colNum-1) == 'X' && shoot_board.getValue(rowNum,colNum-1) == '*'){
       rowNum = rand()%9;
       colNum = (rand() % 9) + 1;
-      row = string (1, letter[rowNum]);
-      col = to_string(colNum);
-      shot_coord = row + col;
+      cout << "repeat\n";
     }
+    row = string (1, letter[rowNum]);
+    col = to_string(colNum);
+    shot_coord = row + col;
   }
   return shot_coord;
 }
