@@ -108,11 +108,30 @@ std::string AI::Move() // Decides which kind of move to make based on difficulty
 
 std::string AI::easyMove()
 {
+  int rowNum = 0;
+  int colNum = 0;
+  std::string row = " ";
+  std::string col = " ";
+  std:: string shot_coord = " ";
   srand(time(NULL));
   std::string letter = "ABCDEFGHI";
-  std::string row = string (1, letter[rand()%9]);
-  std::string col = to_string((rand() % 9) + 1);
-  std:: string shot_coord = row + col;
+  rowNum = rand()%9;
+  colNum = (rand() % 9) + 1;
+  row = string (1, letter[rowNum]);
+  col = to_string(colNum);
+  shot_coord = row + col;
+  if (shoot_board.getValue(rowNum+1,colNum) != 'X' || shoot_board.getValue(rowNum+1,colNum) != '*'){
+    return shot_coord;
+  }
+  else{
+    while (shoot_board.getValue(rowNum+1,colNum) == 'X' || shoot_board.getValue(rowNum+1,colNum) == '*'){
+      rowNum = rand()%9;
+      colNum = (rand() % 9) + 1;
+      row = string (1, letter[rowNum]);
+      col = to_string(colNum);
+      shot_coord = row + col;
+    }
+  }
   return shot_coord;
 }
 
