@@ -67,7 +67,7 @@ void Client::RunSetup(){
 
 			std::cout << "\nEnter how many ships you would like next game to be played with (1 - 5): ";
 
-			while (true) 
+			while (true)
 			{
 				bool valid_num_of_ships = true;
 				std::cin >> userShips;
@@ -92,7 +92,7 @@ void Client::RunSetup(){
 					std::cin.ignore();
 					std::cout << "\nPlease enter at least 1 ship to play with: ";
 				}
-				
+
 				if(valid_num_of_ships == true) break;
 	  		}
 			ship_count = userShips;
@@ -140,8 +140,8 @@ void Client::PlayerVsPlayer(int num_ships)
 				shotVector = player1->coordinateShot(shotType);
 				valid_input = player1->validateShot(shotVector);
 			} //end input loop
-			
-			player1->depleteSpecialShot(shotType);		
+
+			player1->depleteSpecialShot(shotType);
 
 			//iterate through shotVector
 			for(auto& shot: shotVector)
@@ -212,8 +212,8 @@ void Client::PlayerVsPlayer(int num_ships)
 				valid_input = player2->validateShot(shotVector);
 			} //end input loop
 
-			player2->depleteSpecialShot(shotType);		
-		
+			player2->depleteSpecialShot(shotType);
+
 			//iterate through shotVector
 			for(auto& shot: shotVector)
 			{
@@ -292,7 +292,9 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 
 	AI ai(difficulty, num_ships);
 	std::cout << "AI board\n";
+
 	ai.printShipBoard(); // for check now
+	ai.getCoords(player->getCoords()); // Gets the coordinates from the player
 
 	end_game = false;
 	turn = false;
@@ -305,7 +307,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 			std::cout << "YOUR CURRENT SHIP STATUS\n";
 			player->printShipBoard(); //prints ship board
 			std::cout << "\nWHERE YOU'VE SHOT\n";
-			std::cout << "Enemy Ships Remaining: " << ai.getShipsRemaining() << "\n";
+			std::cout << "AI Ships Remaining: " << ai.getShipsRemaining() << "\n";
 			player->printShootBoard(); //prints shoot board
 			std::cout << "X = hit, * = miss\n\n";
 
@@ -366,29 +368,23 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 			std::cout << "\nIts AI's turn!\n";
 			std::cout << "\nWHERE AI'VE SHOT\n";
 			std::cout << "Your Ships Remaining: " << player->shipsRemaining() << "\n";
-			ai.printShipBoard(); //prints shoot board
+			ai.printShootBoard(); //prints shoot board
 			std::cout << "X = hit, * = miss\n\n";
 
-			if (difficulty == 1){
-				std::string shot = ai.Move();
-				std::cout << shot << std::endl;
-				std::cout << "\nFIRE!!! \n";
-				if (player->isHit(shot) == true) //Is it a hit?
-				{
-					ai.markShot(shot, true);
-					std::cout << "BANG!!! ";
+			std::string shot = ai.Move();
+			std::cout << shot << std::endl;
+			ai.printCoords();
+			std::cout << "\nFIRE!!!\n";
+			if (player->isHit(shot) == true) //Is it a hit?
+			{
 
-					if (player->isSunk(shot))
-					{
-						std::cout << "One of your ships was destroyed! \n";
-					}
-					else std::cout << "One of your ships has been hit! \n";
-				}
-				else
+				ai.markShot(shot, true);
+				std::cout << "BANG!!!\n";
+				if (player->isSunk(shot))
 				{
-					ai.markShot(shot, false);
-					player->markEnemyMiss(shot);
-					std::cout << "bloooop.....the missile was off-target.\n";
+					std::cout << "One of your ship's was destroyed! \n";
+					player->resetShipSunk();
+
 				}
 				if (player->shipsRemaining() == 0) //Is it a sunk?
 				{
@@ -398,6 +394,20 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 					end_game = true;
 				}
 			}
+			else
+			{
+				ai.markShot(shot, false);
+				player->markEnemyMiss(shot);
+				std::cout << "bloooop.....the missile was off-target.\n";
+			}
+			if (player->shipsRemaining() == 0) //Is it a sunk?
+			{
+				std::cout << "\n##########- AI HAS WON THE GAME!!! -##########\n";
+				ai.printShootBoard();
+				std::cout << "##########- AI HAS WON THE GAME!!! -##########\n";
+				end_game = true;
+			}
+
 		}
 		turn = !turn; // switch turns
 	}

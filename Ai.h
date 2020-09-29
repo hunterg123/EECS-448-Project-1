@@ -17,20 +17,27 @@ class AI
                 int getShipsRemaining();
                 bool isHit(std::string shot);
                 bool isSunk(std::string shot);
-                std::string Move();
-
                 void placeShips(); // Places AI ships
                 void printShootBoard();
                 void printShipBoard();
                 void markShot(std::string shot, bool hit);
                 void addCoords(string c);
+                bool placer(char direction, int row, int col, int size, char shipType); // helper function to test whether ships can be placed
+
+                string Move();
+
+                void printBoard();
+
+                void getCoords(vector<string> coords); // Function to get coords from player class
+                void printCoords();
+
 
 	private:
-                std::string easyMove();
-                std::string mediumMove();
-                std::string hardMove();
-                bool placer(char direction, int row, int col, int size, char shipType); // helper function to test whether ships can be placed
-                
+                string hardMove();
+                string easyMove();
+                string mediumMove();
+                string getOrthogonalMove(int row, int col); // helper function for medium move, will check if there is a spot orthogonal to a hit that is another ship
+
                 int difficulty;
                 int ship_healths[5] = {0, 0, 0, 0, 0};
                 int num_ships;
@@ -38,7 +45,7 @@ class AI
                 Boards ship_board;
                 Boards shoot_board;
 
-                vector<string> m_coordsList;
+                vector<string> m_coordsList; // list of coordinates to be shot at
 };
 
 #endif

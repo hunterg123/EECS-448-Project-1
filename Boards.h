@@ -58,6 +58,8 @@ class Boards
 
     int* stoiCoord(std::string coord);
 
+	char** getBattleBoard();
+
   private:
 	char** BattleBoard = nullptr;	//The pointer to the main battleship board used. 
     int sizerow = 10;				//The row size of the board.

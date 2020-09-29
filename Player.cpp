@@ -16,6 +16,12 @@ Player::~Player()
 
 }
 
+vector<string> Player::getCoords()
+{
+  getCoordinatesFromBoard();
+  return m_playerCoords;
+}
+
 bool Player::checkValidPlacement(std::string ship_coord1, std::string ship_coord2, int ship_size)
 {
 	if (ship_coord1.length() + ship_coord2.length() != 4) //is it exactly 5 characters long?
@@ -296,7 +302,7 @@ void Player::replaceShip(int number_ships, int player_number)
   std::cout << '\n';
   m_ship_board.print();
   std::cout <<"==Here is your SHIP POSITION layout==\n";
-  std::cout << "Do you want to Replace your SIZE ONE? (Enter Y to replace, enter other to continue the game): ";
+  std::cout << "Do you want to Replace your ship? (Enter Y to replace, enter other to continue the game): ";
   std::cin >> replacemyship;
 
   if (replacemyship == 'Y')
@@ -493,7 +499,7 @@ void Player::placeShips(int number_ships, int player_number)
 
   if (number_ships == 1)
   {
-    ReplaceNum1size1:
+    //ReplaceNum1size1:
     std::cout << "Where would you like to place your SIZE ONE frigate?: ";
     std::cin >> ship_coord1;
 		std::cin.clear();
@@ -871,7 +877,7 @@ bool Player::hasSpecialShot()
 int Player::selectShot()
 {
 	std::string shotType;
-	
+
 	if(!hasSpecialShot())
 	{
 		shotType = "1";
@@ -893,13 +899,13 @@ int Player::selectShot()
 				std::cout << "\nPlease enter 1 or 2.\n\n";
 			}
 		}while(shotType != "1" && shotType != "2");
-		
+
 		if(shotType == "2")
 		{
 			do
 			{
-				m_SpecialShot.menu();	
-				std::cout << "Enter your choice: ";	
+				m_SpecialShot.menu();
+				std::cout << "Enter your choice: ";
 				std::cin >> shotType;
 
 				if(shotType != "1" && shotType != "2" && shotType != "3" &&
@@ -921,7 +927,7 @@ int Player::selectShot()
 
 std::vector<std::string> Player::coordinateShot(int shotType)
 {
-	/*TODO: validate shotVector*/	
+	/*TODO: validate shotVector*/
 	std::string shotTypeStr;
 	std::string pivotCoord;
 	char pivotDirection;
@@ -1003,7 +1009,7 @@ std::vector<std::string> Player::getShotVector(std::string pivotCoord, char pivo
 
 	for(int i = shotType; i > 0; i--)
 	{
-		coord = col + std::to_string(row);	
+		coord = col + std::to_string(row);
 		switch(pivotDirection)
 		{
 			case 'U':
@@ -1022,9 +1028,9 @@ std::vector<std::string> Player::getShotVector(std::string pivotCoord, char pivo
 				col++;
 				break;
 		}
-		coordVector.push_back(coord);				
+		coordVector.push_back(coord);
 	}
-		
+
 	return coordVector;
 }
 
@@ -1045,7 +1051,7 @@ std::string Player::getShipSunk()
   else if (m_ds_remaining == 0)
   {
     return "destroyer";
-  }      
+  }
   else if (m_fs_remaining == 0)
   {
     return "frigate";
@@ -1072,7 +1078,7 @@ void Player::resetShipSunk()
   else if (m_ds_remaining == 0)
   {
     m_ds_remaining = 100;
-  }      
+  }
   else if (m_fs_remaining == 0)
   {
     m_fs_remaining = 100;
@@ -1081,7 +1087,7 @@ void Player::resetShipSunk()
 
 void Player::acquireSpecialShot(std::string shipSunk)
 {
-	int shotType;
+	int shotType = 0;
 
 	if(shipSunk == "battleship")
 	{
@@ -1160,7 +1166,7 @@ bool Player::validateShot(std::vector<std::string> shotVector)
 		{
 			if(uniqueShot(shot)) //Is the shot unique?
 			{
-				return true;	
+				return true;
 			}
 			else
 			{
@@ -1196,4 +1202,51 @@ bool Player::validateShot(std::vector<std::string> shotVector)
 	}
 
 	return true;
+}
+
+vector<string> Player::getCoordinatesFromBoard() // Get coordinates from player class
+{
+  char** board = m_ship_board.getBattleBoard();
+  for(int i=1; i<10; i++)
+  {
+    for(int j=1; j<10; j++)
+    {
+      if(board[j][i] == 'B') // 5 coords
+      {
+        char l = static_cast<char>(i+64);
+        string number = to_string(j);
+        string coord = l + number;
+        m_playerCoords.push_back(coord);
+      }
+      if(board[j][i] == 'C') // 4 coords
+      {
+        char l = static_cast<char>(i + 64);
+        string number = to_string(j);
+        string coord = l + number;
+        m_playerCoords.push_back(coord);
+      }
+      if(board[j][i] == 'S') // 3 coords
+      {
+        char l = static_cast<char>(i + 64);
+        string number = to_string(j);
+        string coord = l + number;
+        m_playerCoords.push_back(coord);
+      }
+      if(board[j][i] == 'D') // 2 coords
+      {
+        char l = static_cast<char>(i + 64);
+        string number = to_string(j);
+        string coord = l + number;
+        m_playerCoords.push_back(coord);
+      }
+      if(board[j][i] == 'F') // 1 coord
+      {
+        char l = static_cast<char>(i + 64);
+        string number = to_string(j);
+        string coord = l + number;
+        m_playerCoords.push_back(coord);
+      }
+    }
+  }
+  return m_playerCoords;
 }

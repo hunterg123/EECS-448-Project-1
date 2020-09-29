@@ -113,28 +113,85 @@ std::string AI::Move() // Decides which kind of move to make based on difficulty
 
 std::string AI::easyMove()
 {
+  int rowNum = 0;
+  int colNum = 0;
+  std::string row = " ";
+  std::string col = " ";
+  std:: string shot_coord = " ";
   srand(time(NULL));
   std::string letter = "ABCDEFGHI";
-  std::string row = string (1, letter[rand()%9]);
-  std::string col = to_string((rand() % 9) + 1);
-  std:: string shot_coord = row + col;
+  rowNum = rand()%9;
+  colNum = (rand() % 9) + 1;
+  if (shoot_board.getValue(colNum,rowNum+1) != 'X' && shoot_board.getValue(colNum,rowNum+1) != '*'){
+    row = string (1, letter[rowNum]);
+    col = to_string(colNum);
+    shot_coord = row + col;
+  }
+  else{
+    while (shoot_board.getValue(colNum,rowNum+1) == 'X' || shoot_board.getValue(colNum,rowNum+1) == '*'){
+      rowNum = rand()%9;
+      colNum = (rand() % 9) + 1;
+
+    }
+    row = string (1, letter[rowNum]);
+    col = to_string(colNum);
+    shot_coord = row + col;
+  }
   return shot_coord;
 }
 
-std::string AI::hardMove()
+string AI::hardMove()
 {
-
+  string shot = m_coordsList.back();
+  m_coordsList.pop_back();
+  return shot;
 }
 
 
-std::string AI::mediumMove()
+string AI::getOrthogonalMove(int row, int col)
 {
-
+  for(unsigned int i = 0; i < m_coordsList.size(); i++)
+  {
+      string potential = m_coordsList.at(i);
+      if (shoot_board.getpointat(potential) != 'X')
+      {
+        int v_col = potential[0] - 64;
+        int v_row = potential[1] - 48;
+        
+        if ((row - v_row == 0 && abs(col - v_col) == 1)  || (abs(row - v_row) == 1 && col - v_col == 0))
+        {
+          return potential;
+        }
+      }
+  }
+  return "";
 }
 
-void AI::addCoords(string c)
+string AI::mediumMove()
 {
-    m_coordsList.push_back(c);
+  bool orthognalMove = false;
+  string shot = "";
+
+  for (int i = 1; i < 10; i++)
+  {
+    for (int j = 1; j < 10; j++)
+    {
+      if (shoot_board.getValue(i, j) == 'X')
+      {
+        string shot = getOrthogonalMove(i, j);
+        if (shot != "") return shot;
+      }
+    }
+  }
+  cout << "coudlnt find orth move \n";
+  shot = easyMove();
+  return shot;
+}
+
+
+void AI::getCoords(vector<string> coords)
+{
+    m_coordsList = coords;
 }
 
 void AI::markShot(std::string shot, bool hit)
@@ -155,15 +212,11 @@ bool AI::isHit(std::string shot)
 
   if (shipType != '~') // check if a ship has been hit
   {
-    //ship_board.changepointat(shot, 'X'); 
-    ship_healths[getShipIndex(shipType)] -= 1; // decrement the ship's health
+    //ship_board.changepointat(shot, 'X');
+    ship_healths[getShipIndex(shipType)]--; // decrement the ship's health
     return true;
   }
-  else // no ship has been hit
-  {
-    ship_board.changepointat(shot, '*');
-    return false;
-  }
+  else return false;
 }
 
 bool AI::isSunk(std::string shot){
@@ -176,4 +229,12 @@ int AI::getShipsRemaining(){
   int ships_remaining = 0;
   for (int i = 0; i < num_ships; i++) if (ship_healths[i] > 0) ships_remaining++;
   return ships_remaining;
+}
+
+void AI::printCoords()
+{
+  for(int i =0; i<m_coordsList.size(); i++)
+  {
+    cout << m_coordsList.at(i) << " ";
+  }
 }
