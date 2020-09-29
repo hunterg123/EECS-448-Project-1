@@ -393,7 +393,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 		turn = !turn; // switch turns
 	}
 
-
+	delete player;
 } // end_game loop
 
 
