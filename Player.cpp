@@ -302,7 +302,7 @@ void Player::replaceShip(int number_ships, int player_number)
   std::cout << '\n';
   m_ship_board.print();
   std::cout <<"==Here is your SHIP POSITION layout==\n";
-  std::cout << "Do you want to Replace your SIZE ONE? (Enter Y to replace, enter other to continue the game): ";
+  std::cout << "Do you want to Replace your ship? (Enter Y to replace, enter other to continue the game): ";
   std::cin >> replacemyship;
 
   if (replacemyship == 'Y')
@@ -835,6 +835,7 @@ bool Player::isHit(std::string shot)
 
 bool Player::isSunk(std::string shot)
 {
+  std::cout <<m_ships_remaining <<std::endl;
   //if there are no more parts of a certain ship left un-hit, then it will be sunk.
   if (m_bs_remaining == 0)
   {

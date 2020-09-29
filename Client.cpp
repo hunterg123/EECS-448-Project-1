@@ -372,14 +372,8 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 				if (player->isSunk(shot))
 				{
 					std::cout << "One of your ship's was destroyed! \n";
+					player->resetShipSunk();
 
-					if (player->shipsRemaining() == 0) //Is it a sunk?
-					{
-						std::cout << "\n##########- AI HAS WON THE GAME!!! -##########\n";
-						ai.printShootBoard();
-						std::cout << "##########- AI HAS WON THE GAME!!! -##########\n";
-						end_game = true;
-					}
 				}
 			}
 			else
@@ -388,6 +382,14 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 				player->markEnemyMiss(shot);
 				std::cout << "bloooop.....the missile was off-target.\n";
 			}
+			if (player->shipsRemaining() == 0) //Is it a sunk?
+			{
+				std::cout << "\n##########- AI HAS WON THE GAME!!! -##########\n";
+				ai.printShootBoard();
+				std::cout << "##########- AI HAS WON THE GAME!!! -##########\n";
+				end_game = true;
+			}
+
 		}
 		turn = !turn; // switch turns
 	}
