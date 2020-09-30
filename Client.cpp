@@ -278,6 +278,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 	//Player* playerAI = new Player;
 	std::vector<std::string> shotVector;
 	int shotType;
+	std::string shipSunk;
 	player->placeShips(num_ships, 1);	//let both players place ships
 	player->replaceShip(num_ships, 1);
 	std::cout << "\n";
@@ -291,6 +292,8 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 	end_game = false;
 	turn = false;
 
+	//TODO: remove board print
+	ai.printShipBoard();
 	while (end_game == false)
 	{
 		if(turn == false)
@@ -312,31 +315,50 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 				valid_input = player->validateShot(shotVector);
 			} //end input loop
 
+			player->depleteSpecialShot(shotType);
+
 			for(auto& shot: shotVector)
 			{
+				std::cout << "\nFIRE!!!\n";
+
 				if (ai.isHit(shot) == true) //Is it a hit?
 				{
-					std::cout << "\nFIRE!!!\n";
-					std::cout << "BANG!!!";
 					player->markShot(shot, true);
-					if (ai.getShipsRemaining() == 0) //Is it a sunk?
+					std::cout << "BANG!!!";
+
+					if(ai.getShipsRemaining() == 0) //Is it a sunk?
 					{
+						std::cout<< "\nYou have sunk their ship with that shot!\n";
 						std::cout << "\n##########- PLAYER HAS WON THE GAME!!! -##########\n";
 						player->printShootBoard();
 						std::cout << "##########- PLAYER HAS WON THE GAME!!! -##########\n";
 						end_game = true;
+						break;
 					}
 					else if (ai.isSunk(shot))
 					{
 						std::cout<< "\nYou have sunk their ship with that shot!\n";
+						shipSunk = ai.getShipSunk(shot);
+						player->acquireSpecialShot(shipSunk);
 					}
-					else std::cout << "That's a hit! \n";
+					else std::cout << "\nThat's a hit! \n";
+
+					ai.markHit(shot);
 				}
 				else
 				{
-					std::cout << "\nFIRE!!!\n";
-					player->markShot(shot, false);
-					std::cout << "bloooop.....the missile was off-target.\n";
+					if(!player->uniqueShot(shot))
+					{
+						std::cout << "SPLASH!!!\n";
+						std::cout << "You only hit debris!\n";
+					}
+					else
+					{
+						player->markShot(shot, false);
+						//ai.markEnemyMiss(shot);
+						std::cout << "SPLASH!!!\n";
+						std::cout << "You hit empty waters.\n";
+					}
 				}
 			}
 			shotVector.clear();

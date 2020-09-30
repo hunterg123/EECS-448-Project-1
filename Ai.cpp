@@ -251,3 +251,5 @@ void AI::markHit(std::string shot)
 {
 	ship_board.changepointat(shot, 'X');
 }
+
+//TODO: markEnemyMiss(shot) definition equivalent to Player.cpp
