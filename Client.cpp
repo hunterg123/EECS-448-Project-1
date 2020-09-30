@@ -299,8 +299,6 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 	end_game = false;
 	turn = false;
 
-	//TODO: remove board print
-	ai.printShipBoard();
 	while (end_game == false)
 	{
 		if(turn == false)
