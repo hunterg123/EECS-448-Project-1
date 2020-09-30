@@ -8,7 +8,7 @@
 void Client::WaitEnter()
 {
 	cin.ignore();
-	cout << "Press ENTER to end turn...";
+	cout << "\nPress ENTER to end turn...";
 	cin.get();
 	for (int i = 0; i <= 50; i++) cout << endl;
 }
@@ -283,6 +283,9 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 {
 	Player* player = new Player;		//create each player
 	//Player* playerAI = new Player;
+	std::vector<std::string> shotVector;
+	int shotType;
+	std::string shipSunk;
 	player->placeShips(num_ships, 1);	//let both players place ships
 	player->replaceShip(num_ships, 1);
 	std::cout << "\n";
@@ -296,6 +299,8 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 	end_game = false;
 	turn = false;
 
+	//TODO: remove board print
+	ai.printShipBoard();
 	while (end_game == false)
 	{
 		if(turn == false)
@@ -312,55 +317,60 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 			bool valid_input = false; //Makes sure that user input is good before advancing
 			while (valid_input == false) //start input loop
 			{
-				std::cout << "Coordinate to fire at: ";
-				std::cin >> shot;
-				shot[0] = toupper(shot[0]);
-				if((CheckShotInput(shot) == false) || (std::cin.fail())) //Is the user input good?
+				shotType = player->selectShot();
+				shotVector = player->coordinateShot(shotType);
+				valid_input = player->validateShot(shotVector);
+			} //end input loop
+
+			player->depleteSpecialShot(shotType);
+
+			for(auto& shot: shotVector)
+			{
+				std::cout << "\nFIRE!!!\n";
+
+				if (ai.isHit(shot) == true) //Is it a hit?
 				{
-					std::cin.clear();
-					std::cin.ignore();
-					std::cout << "\nConnection to missiles lost... Please enter a valid input..\n";
-					std::cout << "Valid inputs are A through I and 1 through 9, i.e. A2 A5\n\n";
+					player->markShot(shot, true);
+					std::cout << "BANG!!!";
+
+					if(ai.getShipsRemaining() == 0) //Is it a sunk?
+					{
+						std::cout<< "\nYou have sunk their ship with that shot!\n";
+						std::cout << "\n##########- PLAYER HAS WON THE GAME!!! -##########\n";
+						player->printShootBoard();
+						std::cout << "##########- PLAYER HAS WON THE GAME!!! -##########\n";
+						end_game = true;
+						break;
+					}
+					else if (ai.isSunk(shot))
+					{
+						std::cout<< "\nYou have sunk their ship with that shot!\n";
+						shipSunk = ai.getShipSunk(shot);
+						player->acquireSpecialShot(shipSunk);
+					}
+					else std::cout << "\nThat's a hit! \n";
+
+					ai.markHit(shot);
 				}
 				else
 				{
-					if (player->uniqueShot(shot) == true) //Is the shot unique?
+					if(!player->uniqueShot(shot))
 					{
-						std::cout << "\nFIRE!!!\n";
-						valid_input = true;
+						std::cout << "SPLASH!!!\n";
+						std::cout << "You only hit debris!\n";
 					}
 					else
 					{
-			 			std::cout << "\nCaptain! We have already shot at that location!\n";
+						player->markShot(shot, false);
+						//ai.markEnemyMiss(shot);
+						std::cout << "SPLASH!!!\n";
+						std::cout << "You hit empty waters.\n";
 					}
 				}
-			} //end input loop
-
-			if (ai.isHit(shot) == true) //Is it a hit?
-			{
-
-				player->markShot(shot, true);
-				std::cout << "BANG!!!";
-				if (ai.getShipsRemaining() == 0) //Is it a sunk?
-				{
-					std::cout << "\n##########- PLAYER HAS WON THE GAME!!! -##########\n";
-					player->printShootBoard();
-					std::cout << "##########- PLAYER HAS WON THE GAME!!! -##########\n";
-					end_game = true;
-				}
-				else if (ai.isSunk(shot))
-				{
-					std::cout<< "\nYou have sunk their ship with that shot!\n";
-				}
-				else std::cout << "That's a hit! \n";
 			}
-			else
-			{
-				player->markShot(shot, false);
-				std::cout << "bloooop.....the missile was off-target.\n";
-			}
+			shotVector.clear();
 				cin.ignore();
-				cout << "Press ENTER to end turn...";
+				cout << "\nPress ENTER to end turn...";
 				cin.get();
 		}
 		else{
@@ -391,7 +401,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 				end_game = true;
 			}
 				//cin.ignore();
-				cout << "Press ENTER to continue...";
+				cout << "\nPress ENTER to continue...";
 				cin.get();
 		}
 		turn = !turn; // switch turns

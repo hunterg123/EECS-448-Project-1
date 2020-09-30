@@ -27,7 +27,8 @@ int AI::getShipIndex(char type)
   else if (type == 'C') return 3;
   else if (type == 'S') return 2;
   else if (type == 'D') return 1;
-  else return 0;
+	else if (type == 'F') return 0;
+  else return -1;
 }
 
 bool AI::placer(char direction, int row, int col, int size, char shipType)
@@ -208,13 +209,21 @@ bool AI::isHit(std::string shot)
 {
   char shipType = ship_board.getpointat(shot); // retrieve the type of ship (or '~' for no ship) that was hit
 
-  if (shipType != '~') // check if a ship has been hit
+  if (shipType != '~' && shipType != 'X') // check if a ship has been hit
   {
     //ship_board.changepointat(shot, 'X');
     ship_healths[getShipIndex(shipType)]--; // decrement the ship's health
     return true;
   }
-  else return false;
+  else if(shipType == '~') // no ship has been hit
+  {
+    ship_board.changepointat(shot, '*');
+    return false;
+  }
+	else
+	{
+		return false;
+	}
 }
 
 bool AI::isSunk(std::string shot){
@@ -241,3 +250,45 @@ string AI::getShotCoord()
 {
   return m_coordsList.back();
 }
+
+std::string AI::getShipSunk(std::string shot)
+{
+	char piece = ship_board.getpointat(shot);
+	std::string shipSunk;
+
+	switch(piece)
+	{
+		case 'B':
+			shipSunk = "battleship";
+			break;
+
+		case 'C':
+			shipSunk = "cruiser";
+			break;
+
+		case 'S':
+			shipSunk = "submarine";
+			break;
+
+		case 'D':
+			shipSunk = "destroyer";
+			break;
+
+		case 'F':
+			shipSunk = "frigate";
+			break;
+
+		default:
+			shipSunk = "noShip";
+			break;
+	}
+
+	return shipSunk;
+}
+
+void AI::markHit(std::string shot)
+{
+	ship_board.changepointat(shot, 'X');
+}
+
+//TODO: markEnemyMiss(shot) definition equivalent to Player.cpp

@@ -32,6 +32,8 @@ class AI
                 void printCoords();
 
                 string getShotCoord();
+								string getShipSunk(string shot);
+								void markHit(string shot); // mark 'X' over Ai's ship to indicate Ai was hit by player
 
 
 	private:
