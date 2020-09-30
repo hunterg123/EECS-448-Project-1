@@ -158,9 +158,9 @@ string AI::getOrthogonalMove(int row, int col)
         int v_col = potential[0] - 64;
         int v_row = potential[1] - 48;
         
-        if ((row - v_row == 0 && abs(col - v_col) == 1)  || (abs(row - v_row) == 1 && col - v_col == 0))
+        if ((row - v_row == 0 && abs(col - v_col) == 1)  || (abs(row - v_row) == 1 && col - v_col == 0)) // check if this spot is orthogonal
         {
-          return potential;
+          return potential; // shoot at this orthogonal ship
         }
       }
   }
@@ -182,7 +182,6 @@ string AI::mediumMove()
       }
     }
   }
-  cout << "coudlnt find orth move \n";
   shot = easyMove();
   return shot;
 }
