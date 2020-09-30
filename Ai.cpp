@@ -237,3 +237,8 @@ void AI::printCoords()
     cout << m_coordsList.at(i) << " ";
   }
 }
+
+string AI::getShotCoord()
+{
+  return m_coordsList.back();
+}
