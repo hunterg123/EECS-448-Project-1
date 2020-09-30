@@ -8,7 +8,7 @@
 void Client::WaitEnter()
 {
 	cin.ignore();
-	cout << "Press ENTER to end turn...";
+	cout << "\nPress ENTER to end turn...";
 	cin.get();
 	for (int i = 0; i <= 50; i++) cout << endl;
 }
@@ -370,7 +370,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 			}
 			shotVector.clear();
 				cin.ignore();
-				cout << "Press ENTER to end turn...";
+				cout << "\nPress ENTER to end turn...";
 				cin.get();
 		}
 		else{
@@ -401,7 +401,7 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 				end_game = true;
 			}
 				//cin.ignore();
-				cout << "Press ENTER to continue...";
+				cout << "\nPress ENTER to continue...";
 				cin.get();
 		}
 		turn = !turn; // switch turns
