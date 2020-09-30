@@ -32,6 +32,7 @@ class AI
                 void printCoords();
 
                 string getShotCoord();
+								string getShipSunk(string shot);
 
 
 	private:
