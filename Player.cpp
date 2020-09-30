@@ -702,7 +702,7 @@ void Player::placeShips(int number_ships, int player_number)
     markBoard(cruiser);
 
     //ReplaceNum5size3:
-    std::cout << "Where would you like to place your second SIZE THREE submarine?: ";
+    std::cout << "Where would you like to place your SIZE THREE submarine?: ";
     std::cin >> ship_coord1;
     std::cin >> ship_coord2;
     while (!checkValidPlacement(ship_coord1, ship_coord2, 3))

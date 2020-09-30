@@ -59,5 +59,7 @@ public:
 	 * @returns True if the shot is valid, false if it is invalid.
 	 */
 	bool CheckShotInput(std::string shot_check);
+
+	void WaitEnter(); // privacy function
 };
 #endif
