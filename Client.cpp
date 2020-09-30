@@ -5,6 +5,13 @@
 #include "Ai.h"
 #include <vector>
 
+void Client::WaitEnter()
+{
+	cin.ignore();
+	cout << "Press ENTER to end turn...";
+	cin.get();
+	for (int i = 0; i <= 50; i++) cout << endl;
+}
 
 void Client::RunSetup(){
 
@@ -352,23 +359,18 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 				player->markShot(shot, false);
 				std::cout << "bloooop.....the missile was off-target.\n";
 			}
+				cin.ignore();
+				cout << "Press ENTER to end turn...";
+				cin.get();
 		}
 		else{
 			std::cout << "\nIts AI's turn!\n";
-			//std::cout << "\nWHERE AI'VE SHOT\n";
-			std::cout << "AI is shooting at: " << ai.getShotCoord() << "\n";
-			std::cout << "Your Ships Remaining: " << player->shipsRemaining() << "\n";
-			//ai.printShootBoard(); //prints shoot board
-			std::cout << "X = hit, * = miss\n\n";
-
 			std::string shot = ai.Move();
-			// std::cout << shot << std::endl;
-			// ai.printCoords();
-			std::cout << "\nFIRE!!!\n";
+			std::cout << "\nFIRE!!! The AI shot at "<< shot << "\n";
 			if (player->isHit(shot) == true) //Is it a hit?
 			{
 				ai.markShot(shot, true);
-				std::cout << "BANG!!!\n";
+				std::cout << "BANG!!! You've been hit! \n";
 				if (player->isSunk(shot))
 				{
 					std::cout << "One of your ship's was destroyed! \n";
@@ -388,7 +390,9 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 				std::cout << "##########- AI HAS WON THE GAME!!! -##########\n";
 				end_game = true;
 			}
-
+				//cin.ignore();
+				cout << "Press ENTER to continue...";
+				cin.get();
 		}
 		turn = !turn; // switch turns
 	}
