@@ -26,7 +26,8 @@ int AI::getShipIndex(char type)
   else if (type == 'C') return 3;
   else if (type == 'S') return 2;
   else if (type == 'D') return 1;
-  else return 0;
+	else if (type == 'F') return 0;
+  else return -1
 }
 
 bool AI::placer(char direction, int row, int col, int size, char shipType)
@@ -206,3 +207,28 @@ string AI::getShotCoord()
 {
   return m_coordsList.back();
 }
+
+std::string AI::getShipSunk(std::string shot)
+{
+	char piece = ship_board.getpointat(shot);
+	std::string shipSunk;
+
+	switch(piece)
+	{
+		case 'B':
+			shipSunk = "battleship";
+		case 'C':
+			shipSunk = "cruiser";
+		case 'S':
+			shipSunk = "submarine";
+		case 'D':
+			shipSunk = "destroyer";
+		case 'F':
+			shipSunk = "frigate";
+		default:
+			shipSunk = "noShip";
+	}
+
+	return shipSunk;
+}
+
