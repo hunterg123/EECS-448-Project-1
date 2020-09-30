@@ -27,7 +27,7 @@ int AI::getShipIndex(char type)
   else if (type == 'S') return 2;
   else if (type == 'D') return 1;
 	else if (type == 'F') return 0;
-  else return -1
+  else return -1;
 }
 
 bool AI::placer(char direction, int row, int col, int size, char shipType)
@@ -170,17 +170,21 @@ bool AI::isHit(std::string shot)
 {
   char shipType = ship_board.getpointat(shot); // retrieve the type of ship (or '~' for no ship) that was hit
 
-  if (shipType != '~') // check if a ship has been hit
+  if (shipType != '~' && shipType != 'X') // check if a ship has been hit
   {
     //ship_board.changepointat(shot, 'X');
     ship_healths[getShipIndex(shipType)]--; // decrement the ship's health
     return true;
   }
-  else // no ship has been hit
+  else if(shipType == '~') // no ship has been hit
   {
     ship_board.changepointat(shot, '*');
     return false;
   }
+	else
+	{
+		return false;
+	}
 }
 
 bool AI::isSunk(std::string shot){
@@ -217,22 +221,33 @@ std::string AI::getShipSunk(std::string shot)
 	{
 		case 'B':
 			shipSunk = "battleship";
+			break;
+
 		case 'C':
 			shipSunk = "cruiser";
+			break;
+
 		case 'S':
 			shipSunk = "submarine";
+			break;
+
 		case 'D':
 			shipSunk = "destroyer";
+			break;
+
 		case 'F':
 			shipSunk = "frigate";
+			break;
+
 		default:
 			shipSunk = "noShip";
+			break;
 	}
 
 	return shipSunk;
 }
 
-void markHit(std::string shot)
+void AI::markHit(std::string shot)
 {
 	ship_board.changepointat(shot, 'X');
 }
