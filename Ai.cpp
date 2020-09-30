@@ -169,7 +169,6 @@ string AI::getOrthogonalMove(int row, int col)
 
 string AI::mediumMove()
 {
-  bool orthognalMove = false;
   string shot = "";
 
   for (int i = 1; i < 10; i++)

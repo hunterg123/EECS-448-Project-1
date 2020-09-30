@@ -101,7 +101,7 @@ void Client::RunSetup(){
 		else if (userChoice == 3){	//###Exit Program
 			end_program = true;
 		}
-	}	//end of run conidition
+}	//end of run conidition
 }	//end of Client::Run
 
 //Connor—Changed name to PlayerVsPlayer as I am adding a PlayerVsAI function
@@ -291,9 +291,9 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 	std::cout << "\n";
 
 	AI ai(difficulty, num_ships);
-	std::cout << "AI board\n";
+	//std::cout << "AI board\n";
 
-	ai.printShipBoard(); // for check now
+	//ai.printShipBoard(); // for check now
 	ai.getCoords(player->getCoords()); // Gets the coordinates from the player
 
 	end_game = false;
@@ -362,18 +362,17 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 				player->markShot(shot, false);
 				std::cout << "bloooop.....the missile was off-target.\n";
 			}
-			WaitEnter();
 		}
 		else{
 			std::cout << "\nIts AI's turn!\n";
 			std::cout << "\nWHERE AI'VE SHOT\n";
 			std::cout << "Your Ships Remaining: " << player->shipsRemaining() << "\n";
-			ai.printShootBoard(); //prints shoot board
+			//ai.printShootBoard(); //prints shoot board
 			std::cout << "X = hit, * = miss\n\n";
 
 			std::string shot = ai.Move();
 			std::cout << shot << std::endl;
-			ai.printCoords();
+			//ai.printCoords();
 			std::cout << "\nFIRE!!!\n";
 			if (player->isHit(shot) == true) //Is it a hit?
 			{
@@ -407,7 +406,6 @@ void Client::PlayerVsAI(int num_ships, int difficulty)
 				std::cout << "##########- AI HAS WON THE GAME!!! -##########\n";
 				end_game = true;
 			}
-
 		}
 		turn = !turn; // switch turns
 	}
