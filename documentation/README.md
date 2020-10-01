@@ -1,9 +1,6 @@
 # README
 Group 15: Joshua Berkley, Tyler Rains, Darrin Ternes, Trey Werr
 
-Edited By:
-Group 7: Hunter Glass, Siming Fu, Shujing Wu, Octavio Sosa, Connor Sutton
-
 BATTLESHIP:
 Written in C++, runs in terminal.
 Two players secretly place 1-5 ships on a grid and then take turns trying to sink all of the other players ships.
@@ -14,3 +11,7 @@ To run the program, first compile it using the command 'make', then run it using
 
 DOCUMENTATION:
 To view the documentation, download the project then open the "html" folder and select "index.html".
+
+
+# Adapted for Project 2 By:
+Group 7: Hunter Glass, Octavio Sosa, Shujing Wu, Siming Fu, Connor Sutton
