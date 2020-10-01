@@ -21,7 +21,6 @@ class AI
                 void printShootBoard();
                 void printShipBoard();
                 void markShot(std::string shot, bool hit);
-                void addCoords(string c);
                 bool placer(char direction, int row, int col, int size, char shipType); // helper function to test whether ships can be placed
 
                 string Move();
@@ -37,6 +36,11 @@ class AI
 
 
 	private:
+                /**
+                * @pre: none
+                * @post: Shoots at a coordinate from the player, brought into ai class using getCoords(vector<string> coords)
+                * @return: Returns a string coordinate to shoot at, i.e. A1, A2...
+                **/
                 string hardMove();
                 string easyMove();
                 string mediumMove();
