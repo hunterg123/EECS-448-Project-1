@@ -1,6 +1,9 @@
 # README
 Group 15: Joshua Berkley, Tyler Rains, Darrin Ternes, Trey Werr
 
+Edited By:
+Group 7: Hunter Glass, Siming Fu, Shujing Wu, Octavio Sosa, Connor Sutton
+
 BATTLESHIP:
 Written in C++, runs in terminal.
 Two players secretly place 1-5 ships on a grid and then take turns trying to sink all of the other players ships.
