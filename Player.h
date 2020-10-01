@@ -49,102 +49,109 @@ class Player
          */
         void markBoard(Ship ship);
 
-
+        /**
+        * @pre: Must be a valid board with ships placed
+        * @return: Returns all the coordinates from a board as a vector list
+        **/
         vector<string> getCoordinatesFromBoard(); // Get coordinates list from a given board
 
 
 
     public:
+      /**
+      * @pre: There must exist a valid vector list of coordinates of ships
+      * @post: Gets the coordinates of a players' ships
+      * @return: Returns the coordinates of the players' ships
+      **/
+      vector<string> getCoords(); // returns players coords
 
-        vector<string> getCoords(); // returns players coords
-
-        /**
+      /**
          * 	The default constructor for the Player class.
          */
-        Player();
+      Player();
 
-        /**
+      /**
          * 	The destructor for the Player class.
          */
-        ~Player();
+      ~Player();
 
-        /**
+      /**
          *  Asks the user for the coordinates of where they would like to place their ships.
          *  How many ships and the size of the ships is determined by how many ships they are playing with.
          *  @param number_ships The number of ships the players are playing with.
          *  @param player_number Is the player player number one or player number two.
          *  @post The ships will be placed onto their m_ship_board.
          */
-        void placeShips(int number_ships, int player_number);
+      void placeShips(int number_ships, int player_number);
 
-        /**
+      /**
          * 	Determines if the user has previously already shot at this location.
          *  @param shot A string containing the coordinates of where the player is attempting to shoot.
          *  @returns True if the player has not previously shot at that location, false if they've already shot and hit or missed.
          */
-        bool uniqueShot(std::string shot);
+      bool uniqueShot(std::string shot);
 
-        /**
+      /**
          *  If the player's shot successfully hits an enemies ship it will be marked as a hit (X), if they miss it's a miss (*).
          *  @param shot The coordinates of where the user shot at.
          *  @param hit A boolean value containing whether or not the shot was a hit (true) or a miss (false).
          *  @post The shot location will be marked as a hit (X) or a miss (*) on the player's m_shoot_board.
          */
-        void markShot(std::string shot, bool hit);
+      void markShot(std::string shot, bool hit);
 
-        //Connor - made new function to show where the enemy has shot at you and missed
-        void markEnemyMiss(std::string shot);
+      //Connor - made new function to show where the enemy has shot at you and missed
+      void markEnemyMiss(std::string shot);
 
-        /**
+      /**
          * 	Prints out the player's m_shoot_board, which is the locations of where they have shot and what the outcome has been.
          */
-        void printShootBoard();
+      void printShootBoard();
 
-        /**
+      /**
          * 	Prints out the player's m_ship_board, which is the location of their ships and what their current status are.
          */
-        void printShipBoard();
+      void printShipBoard();
 
-        /**
+      /**
          * 	Determines whether or not the enemies shot was a hit on one of the player's ships or not.
          *  @param shot The string containing the enemies shot attempt.
          *  @returns True if the enemies shot was successful in hitting a ship, false if not.
          */
-        bool isHit(std::string shot);
+      bool isHit(std::string shot);
 
-        /**
+      /**
          * 	Determines whether or not the shot that just hit the player's ship sunk it or not.
          *  @param shot The string containing the coordinates of the enemies shot.
          *  @returns True if the enemy just sunk one of the player's ships, false if not.
          */
-        bool isSunk(std::string shot);
+      bool isSunk(std::string shot);
 
-        /**
+      /**
          * 	@returns How many ships the player has remaining that haven't been sunk.
          */
-        int shipsRemaining();
+      int shipsRemaining();
 
-				bool hasSpecialShot();
+      bool hasSpecialShot();
 
-				int selectShot();
+      int selectShot();
 
-				std::vector<std::string> coordinateShot(int shotType);
+      std::vector<std::string> coordinateShot(int shotType);
 
-				std::vector<std::string> getShotVector(std::string pivotCoord, char pivotDirection, int shotType);
+      std::vector<std::string> getShotVector(std::string pivotCoord, char pivotDirection, int shotType);
 
-				std::string getShipSunk();
+      std::string getShipSunk();
 
-				void resetShipSunk();
+      void resetShipSunk();
 
-				void acquireSpecialShot(std::string shipSunk);
+      void acquireSpecialShot(std::string shipSunk);
 
-				void depleteSpecialShot(int shotType);
+      void depleteSpecialShot(int shotType);
 
-				bool validCoord(std::string coord);
+      bool validCoord(std::string coord);
 
-				bool validateShot(std::vector<std::string> shotVector);
+      bool validateShot(std::vector<std::string> shotVector);
 
-        //Shujing -replaceShip
-        void replaceShip(int number_ships, int player_number);
+      //Shujing -replaceShip
+      void replaceShip(int number_ships, int player_number);
 };
 #endif
