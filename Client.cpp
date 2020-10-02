@@ -190,6 +190,7 @@ void Client::PlayerVsPlayer(int num_ships)
 				}
 			}
 			shotVector.clear();
+			WaitEnter();
 		//------------------------------------------------------------------------------------------
 		}
 		else //Player 2 turn
@@ -260,6 +261,7 @@ void Client::PlayerVsPlayer(int num_ships)
 				}
 			}
 			shotVector.clear();
+			WaitEnter();
 		} //end of turn selection
 		if (turn == false) //Switch turns
 		{
