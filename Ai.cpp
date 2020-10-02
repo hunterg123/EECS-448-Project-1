@@ -5,7 +5,6 @@ AI::AI(int my_difficulty, int ships)
 {
     difficulty = my_difficulty;
     num_ships = ships;
-    cout << num_ships;
     for (int i = 0; i < num_ships; i++) ship_healths[i] = i + 1;
     placeShips();
 }
@@ -158,7 +157,7 @@ string AI::getOrthogonalMove(int row, int col)
       {
         int v_col = potential[0] - 64;
         int v_row = potential[1] - 48;
-        
+
         if ((row - v_row == 0 && abs(col - v_col) == 1)  || (abs(row - v_row) == 1 && col - v_col == 0)) // check if this spot is orthogonal
         {
           return potential; // shoot at this orthogonal ship

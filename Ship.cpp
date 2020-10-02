@@ -7,12 +7,15 @@ Ship::Ship(int length, std::string coord1, std::string coord2, std::string name)
 	m_hits = 0;
 	m_hitLocations = "";
 	m_name = name;
+	for (int i=0; i<2; i++){
+		intCoord[i] = 0;
+	}
 }
 
 bool Ship::isHit(std::string coord)
 {
 	bool isFound = true; //(m_location.find(coord) != std::string::npos); // Checks if coord is a substring of m_location
-	
+
 	if (isFound)
 	{
 		if (m_hits == 0)
@@ -34,8 +37,8 @@ bool Ship::isSunk() const {
 }
 
 int* Ship::stoiCoord(std::string coord) {
-	int intCoord[2];
-	
+	//int intCoord[2];
+
 	intCoord[0] = coord.at(0) - 65; // 'A' has ASCII value of 65
 	intCoord[1] = coord.at(1) - 48; // '0' has ASCII value of 48
 
