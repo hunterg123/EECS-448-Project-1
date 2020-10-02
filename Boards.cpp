@@ -95,7 +95,7 @@ void Boards::changepointat(std::string coord, char newpoint)
 
 int* Boards::stoiCoord(std::string coord)
 {
-  //int intCoord[2];
+   //int intCoord[2];
 	intCoord[0] = coord.at(0) - 65; // 'A' has ASCII value of 65
 	intCoord[1] = coord.at(1) - 48; // '0' has ASCII value of 48
 
