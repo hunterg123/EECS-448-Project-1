@@ -10,7 +10,7 @@ void Client::WaitEnter()
 	cin.ignore();
 	cout << "\nPress ENTER to end turn...";
 	cin.get();
-	for (int i = 0; i <= 50; i++) cout << endl;
+	for (int i = 0; i <= 60; i++) cout << endl;
 }
 
 void Client::RunSetup(){
@@ -115,9 +115,11 @@ void Client::PlayerVsPlayer(int num_ships)
 
 	player1->placeShips(num_ships, 1);	//let both players place ships
 	player1->replaceShip(num_ships, 1);
+	WaitEnter();
 	std::cout << "\n";
 	player2->placeShips(num_ships, 2);
 	player2->replaceShip(num_ships, 2);
+	WaitEnter();
 	end_game = false;
 
 	while (end_game == false)
@@ -190,7 +192,7 @@ void Client::PlayerVsPlayer(int num_ships)
 				}
 			}
 			shotVector.clear();
-			WaitEnter();
+			if (!end_game) WaitEnter();
 		//------------------------------------------------------------------------------------------
 		}
 		else //Player 2 turn
@@ -261,7 +263,7 @@ void Client::PlayerVsPlayer(int num_ships)
 				}
 			}
 			shotVector.clear();
-			WaitEnter();
+			if (!end_game) WaitEnter();
 		} //end of turn selection
 		if (turn == false) //Switch turns
 		{
