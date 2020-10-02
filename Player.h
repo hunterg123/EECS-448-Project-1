@@ -151,7 +151,13 @@ class Player
 
       bool validateShot(std::vector<std::string> shotVector);
 
-      //Shujing -replaceShip
+      /**
+         *  Asks the user which size of the ship and where they would like to replace their ships.
+         *  @param number_ships The number of ships the players are playing with.
+         *  @param player_number Is the player, player number one or player number two.
+         *  @post The ships will be replaced onto their m_ship_board.
+         */
       void replaceShip(int number_ships, int player_number);
+      
 };
 #endif
