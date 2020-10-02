@@ -9,6 +9,9 @@
 
 Boards::Boards()
 {
+  for (int i=0; i<2; i++){
+    intCoord[i] = 0;
+  }
   //these are for the outside board for the markers
   char letters[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'};
   char nummbers[] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
@@ -84,7 +87,7 @@ void Boards::setValue(int row, int col, char c)
 
 void Boards::changepointat(std::string coord, char newpoint)
 {
-  int intCoord[2];
+  //int intCoord[2];
   intCoord[0] = (coord[0] - 'A') + 1;
   intCoord[1] = (coord[1] - '0');
   BattleBoard[intCoord[1]][intCoord[0]] = newpoint;
@@ -92,7 +95,7 @@ void Boards::changepointat(std::string coord, char newpoint)
 
 int* Boards::stoiCoord(std::string coord)
 {
-	int intCoord[2];
+   //int intCoord[2];
 	intCoord[0] = coord.at(0) - 65; // 'A' has ASCII value of 65
 	intCoord[1] = coord.at(1) - 48; // '0' has ASCII value of 48
 

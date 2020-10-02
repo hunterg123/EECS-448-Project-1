@@ -61,8 +61,10 @@ class Boards
 	char** getBattleBoard();
 
   private:
-	char** BattleBoard = nullptr;	//The pointer to the main battleship board used. 
+	char** BattleBoard = nullptr;	//The pointer to the main battleship board used.
     int sizerow = 10;				//The row size of the board.
     int sizecol = 10;				//The column size of the board.
+    int intCoord[2];
+
 };
 #endif

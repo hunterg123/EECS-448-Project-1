@@ -18,7 +18,7 @@ class Ship : public ShipInterface
 		 * @param location - the coordinates of the spaces the Ship occupies on the board
 		 */
 		Ship(int length, std::string coord1, std::string coord2, std::string name);
-		
+
 		int getLength() const { return m_length; }
 
 		bool isHit(std::string coord);
@@ -46,6 +46,7 @@ class Ship : public ShipInterface
 		std::string m_hitLocations;
 		std::string m_name;
 		int m_hits;
+		int intCoord[2];
 };
 
 #endif
