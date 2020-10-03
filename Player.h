@@ -1,6 +1,6 @@
 /**
- * @author Tyler Rains
- * @date 9/12
+ * @author Tyler Rains & Octavio Sosa
+ * @date 9/12 & 10/02/20
  * @brief Header file for the Player class.
  */
 
@@ -29,7 +29,7 @@ class Player
         int m_ss_remaining; //...
         int m_ds_remaining; //...
 
-				SpecialShot m_SpecialShot;
+				SpecialShot m_SpecialShot; //Encapsulates aspects of the player's special-shots 
 
         /**
          * 	Checks if the coordinates the user entered to place a ship at is valid or not.
@@ -131,24 +131,82 @@ class Player
          */
       int shipsRemaining();
 
-      bool hasSpecialShot();
+			/**
+			   *  
+			   *  @returns True if the player has acquired a special-shot
+			   */
+			bool hasSpecialShot();
 
+			/**
+			   *  Prompts the user to select a valid shot-type (number 1-6)
+			   *  @returns shotType as an int (e.g. single, double, triple, etc..)
+			   */
       int selectShot();
 
+ 			/**
+				 *  Prompts the user to coordinate their shot, according to a shotType, via a valid pivot coordinate and direction
+			   *  @param shotType An int representing a shot-type (e.g. single, double, triple, etc..)
+			   *  @returns shotVector A vector of strings which represent the coordinates of each shot
+			   */ 
       std::vector<std::string> coordinateShot(int shotType);
 
+ 			/**
+				 *	Constructs a vector of shot coordinates by moving in a pivotDirection from a pivotCoordinate by shotType number of incremental coordinates
+				 *  @pre the inputs must be valid values (i.e. the resulting vector must not be out of range)
+			   *  @param pivotCoord A string representing the pivot coordinate of form "colrow"(e.g. "A1")
+				 *  @param pivotDirection A char representing the pivot direction (e.g. 'U' for up)
+			   *  @param shotType An int representing a shot-type (e.g. single, double, triple, etc..)
+			   *  @returns shotVector A vector of strings which represent the coordinates of each shot
+			   */
       std::vector<std::string> getShotVector(std::string pivotCoord, char pivotDirection, int shotType);
 
+ 			/**
+				 *	Gets the most recently sunk ship by full-name	
+				 *  @pre ship counter for sunken ship must be assigned a value of 0 to designate sunken status
+			   *  @returns ship name of ship that was most recently sunk
+			   */
       std::string getShipSunk();
 
+ 			/**
+				 *	Resets the ship counter of most recently sunken ship to 100
+				 *  @pre ship counter for sunken ship must be assigned a value of 0 to designate sunken status
+				 *	@post resets the ship counter of the most recently sunken ship to 100
+			   */
       void resetShipSunk();
 
+ 			/**
+				 *	Increments the player's special-shot counter for a particular shot-type based on the ship
+				 *		they've just sunk
+				 *  @pre The shipSunk must be a ship that was just sunk by the player 
+				 *	@post Increments the player's special-shot counter for a particular shot-type based on the ship
+				 *		they've just sunk
+				 *	@param shipSunk the full-name of a ship that was sunk
+			   */
       void acquireSpecialShot(std::string shipSunk);
 
+ 			/**
+				 *	Decrements the player's special-shot counter for a particular shot-type based on the shotType
+				 *		of the special-shot they've just launched
+				 *  @pre the shotType must match the special-shot type that the player just launched
+				 *	@post Decrements the player's special-shot counter for a particular shot-type based on the shotType
+				 *		of the special-shot they've just launched
+			   *  @param shotType An int representing a shot-type (e.g. single, double, triple, etc..)
+			   */
       void depleteSpecialShot(int shotType);
 
+ 			/**
+				 *	Validates a coordinate string
+			   *  @param coord A coordinate string of form "colrow" (e.g. "A1")
+				 * 	@return True if the coordinate string is of correct format and value (i.e. within range)
+			   */
       bool validCoord(std::string coord);
 
+ 			/**
+				 *	Validates a vector of coordinate strings and responds with precise feedback to player 
+				 *  @pre the coordinate strings must be of format "colrow" (e.g. "A1")
+			   *  @param shotVector A vector of strings which represent the coordinates of one or many shots
+				 * 	@return True if the coordinate strings are valid shots
+			   */
       bool validateShot(std::vector<std::string> shotVector);
 
       /**
