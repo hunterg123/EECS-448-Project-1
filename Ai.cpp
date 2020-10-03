@@ -239,7 +239,7 @@ int AI::getShipsRemaining(){
 
 void AI::printCoords()
 {
-  for(int i =0; i<m_coordsList.size(); i++)
+  for(unsigned int i =0; i<m_coordsList.size(); i++)
   {
     cout << m_coordsList.at(i) << " ";
   }
