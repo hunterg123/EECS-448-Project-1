@@ -1004,8 +1004,6 @@ std::vector<std::string> Player::coordinateShot(int shotType)
 
 std::vector<std::string> Player::getShotVector(std::string pivotCoord, char pivotDirection, int shotType)
 {
-	//TODO: pre: inputs must be valid
-
 	int row = pivotCoord[1] - '0';
 	char col = pivotCoord[0];
 	std::vector<std::string> coordVector;

@@ -161,9 +161,9 @@ class AI
 		**/
     string getOrthogonalMove(int row, int col);
 
-    int difficulty;
-    int ship_healths[5] = {0, 0, 0, 0, 0};
-    int num_ships;
+    int difficulty; //difficulty level of the AI representing easy, medium, and hard
+    int ship_healths[5] = {0, 0, 0, 0, 0}; //represents the health of each ship
+    int num_ships; //the number of ships for the match
 
     Boards ship_board;
     Boards shoot_board;
