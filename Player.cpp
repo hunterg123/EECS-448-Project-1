@@ -297,6 +297,7 @@ void Player::replaceShip(int number_ships, int player_number)
   //Replace ships
   char replacemyship = ' ';
   int choose_size = 0;
+	std::string size = "";
 
   Replaceship:
   std::cout << '\n';
@@ -304,12 +305,22 @@ void Player::replaceShip(int number_ships, int player_number)
   std::cout <<"==Here is your SHIP POSITION layout==\n";
   std::cout << "Do you want to Replace your ship? (Enter Y to replace, enter other to continue the game): ";
   std::cin >> replacemyship;
+	replacemyship = toupper(replacemyship);
 
   if (replacemyship == 'Y')
   {
       Correctsize:
-      std::cout << "Which SIZE you want to replace (Enter(1 - 5)): ";
-      std::cin >> choose_size;
+      std::cout << "Which SIZE ship do you want to replace: ";
+			std::cin >> size;
+
+			while(size != "1" && size != "2" && size != "3" && size != "4" && size != "5")
+			{
+				std::cout << "\nInvalid input. Please enter a number between 1 and " << number_ships << ".\n";
+				std::cout << "Which SIZE ship do you want to replace: ";
+				std::cin >> size;
+			}
+				
+      choose_size = std::stoi(size);
 
       if(choose_size <= number_ships && choose_size == 5)
       {
@@ -462,7 +473,7 @@ void Player::replaceShip(int number_ships, int player_number)
 
       else
       {
-        std::cout << "Invalid Ship Size! Please enter number NO MORE than "<<number_ships<<'\n';
+        std::cout << "Invalid Ship Size! Please enter a number between 1 and "<<number_ships<< "."<<'\n';
         goto Correctsize;
       }
   }

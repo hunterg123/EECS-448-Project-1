@@ -60,6 +60,9 @@ public:
 	 */
 	bool CheckShotInput(std::string shot_check);
 
+	/**
+	 * Enables user input for reseting game information after each round
+	 */
 	void WaitEnter(); // privacy function
 };
 #endif
