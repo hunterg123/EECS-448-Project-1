@@ -50,21 +50,23 @@ class Boards
 	//Connor - There is also no way to set a point without giving a string so I will add this as well
 	void setValue(int row, int col, char c);
 
-    /**
+	/**
 	 * 	If given a string containing coordinates in the right format, it will return the coordinates as an array of integers to be used individually.
 	 *  @param coord A string containing the coordinates in two characters: a letter between A-I (column) and a number between 1-9 (row).
 	 *  @returns An array (size 2) of integers with the coordinates inside.
 	 */
+	int* stoiCoord(std::string coord);
 
-    int* stoiCoord(std::string coord);
-
+	/**
+	 *  @returns BattleBoard A 2D array of chars
+	 */
 	char** getBattleBoard();
 
   private:
 	char** BattleBoard = nullptr;	//The pointer to the main battleship board used.
     int sizerow = 10;				//The row size of the board.
     int sizecol = 10;				//The column size of the board.
-    int intCoord[2];
+    int intCoord[2];	//array of row and col values
 
 };
 #endif
