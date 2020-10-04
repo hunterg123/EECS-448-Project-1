@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['numhits_19',['numHits',['../class_ship.html#aecf04ba4ebcfb2201a7806e453f44822',1,'Ship::numHits()'],['../class_ship_interface.html#af4a6910bc1dea9f4acb674b3a8dab492',1,'ShipInterface::numHits()']]]
+  ['hasspecialshot_23',['hasSpecialShot',['../class_player.html#a839776b3ec16f542c1263cd148fd01ed',1,'Player']]]
 ];

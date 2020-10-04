@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['placeships_77',['placeShips',['../class_player.html#af997a3d5007a8d3a69f870b470ce012d',1,'Player']]],
-  ['player_78',['Player',['../class_player.html#affe0cc3cb714f6deb4e62f0c0d3f1fd8',1,'Player']]],
-  ['playgame_79',['PlayGame',['../class_client.html#ad6bd8bd69d52e92d5a12c32ee09adee5',1,'Client']]],
-  ['print_80',['print',['../class_boards.html#a29fd01752f781d7ceca4d44d5bdbf583',1,'Boards']]],
-  ['printshipboard_81',['printShipBoard',['../class_player.html#a5045a9e6a87d4eb41efa9705e1368bb5',1,'Player']]],
-  ['printshootboard_82',['printShootBoard',['../class_player.html#a41230c7b90e6860758b73ce331216840',1,'Player']]]
+  ['inarsenal_91',['inArsenal',['../class_special_shot.html#af2df2fc3e76c4b8d38e5a6cfd460b3ca',1,'SpecialShot']]],
+  ['ishit_92',['isHit',['../class_a_i.html#a0d83f6491189e1621f83d081bcc543d6',1,'AI::isHit()'],['../class_player.html#af2867525cb091149bfa5650a4f8dfee5',1,'Player::isHit()'],['../class_ship.html#ab29ca0621ec55e584b295530f8cde6cb',1,'Ship::isHit()'],['../class_ship_interface.html#ada9709d4c555e251df2d0fb7f5ecde18',1,'ShipInterface::isHit()']]],
+  ['issunk_93',['isSunk',['../class_a_i.html#ae33f1c00a00d131fc5012f91c20b944e',1,'AI::isSunk()'],['../class_player.html#a388891c6281342fc412725c7214e2db1',1,'Player::isSunk()'],['../class_ship.html#a50ecf9451d2d60d1572a41b58ac7c9a8',1,'Ship::isSunk()'],['../class_ship_interface.html#a1bb7e505ae0af59cb7c0ed425b776f60',1,'ShipInterface::isSunk()']]],
+  ['itoscoord_94',['itosCoord',['../class_ship.html#ae56b1aa5dddc072ae34cd0dc6b5eb8cd',1,'Ship::itosCoord()'],['../class_ship_interface.html#a855454a1b261b7afaa4e8d6189b6b1e4',1,'ShipInterface::itosCoord()']]]
 ];

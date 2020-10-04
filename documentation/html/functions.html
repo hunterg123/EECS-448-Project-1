@@ -16,11 +16,6 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-  $(document).ready(function() { init_search(); });
-/* @license-end */
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -32,23 +27,8 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Battleship
    </div>
-   <div id="projectbrief">Two players secretly place 1-5 ships on a grid and then take turns trying to sink all of the other players ships.</div>
+   <div id="projectbrief">Documentation</div>
   </td>
-   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <img id="MSearchSelect" src="search/mag_sel.svg"
-               onmouseover="return searchBox.OnSearchSelectShow()"
-               onmouseout="return searchBox.OnSearchSelectHide()"
-               alt=""/>
-          <input type="text" id="MSearchField" value="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
-          </span>
-        </div>
-</td>
  </tr>
  </tbody>
 </table>
@@ -60,6 +40,16 @@
 var searchBox = new SearchBox("searchBox", "search",false,'Search');
 /* @license-end */
 </script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -92,7 +82,20 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
+<div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
+
+<h3><a id="index_a"></a>- a -</h3><ul>
+<li>acquire()
+: <a class="el" href="class_special_shot.html#ad29c59832a0fb831920f250fe508e5f2">SpecialShot</a>
+</li>
+<li>acquireSpecialShot()
+: <a class="el" href="class_player.html#a8b1a3739417e9e44370b302abcfb0790">Player</a>
+</li>
+<li>AI()
+: <a class="el" href="class_a_i.html#a9e811171b661e42839a2846de89a2d20">AI</a>
+</li>
+</ul>
+
 
 <h3><a id="index_b"></a>- b -</h3><ul>
 <li>Boards()
@@ -111,10 +114,26 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>Client()
 : <a class="el" href="class_client.html#ae51af7aa6b8f591496a8f6a4a87a14bf">Client</a>
 </li>
+<li>coordinateShot()
+: <a class="el" href="class_player.html#a3e693dc096759ecf8413586511e9a7a7">Player</a>
+</li>
+</ul>
+
+
+<h3><a id="index_d"></a>- d -</h3><ul>
+<li>deplete()
+: <a class="el" href="class_special_shot.html#a4d1c2280a675a000e99bef9026d42411">SpecialShot</a>
+</li>
+<li>depleteSpecialShot()
+: <a class="el" href="class_player.html#af89ce569d89f0baea52302deac8c6740">Player</a>
+</li>
 </ul>
 
 
 <h3><a id="index_g"></a>- g -</h3><ul>
+<li>getBattleBoard()
+: <a class="el" href="class_boards.html#a94d44b38e6d60692c461ed42a7361fb8">Boards</a>
+</li>
 <li>getCoord1()
 : <a class="el" href="class_ship.html#afbb330faf8038e75b872ab99a79f2218">Ship</a>
 , <a class="el" href="class_ship_interface.html#a2adc01eb87751e99abd73a283dfbb145">ShipInterface</a>
@@ -122,6 +141,10 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>getCoord2()
 : <a class="el" href="class_ship.html#a951301f96103317061cae997c17ba2d7">Ship</a>
 , <a class="el" href="class_ship_interface.html#a3014a9cc338f91a54211a8c59bf3b342">ShipInterface</a>
+</li>
+<li>getCoords()
+: <a class="el" href="class_a_i.html#ab3546089eeb857d3115bd6b3d365952d">AI</a>
+, <a class="el" href="class_player.html#a9d740d886cfe151809d6be720236b51c">Player</a>
 </li>
 <li>getLength()
 : <a class="el" href="class_ship.html#a5c36a859d4600ba27c091fa9254faadd">Ship</a>
@@ -133,17 +156,48 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>getpointat()
 : <a class="el" href="class_boards.html#a3fc14c45e075c1f577292025207d3664">Boards</a>
 </li>
+<li>getShipIndex()
+: <a class="el" href="class_a_i.html#ac31aa1840709bf404a27f405855ec3a0">AI</a>
+</li>
+<li>getShipsRemaining()
+: <a class="el" href="class_a_i.html#a8e835eb8267c449679e3b21460566cea">AI</a>
+</li>
+<li>getShipSunk()
+: <a class="el" href="class_a_i.html#adb88354fe8adc8b0911f614e3d4fc2a8">AI</a>
+, <a class="el" href="class_player.html#a37aa363490b43dfa08b08966ed4b692c">Player</a>
+</li>
+<li>getShipType()
+: <a class="el" href="class_a_i.html#a74964934ec9b2ec6862c766fb0e7b12b">AI</a>
+</li>
+<li>getShotCoord()
+: <a class="el" href="class_a_i.html#a15626cf493875ca0abe39af60d04256c">AI</a>
+</li>
+<li>getShotVector()
+: <a class="el" href="class_player.html#ad212c325cf5fec4d2cd29eae293c6b33">Player</a>
+</li>
+</ul>
+
+
+<h3><a id="index_h"></a>- h -</h3><ul>
+<li>hasSpecialShot()
+: <a class="el" href="class_player.html#a839776b3ec16f542c1263cd148fd01ed">Player</a>
+</li>
 </ul>
 
 
 <h3><a id="index_i"></a>- i -</h3><ul>
+<li>inArsenal()
+: <a class="el" href="class_special_shot.html#af2df2fc3e76c4b8d38e5a6cfd460b3ca">SpecialShot</a>
+</li>
 <li>isHit()
-: <a class="el" href="class_player.html#af2867525cb091149bfa5650a4f8dfee5">Player</a>
+: <a class="el" href="class_a_i.html#a0d83f6491189e1621f83d081bcc543d6">AI</a>
+, <a class="el" href="class_player.html#af2867525cb091149bfa5650a4f8dfee5">Player</a>
 , <a class="el" href="class_ship.html#ab29ca0621ec55e584b295530f8cde6cb">Ship</a>
 , <a class="el" href="class_ship_interface.html#ada9709d4c555e251df2d0fb7f5ecde18">ShipInterface</a>
 </li>
 <li>isSunk()
-: <a class="el" href="class_player.html#a388891c6281342fc412725c7214e2db1">Player</a>
+: <a class="el" href="class_a_i.html#ae33f1c00a00d131fc5012f91c20b944e">AI</a>
+, <a class="el" href="class_player.html#a388891c6281342fc412725c7214e2db1">Player</a>
 , <a class="el" href="class_ship.html#a50ecf9451d2d60d1572a41b58ac7c9a8">Ship</a>
 , <a class="el" href="class_ship_interface.html#a1bb7e505ae0af59cb7c0ed425b776f60">ShipInterface</a>
 </li>
@@ -155,8 +209,18 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 
 
 <h3><a id="index_m"></a>- m -</h3><ul>
+<li>markHit()
+: <a class="el" href="class_a_i.html#a043931ad68ed60940634989ea5c47b1f">AI</a>
+</li>
 <li>markShot()
-: <a class="el" href="class_player.html#a3d5b1183e927219ea51e36b1907f6fa6">Player</a>
+: <a class="el" href="class_a_i.html#a733b6edf6392cc0e894e822638b80807">AI</a>
+, <a class="el" href="class_player.html#a3d5b1183e927219ea51e36b1907f6fa6">Player</a>
+</li>
+<li>menu()
+: <a class="el" href="class_special_shot.html#a39dd976ff989d0a186d820ae9e8361b3">SpecialShot</a>
+</li>
+<li>Move()
+: <a class="el" href="class_a_i.html#aa873786c79837e8c6e6f53ac5972261b">AI</a>
 </li>
 </ul>
 
@@ -170,28 +234,46 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 
 
 <h3><a id="index_p"></a>- p -</h3><ul>
+<li>placer()
+: <a class="el" href="class_a_i.html#ab8fa65c7fdda2e554ad91dabaf1d24c4">AI</a>
+</li>
 <li>placeShips()
-: <a class="el" href="class_player.html#af997a3d5007a8d3a69f870b470ce012d">Player</a>
+: <a class="el" href="class_a_i.html#ae1374e1fe8ebe276c7f52dabb873584f">AI</a>
+, <a class="el" href="class_player.html#af997a3d5007a8d3a69f870b470ce012d">Player</a>
 </li>
 <li>Player()
 : <a class="el" href="class_player.html#affe0cc3cb714f6deb4e62f0c0d3f1fd8">Player</a>
 </li>
-<li>PlayGame()
-: <a class="el" href="class_client.html#ad6bd8bd69d52e92d5a12c32ee09adee5">Client</a>
+<li>PlayerVsAI()
+: <a class="el" href="class_client.html#a2375a1ea40bbf03479f8b1848c70e0dc">Client</a>
+</li>
+<li>PlayerVsPlayer()
+: <a class="el" href="class_client.html#aa624c8e2b5bf3a4d36d8a48f6eb0b80d">Client</a>
 </li>
 <li>print()
 : <a class="el" href="class_boards.html#a29fd01752f781d7ceca4d44d5bdbf583">Boards</a>
 </li>
+<li>printCoords()
+: <a class="el" href="class_a_i.html#a506c569ef49fa475f70779cfd1282d92">AI</a>
+</li>
 <li>printShipBoard()
-: <a class="el" href="class_player.html#a5045a9e6a87d4eb41efa9705e1368bb5">Player</a>
+: <a class="el" href="class_a_i.html#a6175eae2b8fda72f03c1dd00892a8b88">AI</a>
+, <a class="el" href="class_player.html#a5045a9e6a87d4eb41efa9705e1368bb5">Player</a>
 </li>
 <li>printShootBoard()
-: <a class="el" href="class_player.html#a41230c7b90e6860758b73ce331216840">Player</a>
+: <a class="el" href="class_a_i.html#ac0b958a3778893cfe33c5bbaede1df01">AI</a>
+, <a class="el" href="class_player.html#a41230c7b90e6860758b73ce331216840">Player</a>
 </li>
 </ul>
 
 
 <h3><a id="index_r"></a>- r -</h3><ul>
+<li>replaceShip()
+: <a class="el" href="class_player.html#ae4866a579516b9bb79b9c34f3ed4eabe">Player</a>
+</li>
+<li>resetShipSunk()
+: <a class="el" href="class_player.html#ab3bb947b9897964d5090d68352b0f8dc">Player</a>
+</li>
 <li>RunSetup()
 : <a class="el" href="class_client.html#a7b5e1392424968c61487857f1bcc9682">Client</a>
 </li>
@@ -199,11 +281,17 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
+<li>selectShot()
+: <a class="el" href="class_player.html#a7d4d7592cb306246901c25b4de8175f2">Player</a>
+</li>
 <li>Ship()
 : <a class="el" href="class_ship.html#a1e7515c8c5d7023975a51dbbedd07539">Ship</a>
 </li>
 <li>shipsRemaining()
 : <a class="el" href="class_player.html#aca97e92a03593cff005ca6aaffde1270">Player</a>
+</li>
+<li>SpecialShot()
+: <a class="el" href="class_special_shot.html#a37f7525dea6c1f18c68231683b3cc1ab">SpecialShot</a>
 </li>
 <li>stoiCoord()
 : <a class="el" href="class_boards.html#a1b4d122c5caab596309497f16fce9d0a">Boards</a>
@@ -220,7 +308,27 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 </ul>
 
 
+<h3><a id="index_v"></a>- v -</h3><ul>
+<li>validateShot()
+: <a class="el" href="class_player.html#ae863f801d310d09c3d7ef0d28fc102a7">Player</a>
+</li>
+<li>validCoord()
+: <a class="el" href="class_player.html#a8d9586f7e578a30a1d211c3662dca095">Player</a>
+</li>
+</ul>
+
+
+<h3><a id="index_w"></a>- w -</h3><ul>
+<li>WaitEnter()
+: <a class="el" href="class_client.html#a163c3442da061d040addf272459991eb">Client</a>
+</li>
+</ul>
+
+
 <h3><a id="index__7E"></a>- ~ -</h3><ul>
+<li>~AI()
+: <a class="el" href="class_a_i.html#a66a8645f0c27285cd75346f2c2bbfb14">AI</a>
+</li>
 <li>~Boards()
 : <a class="el" href="class_boards.html#a2d6efff279deff124d137690fd85f16d">Boards</a>
 </li>
@@ -230,8 +338,8 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>~Player()
 : <a class="el" href="class_player.html#a749d2c00e1fe0f5c2746f7505a58c062">Player</a>
 </li>
-<li>~ShipInterface()
-: <a class="el" href="class_ship_interface.html#a7276be32f0f7240159b20b999f2adf88">ShipInterface</a>
+<li>~SpecialShot()
+: <a class="el" href="class_special_shot.html#a2c169c915f0a48840c8d34bbb349f183">SpecialShot</a>
 </li>
 </ul>
 </div><!-- contents -->

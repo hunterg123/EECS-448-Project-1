@@ -25,8 +25,6 @@
 var NAVTREE =
 [
   [ "Battleship", "index.html", [
-    [ "README", "md__r_e_a_d_m_e.html", null ],
-    [ "Works Cited", "md__works_cited.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -37,18 +35,14 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ],
-      [ "File Members", "globals.html", [
-        [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ]
-      ] ]
+      [ "File List", "files.html", "files_dup" ]
     ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"_boards_8cpp.html"
+"_ai_8h_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
